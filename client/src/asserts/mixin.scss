@@ -1,0 +1,11 @@
+@mixin flex($direction: row, $justify: center, $align: center) {
+  display: flex;
+  flex-direction: $direction;
+  justify-content: $justify;
+  align-items: $align;
+}
+
+//使用方法
+// .flex {
+//   @include flex();
+// }
