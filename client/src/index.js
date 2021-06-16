@@ -5,6 +5,10 @@ import App from './App';
 import BasicLayout from './layouts/index'
 import reportWebVitals from './reportWebVitals';
 
+import './asserts/umi.css';
+import './global.css';
+import 'antd-mobile/dist/antd-mobile.css';
+
 ReactDOM.render(
   <BrowserRouter>
     <App />

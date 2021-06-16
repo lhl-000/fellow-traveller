@@ -4,8 +4,6 @@ import User from "./pages/user";
 import Find from "./pages/find";
 import Chat from "./pages/chat";
 
-import './global.css';
-
 function App() {
   return (
     <Switch>
