@@ -4,7 +4,7 @@ import { BsHouseDoorFill, BsHouseDoor, BsFillChatDotsFill, BsChatDots, BsSearch,
 import PropsTypes from 'prop-types';
 import { withRouter } from 'react-router-dom'
 
-import './index.less';
+import './index.scss';
 
 class MenuBar extends Component {
 
