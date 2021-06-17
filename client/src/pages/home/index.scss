@@ -19,7 +19,7 @@
     .am-list-item .am-list-line .am-list-extra {
       font-size: 18px;
     }
-    &-addr {
+    &-addr > div {
       border-bottom: 1px solid rgba(0, 0, 0, 0.08);
     }
     &-time {
@@ -67,9 +67,9 @@
           margin-right: 5px;
           .info-tags {
             display: inline;
-            color: orange;
+            color: white;
             margin-left: 5px;
-            background-color: snow;
+            background-color: gray;
             border-radius: 10%;
           }
         }
