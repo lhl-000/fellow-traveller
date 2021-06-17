@@ -45,27 +45,37 @@
       font-size: 20px;
     }
     &-lists {
-      @include flex-init(column);
+      @include flex-init(row, space-between);
       .hot-lists-item {
-        width: 98%;
+        width: 49%;
         margin-bottom: 15px;
         padding: 12px;
         background: #fff;
         box-sizing: border-box;
         border-radius: 12px;
-        .title {
+        .profilePicture {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+        .name {
           display: inline-block;
           font-size: 16px;
           font-weight: bolder;
-          padding: 2px;
-          color: yellowgreen;
+          padding: 1px;
           background-color: white;
+        }
+        .status {
+          display: inline;
+          font-weight: bolder;
+          color: white;
+          border-radius: 15%;
         }
         .info {
           display: inline-block;
           font-size: 6px;
           margin-right: 5px;
-          .info-tags {
+          .info > div {
             display: inline;
             color: white;
             margin-left: 5px;
@@ -73,15 +83,53 @@
             border-radius: 10%;
           }
         }
-        .mumbers {
-          display: inline-block;
-          font-size: 12px;
-          .num {
-            font-size: 18px;
-            color: red;
-          }
-        }
       }
     }
   }
+
+  // .hot {
+  //   padding-bottom: 60px;
+  //   h1 {
+  //     font-size: 20px;
+  //   }
+  //   &-lists {
+  //     @include flex-init(column);
+  //     .hot-lists-item {
+  //       width: 98%;
+  //       margin-bottom: 15px;
+  //       padding: 12px;
+  //       background: #fff;
+  //       box-sizing: border-box;
+  //       border-radius: 12px;
+  //       .title {
+  //         display: inline-block;
+  //         font-size: 16px;
+  //         font-weight: bolder;
+  //         padding: 2px;
+  //         color: yellowgreen;
+  //         background-color: white;
+  //       }
+  //       .info {
+  //         display: inline-block;
+  //         font-size: 6px;
+  //         margin-right: 5px;
+  //         .info-tags {
+  //           display: inline;
+  //           color: white;
+  //           margin-left: 5px;
+  //           background-color: gray;
+  //           border-radius: 10%;
+  //         }
+  //       }
+  //       .mumbers {
+  //         display: inline-block;
+  //         font-size: 12px;
+  //         .num {
+  //           font-size: 18px;
+  //           color: red;
+  //         }
+  //       }
+  //     }
+  //   }
+  // }
 }
