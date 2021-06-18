@@ -1,6 +1,5 @@
 import { useEffect } from 'react';
-import { isEmpty } from 'project-libs';
-
+import { isEmpty } from 'project-libs'
 /**
  * 1，监听图片是否进入可视区域；
  * 2，将src属性的值替换为真实的图片地址，data-src

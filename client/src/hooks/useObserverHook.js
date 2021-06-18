@@ -13,10 +13,7 @@ export default function useObserverHook(ele, callback, watch = []) {
 
     return () => {
       if (observer && node) {
-        // 解绑元素
         observer.unobserve(node);
-
-        // 停止监听
         observer.disconnect();
       }
     }

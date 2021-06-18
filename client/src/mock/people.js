@@ -2,6 +2,7 @@ const peopleLoading = false;
 
 const people = [
     {
+        id: 1,
         name: "Jack",
         startNation: 'CN',
         startCity: 'ShangHai',
@@ -14,6 +15,7 @@ const people = [
         isOnline: true,
     },
     {
+        id: 2,
         name: "Alice",
         startNation: 'CN',
         startCity: 'ShangHai',
