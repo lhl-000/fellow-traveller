@@ -6,7 +6,7 @@ import Footer from './components/footer';
 import { useObserverHook } from '@/hooks';
 import { CommonEnum } from '@/enum';
 import { useDispatch, shallowEqual, useSelector } from 'react-redux';
-import { getDetailAsync, getCommentsAsync, resetData } from '@/redux/actions/people';
+import { getDetailAsync, getCommentsAsync, resetData, reloadComments  } from '@/redux/actions/people';
 import { useLocation } from 'react-router-dom';
 import  './index.scss';
 
@@ -21,20 +21,17 @@ export default function People() {
         reloadCommentsNum: state.reloadCommentsNum
     });
 
-    // const { people: { detail, comments, reloadComments, reloadCommentsNum, showLoading, resetData } } = useSelector( selector, shallowEqual);
+    const { detail, comments, page , reloadCommentsNum, showLoading } = useSelector( selector, shallowEqual);
 
-    const { detail, comments, page ,reloadComments, reloadCommentsNum, showLoading } = useSelector( selector, shallowEqual);
-
-    const dispatch = useDispatch()
+    const dispatch = useDispatch();
 
     const { search } = useLocation();
 
     const query = new URLSearchParams(search);
 
-
-    useObserverHook('#'+CommonEnum.LOADING_ID, (entries) => {
+    useObserverHook('#'+ CommonEnum.LONDING_ID, (entries) => {
         if(comments && comments.length && showLoading && entries[0].isIntersecting){
-          reloadComments();
+          dispatch(reloadComments({}));
         }
       }, [comments, showLoading]);
 
@@ -52,9 +49,7 @@ export default function People() {
     
       useEffect(()=>{
         return () => {
-            dispatch(resetData({
-            detail: {}
-          }));
+            dispatch(resetData({}));
         }
       }, []);
 

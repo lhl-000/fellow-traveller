@@ -60,6 +60,9 @@ fetchMock.mock('/api/comments/lists', function () {
     }
   })
 
-
-
-  fetchMock.mock('/api/comments/add', 200);
+  fetchMock.mock('/api/comments/add', function () {
+    return {
+      status: 200,
+      data: 'OK'
+    }
+  });

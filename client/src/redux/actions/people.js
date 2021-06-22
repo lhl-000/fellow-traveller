@@ -19,12 +19,6 @@ export const resetData = (data) => ({
 
 export const getDetailAsync = (rootState, data) => {  
 	return async (dispatch)=>{
-        // Http({
-        //     url: '/people/detail',
-        //     body: payload
-        //   }).then(()=> {
-        //     dispatch(getDetail(data));
-        //   });
         const detail = await Http({
             url: '/people/detail',
             body: data
@@ -35,19 +29,6 @@ export const getDetailAsync = (rootState, data) => {
 
 export const getCommentsAsync = (state, data) => {
     return async (dispatch)=> {
-        // const { comments, page } = rootState.house;
-        // const lists = Http({
-        //     url: '/comments/lists',
-        //     body: {
-        //       ...data,
-        //       pageSize: page.pageSize,
-        //       pageNum: page.pageNum
-        //     }
-        //   }).then( () => {
-        //         dispatch(getComments([...comments, ...lists]));
-        //         dispatch(setShowLoading(lists.length ? true : false));
-        //       }
-        //   )
         const { comments, page } = state;
         const lists = await Http({
             url: '/comments/lists',
@@ -62,22 +43,14 @@ export const getCommentsAsync = (state, data) => {
     }
 }
 
-export const addCommentsAsync = (rootState, data) => {
+export const addCommentsAsync = (data) => {
     return async (dispatch) => {
-        // Http({
-        //     url: '/comments/add',
-        //     body: data
-        //   }).then(
-        //       () => {
-        //         dispatch(resetData({}));
-        //       }
-        //   )
         const result = await Http({
             url: '/comments/add',
             body: data
             });
-            if (result) {
-                dispatch(resetData({}));
+        if (result) {
+            dispatch(resetData({}));
         }
-    }
+}
 }
