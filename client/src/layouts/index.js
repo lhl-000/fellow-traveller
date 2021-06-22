@@ -1,6 +1,7 @@
-import style from './index.css';
+import './index.css';
 import { ErrorBoundary, MenuBar } from '../components';
 import { useLocation } from 'react-router-dom';
+
 
 function BasicLayout(props) {
     const location = useLocation();

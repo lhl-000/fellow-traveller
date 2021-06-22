@@ -33,12 +33,11 @@
       line-height: 20px;
       margin-left: 12px;
       margin-top: 20px;
-      background-color: aqua;
     }
     &-lists {
       margin: 12px 12px 60px 12px;
       background: #fff;
-      &_item {
+      &-item {
         @include flex-init(row, flex-start, flex-start);
         padding: 12px;
         border-bottom: 1px solid rgba(0, 0, 0, 0.08);

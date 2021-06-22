@@ -1,24 +1,19 @@
 import { Toast } from 'antd-mobile';
-import { withRouter } from 'react-router';
+import { useLocation } from 'react-router-dom';
 
-function Http({
+export default function Http({
   url,
   method = 'post',
-  headers = {},
+  headers,
   body = {},
   setLoading,
   setResult,
 }){
   setLoading && setLoading(true);
-  const location = this.props;
-  const token = localStorage.getItem('token');
-  let defaultHeader = {
+
+  const defaultHeader = {
     'Content-type': 'application/json'
   };
-  defaultHeader = token ? {
-    ...defaultHeader,
-    token
-  } : defaultHeader;
 
   let params;
   if(method.toUpperCase() === 'GET'){
@@ -27,7 +22,7 @@ function Http({
     params = {
       headers: {
         ...defaultHeader,
-        ...headers
+        headers
       },
       method,
       body: JSON.stringify(body)
@@ -42,10 +37,6 @@ function Http({
           resolve(res.data);
           setResult && setResult(res.data);
         }else {
-          if(res.status === 1001){
-            location.href = '/login?from=' + location.pathname;
-            localStorage.clear();
-          }
           Toast.fail(res.errMsg);
           reject(res.errMsg);
         }
@@ -59,5 +50,3 @@ function Http({
       })
   });
 }
-
-export default withRouter(Http);

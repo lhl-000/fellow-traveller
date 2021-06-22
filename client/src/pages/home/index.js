@@ -6,29 +6,21 @@ import { useHttpHook } from '@/hooks';
 
 import './index.scss';
 
-import {district, districtLoading} from '../../mock/home';
-import { people, peopleLoading } from '../../mock/people';
+// import { people, peopleLoading } from '../../mock/people';
 export default function Home() {
 
+    const [people, peopleLoading] = useHttpHook({
+        url: '/people/hot'
+    });
 
-    // const [cities, citiesLoading] = useHttpHook({
-    //     url: './commons/citys'
-    // })
-
-    
-    // const [nations, nationsLoading] = useHttpHook({
-    //     url: './commons/nations'
-    // })
-
+    const [district, districtLoading] = useHttpHook({
+        url: '/commons/nations'
+    })
 
     return (
         <div className='home'>
             <Header />
             <Search 
-                // cities={cities}
-                // citiesLoading={citiesLoading}
-                // nations={nations}
-                // nationsLoading={nationsLoading}
                 district={district}
                 districtLoading={districtLoading}
                 /> 

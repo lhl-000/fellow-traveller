@@ -6,8 +6,6 @@ import { CommonEnum } from '@/enum'
 
 import './index.scss';
 
-import { peopleLoading, people } from '../../mock/people'
-
 export default function Search(props) {
     const [peopleName, setPeopleName] = useState('');
     const [page, setPage] = useState(CommonEnum.PAGE);
@@ -18,37 +16,37 @@ export default function Search(props) {
 
     const [peopleSubmitName, setPeopleSubmitName] = useState('');
 
-    // const query = new URLSearchParams(props.location.search);
-    // const [people, peopleLoading] = useHttpHook({
-    //     url: '/people/search',
-    //     body: {
-    //     //   ...page,
-    //     //   peopleName,
-    //     //   startNation: query?get('startNation'),
-    //     //   startCity: query?.get('startCity'),
-    //     //   destinationNation: query?.get('destinationNation'),
-    //     //   destinationCity: query?.get('destinationCity=10001'),
-    //     //   startTime: query?.get('startTime') + '0:0:0'
-    //     //   endTime: query?.get('endTime') + ' 23:59:59'
-    //     },
-    //     // watch: [page.pageNum, peopleSubmitName]
-    //   });
+    const query = new URLSearchParams(props.location.search);
+
+    const [people, peopleLoading] = useHttpHook({
+        url: '/people/search',
+        body: {
+          ...page,
+          peopleName,
+          startNation: query?.get('startNation'),
+          startCity: query?.get('startCity'),
+          destinationNation: query?.get('destinationNation'),
+          destinationCity: query?.get('destinationCity=10001'),
+          startTime: query?.get('startTime') + '0:0:0',
+          endTime: query?.get('endTime') + ' 23:59:59'
+        },
+        watch: [page.pageNum, peopleSubmitName]
+      });
     
-    useObserverHook(CommonEnum.LOADING_ID,(entries) => {
-        if (entries[0].isIntersecting) {
+    useObserverHook('#' + CommonEnum.LONDING_ID, (entries) => {
+        if (!peopleLoading && entries[0].isIntersecting) {
             setPage({
-                ...page,
-                pageNum: page.pageNum + 1
+                ...page,    
+                pageNum: page.pageNum + 1,           
             })
         }
     }, null);
 
     useImgHook('.item-img', (enties) => {
         
-    }, null)
+    }, null);
 
     useEffect(() => {
-        setPeopleLists([...peopleLists, ...people]);
         if (!peopleLoading && people) {
             if (people.length) {
                 setPeopleLists([...peopleLists, ...people]);
@@ -59,7 +57,7 @@ export default function Search(props) {
                 setShowLoading(false);
             }
         }
-    }, [peopleLoading, peopleSubmitName]);
+    }, [peopleLoading]);
 
     const handleChange = (value) => {
         setPeopleName(value);
