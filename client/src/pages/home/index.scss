@@ -46,6 +46,7 @@
     }
     &-lists {
       @include flex-init(row, space-between);
+      flex-wrap: wrap;
       .hot-lists-item {
         width: 49%;
         margin-bottom: 15px;

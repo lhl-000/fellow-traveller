@@ -1,7 +1,18 @@
 import React from 'react'
 import { List } from 'antd-mobile';
 
-export default function User() {
+import './index.scss';
+
+export default function User(props) {
+
+    const avatar = '';
+    const tel = '13232323';
+    const sign = 'dsfaafsdf';
+
+    const handleClick = () => {
+        props.history.push(`user/edit?id=${10}`);
+    };
+
     return (
         <div className='user-page'>
             <div className='info'>
@@ -15,13 +26,13 @@ export default function User() {
             <div className='lists'>
                 <List>
                     <List.Item arrow='horizontal'>
-                        用户协议
+                        User agreement
                     </List.Item>
                     <List.Item arrow='horizontal'>
-                        常见问题
+                        Common problem
                     </List.Item>
                     <List.Item arrow='horizontal'>
-                        联系客服
+                        Contact me
                     </List.Item>
                 </List>
             </div>
