@@ -53,6 +53,7 @@
     "postcss-safe-parser": "5.0.2",
     "project-libs": "^1.1.5",
     "prompts": "2.4.0",
+    "rc-form": "^2.4.12",
     "react": "^17.0.2",
     "react-app-polyfill": "^2.0.0",
     "react-dev-utils": "^11.0.3",

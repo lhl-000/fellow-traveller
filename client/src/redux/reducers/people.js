@@ -1,20 +1,20 @@
-import  { CommonEnum } from '@/enum';
+import { CommonEnum } from '@/enum';
 
 const initState = {
-	detail: {},
+    detail: {},
     comments: [],
     page: CommonEnum.PAGE,
     showLoading: true,
     reloadCommentsNum: 0
 };
 
-export default function peopleReducer(preState=initState,action){
-	const {type, data} = action;
-	switch (type) {
-		case CommonEnum.GETDETAIL: 
+export default function peopleReducer(preState = initState, action) {
+    const { type, data } = action;
+    switch (type) {
+        case CommonEnum.GETDETAIL:
             preState.detail = data;
-			return preState;
-		case CommonEnum.GETCOMMENTS:
+            return preState;
+        case CommonEnum.GETCOMMENTS:
             preState.comments = data;
             return preState;
         case CommonEnum.SETSHOWLOADING:
@@ -30,7 +30,7 @@ export default function peopleReducer(preState=initState,action){
             preState.showLoading = true;
             preState.reloadCommentsNum = 0;
             return preState;
-		default:
-			return preState
-	}
+        default:
+            return preState
+    }
 }
