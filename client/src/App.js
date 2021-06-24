@@ -7,18 +7,23 @@ import Search from './pages/search';
 import Observer from './pages/observer';
 import People from './pages/people';
 import Edit from './pages/user/edit';
+import Login from './pages/login';
+import Register from './pages/register';
+import AuthRouter from './components/AuthRouter';
 
 function App() {
   return (
     <Switch>
       <Route path="/" exact component={Home} />
-      <Route path="/match" component={Match} />
-      <Route path="/chat" component={Chat} />
-      <Route path="/user/edit" component={Edit} />
-      <Route path="/user" component={User} />
+      <AuthRouter path="/match" component={Match}></AuthRouter>
+      <AuthRouter path="/chat" component={Chat}></AuthRouter>
+      <AuthRouter path="/user/edit" component={Edit}></AuthRouter>
+      <AuthRouter path="/user" component={User}></AuthRouter>
       <Route path="/search" component={Search} />
       <Route path="/observer" component={Observer} />
       <Route path="/people" component={People} />
+      <Route path="/login" component={Login} />
+      <Route path='/register' component={Register} />
     </Switch>
   );
 }

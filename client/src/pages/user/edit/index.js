@@ -1,11 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { List, ImagePicker, Toast, InputItem, Button } from 'antd-mobile';
 import { createForm } from 'rc-form';
+import { editUserAsync } from '@/redux/actions/user';
+import { useDispatch } from 'react-redux';
 
 function Edit(props) {
 
     const [files, setFiles] = useState([]);
     const { getFieldProps, validateFields } = props.form;
+
+    const dispatch = useDispatch();
 
     const handleChange = (files) => {
         if (files[0]?.file?.size / 1024 / 1024 > 0.5) {
@@ -25,11 +29,10 @@ function Edit(props) {
                 Toast.fail('Please complete message');
                 return;
             } else {
-                // editUserAsync({
-                //     img: files[0].url,
-                //     tel: value.tel,
-                //     sign: value.sign
-                // });
+                dispatch(editUserAsync({
+                    avater: files[0].url,
+                    meg: value.meg
+                }, props.history));
             }
         });
     };
@@ -43,8 +46,6 @@ function Edit(props) {
                         selectable={files.length < 1}
                         onChange={handleChange}
                     />
-                </List.Item>
-                <List.Item>
                 </List.Item>
                 <List.Item>
                     <InputItem

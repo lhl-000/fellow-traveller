@@ -19,15 +19,15 @@ class MenuBar extends Component {
                     link: '/'
                 },
                 {
-                    title: 'find',
+                    title: 'match',
                     selectedIcon: <BsSearch style={{fontSize: '1.5rem'}} />,
                     icon: <BsSearch  style={{fontSize: '1.5rem'}} />,
-                    link: '/find'
+                    link: '/match'
                 },
                 {
                     title: 'chat',
                     selectedIcon: < BsFillChatDotsFill style={{fontSize: '1.5rem'}} />,
-                    icon: <BsChatDots  style={{fontSize: '1.5rem'}} />,
+                    icon: <BsChatDots style={{fontSize: '1.5rem'}} />,
                     link: '/chat'
                 },
                 {
@@ -58,8 +58,7 @@ class MenuBar extends Component {
                                history.push(item.link);
                             }}
                          />
-                    ))}
-                    
+                    ))}                   
                 </TabBar>
             </div>
         )

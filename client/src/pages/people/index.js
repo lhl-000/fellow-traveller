@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react';
 import Banner from './components/banner';
 import Info from './components/info';
 import List from './components/lists';
@@ -14,11 +14,11 @@ import './index.scss';
 export default function People() {
 
   const selector = state => ({
-    detail: state.detail,
-    comments: state.comments,
-    page: state.page,
-    showLoading: state.showLoading,
-    reloadCommentsNum: state.reloadCommentsNum
+    detail: state.people.detail,
+    comments: state.people.comments,
+    page: state.people.page,
+    showLoading: state.people.showLoading,
+    reloadCommentsNum: state.people.reloadCommentsNum
   });
 
   const { detail, comments, page, reloadCommentsNum, showLoading } = useSelector(selector, shallowEqual);

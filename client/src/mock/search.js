@@ -132,15 +132,6 @@ const meg = [
   ]
 
 fetchMock.mock('/api/people/search', function (url, req) {
-    // let data;
-    // const reqObj = JSON.parse(req);
-    // console.log(reqObj);
-    // if (reqObj.body.pageNum < 4) {
-    //     data = meg;
-    // }
-    // else {
-    //     data = [];
-    // }
     return {
         status:200,
         data: meg

@@ -5,7 +5,7 @@ import { useLocation } from 'react-router-dom';
 
 function BasicLayout(props) {
     const location = useLocation();
-    const paths = ['/', '/user','/chat','/find'];
+    const paths = ['/', '/user','/chat','/match'];
 
     return (
         <div>

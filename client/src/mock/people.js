@@ -20,7 +20,6 @@ fetchMock.mock('/api/people/detail', function () {
       isOnline: true,
       makePublic: true,
     }
-
   }
 });
 

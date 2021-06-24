@@ -1,17 +1,31 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react';
 import { List } from 'antd-mobile';
+import { useDispatch, shallowEqual, useSelector } from 'react-redux';
+import { getUserAsync } from '@/redux/actions/user';
 
 import './index.scss';
 
 export default function User(props) {
 
-    const avatar = '';
-    const tel = '13232323';
-    const sign = 'dsfaafsdf';
+    const selector = (state) => ({
+        username: state.user.name,
+        avatar: state.user.avatar,
+        meg: state.user.meg,
+    }); 
+
+    const dispatch = useDispatch();
+
+    const { username, avatar, meg } = useSelector(selector, shallowEqual);
 
     const handleClick = () => {
         props.history.push(`user/edit?id=${10}`);
     };
+
+    useEffect(() => {
+        dispatch(getUserAsync({
+            id: 10
+          }));
+      }, [])
 
     return (
         <div className='user-page'>
@@ -19,8 +33,8 @@ export default function User(props) {
                 <div className='set' onClick={handleClick}>Setting</div>
                 <div className='user'>
                     <img alt='user' src={avatar} />
-                    <div className='tel'>{tel}</div>
-                    <div className='sign'>{sign}</div>
+                    <div className='name'>{username}</div>
+                    <div className='sign'>{meg}</div>
                 </div>
             </div>
             <div className='lists'>
