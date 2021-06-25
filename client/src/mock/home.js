@@ -74,7 +74,7 @@ fetchMock.mock('/api/people/hot', function () {
   delay: 1000,
 })
 
-fetchMock.mock('/api/commons/nations', function () {
+fetchMock.mock('/api/commons/district', function () {
   return {
     status: 200,
     data: [

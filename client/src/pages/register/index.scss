@@ -1,7 +1,26 @@
+@import "../../asserts/mixin.scss";
+
 .register-page {
   .login {
     margin-top: 20px;
     text-align: center;
     color: lightgray;
+  }
+  .travel {
+    &-time {
+      height: 50px;
+      line-height: 50px;
+      font-size: 18px;
+      padding-left: 15px;
+      padding-right: 15px;
+      box-sizing: border-box;
+      @include flex-init(row, space-between, flex-start);
+      &_left {
+        color: #000;
+      }
+      &_right {
+        color: #888;
+      }
+    }
   }
 }

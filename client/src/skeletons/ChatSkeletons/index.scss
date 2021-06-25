@@ -1,0 +1,31 @@
+@import "../../asserts/mixin.scss";
+
+.chat-skeletons {
+  .chat-item {
+    @include flex-init(row, flex-start);
+    margin-bottom: 12px;
+    padding: 12px;
+    width: 100%;
+    box-sizing: border-box;
+    .left {
+      width: 120px;
+      height: 80px;
+    }
+    .center {
+      flex: 1;
+      margin: 0 12px;
+      .item1 {
+        margin: 12px 0;
+        width: 50px;
+      }
+      .item2 {
+        width: 120px;
+      }
+    }
+    .bottom {
+      margin-right: 4px;
+      width: 70px;
+      height: 30px;
+    }
+  }
+}

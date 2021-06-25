@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, memo } from 'react'
 import { Picker, List, Calendar, Button } from 'antd-mobile'
-import dayjs from 'dayjs'
-import { useHistory } from 'react-router-dom'
+import dayjs from 'dayjs';
+import { useHistory } from 'react-router-dom';
 
-export default function Search(props) {
+function Search(props) {
 
     const history = useHistory();
     const [selectedStartAdrr, setSelectedStartAdrr] = useState(['00000', '00001']);
@@ -12,8 +12,6 @@ export default function Search(props) {
     const initTime = dayjs().add(1, 'day').format('YYYY-MM-DD');
     const [times, setTimes] = useState(`${initTime}~${initTime}`);
     const [dateShow, setDateShow] = useState(false);
-
-
 
     useEffect(() => {
 
@@ -74,30 +72,6 @@ export default function Search(props) {
                     </div>
                 </div>
             }
-            {/* <div className='search-addr-nation'>
-                    {!props.citiesLoading && <Picker
-                        title='nation'
-                        data={[props.nations]}
-                        value={selectedNation}
-                        cascade={false}
-                        cols={1}
-                        onChange={handleNationChange}
-                    >
-                        <List.Item>nation</List.Item>
-                    </Picker>}
-                </div>
-                <div className='search-addr-city'>
-                    {!props.nationsLoading && <Picker
-                        title='city'
-                        data={[props.cities]}
-                        value={selectedCity}
-                        cascade={false}
-                        cols={1}
-                        onChange={handleCityChange}
-                    >
-                        <List.Item>city</List.Item>
-                    </Picker>}
-                </div> */}
             <div className='search-time' onClick={handleDate}>
                 <p className='search-time_left'>planned time</p>
                 <p className='search-time_right'>{times}</p>
@@ -114,4 +88,12 @@ export default function Search(props) {
     )
 }
 
+function areEqule(prevProps, nextProps) {
+    if (prevProps.district === nextProps.district 
+        && prevProps.districtLoading === nextProps.districtLoading) {
+            return true;
+        }
+    return false;
+}
 
+export default memo(Search, areEqule);

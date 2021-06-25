@@ -3,7 +3,7 @@ import Header from './components/header';
 import Search from './components/search';
 import Hot from './components/hot';
 import { useHttpHook } from '@/hooks';
-
+import { district } from '@/asserts/district';
 import './index.scss';
 
 // import { people, peopleLoading } from '../../mock/people';
@@ -13,9 +13,11 @@ export default function Home() {
         url: '/people/hot'
     });
 
-    const [district, districtLoading] = useHttpHook({
-        url: '/commons/nations'
-    })
+    // const [district, districtLoading] = useHttpHook({
+    //     url: '/commons/district'
+    // })
+
+    const districtLoading = false;
 
     return (
         <div className='home'>

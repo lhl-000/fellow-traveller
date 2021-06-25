@@ -27,7 +27,7 @@ export default function Search(props) {
           startCity: query?.get('startCity'),
           destinationNation: query?.get('destinationNation'),
           destinationCity: query?.get('destinationCity=10001'),
-          startTime: query?.get('startTime') + '0:0:0',
+          startTime: query?.get('startTime') + ' 0:0:0',
           endTime: query?.get('endTime') + ' 23:59:59'
         },
         watch: [page.pageNum, peopleSubmitName]

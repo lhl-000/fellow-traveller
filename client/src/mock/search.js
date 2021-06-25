@@ -1,6 +1,6 @@
 import fetchMock from 'fetch-mock';
 
-const meg = [
+export const meg = [
     {
         id: 1,
         name: "Jack",

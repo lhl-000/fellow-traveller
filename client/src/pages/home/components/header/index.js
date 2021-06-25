@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, memo } from 'react'
 import {Link} from "react-router-dom";
 import cookie from 'react-cookies'
-export default function Header() {
+
+function Header() {
 
     useEffect(() => {
-        console.log(cookie.load('user'));
     }, [])
 
     return (
@@ -22,3 +22,5 @@ export default function Header() {
         </div>
     )
 }
+
+export default memo(Header);

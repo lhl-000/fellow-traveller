@@ -7,15 +7,14 @@ fetchMock.mock('/api/user/detail', function () {
         {
           id: 1,
           name: "Jack",
-          startNation: 'CN',
-          startCity: 'ShangHai',
-          destinationNation: 'UK',
-          destinationCity: 'Bristol',
+          startNation: '00000',
+          startCity: '00001',
+          destinationNation: '10000',
+          destinationCity: '10001',
           startTime: "2021-9-1",
           endTime: '2021-9-22',
           profilePicture: '',
-          vehicle: 'Train',
-          number: 'G1024',
+          vehicle: '1',
           meg: 'My name is Jack , I will go to Bristol in September.',
           isOnline: true,
           makePublic: true,
@@ -44,6 +43,7 @@ fetchMock.mock('/api/user/detail', function () {
   })
 
   fetchMock.mock('api/user/register', function(url, res) {
+    console.log(url, res);
     return ({
       status: 200,
       data:  {
