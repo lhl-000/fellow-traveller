@@ -6,7 +6,7 @@ export default function Lists(props) {
     const { people, showLoading } = props;
 
     return (
-        <div match-page-people>
+        <div classname='match-page-people'>
             {!people.length 
                 ? <ChatSkeletons />
                 : <div className='result'>
