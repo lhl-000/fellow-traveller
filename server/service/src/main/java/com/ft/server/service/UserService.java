@@ -8,6 +8,8 @@ import com.ft.server.vo.ResultVO;
  */
 public interface UserService {
 
+    public ResultVO userRegister(String name, String pwd);
+
     public ResultVO checkLogin(String name, String pwd);
 
 }

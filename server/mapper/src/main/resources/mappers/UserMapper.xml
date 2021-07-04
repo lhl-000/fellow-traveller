@@ -1,13 +1,50 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.ft.server.dao.UserDAO">
+    <insert id="insertUser">
+        insert into users(username,password,user_regtime,user_modtime)
+        values(#{username}.#{password},#{userRegTime},#{userModTime})
+    </insert>
+
     <resultMap id="userMap" type="User">
-        <id column="id" property="id" />
-        <result column="name" property="name" />
-        <result column="pwd" property="pwd" />
+        <id column="user_id" property="userId" />
+        <result column="username" property="username" />
+        <result column="password" property="password" />
+        <result column="email" property="email" />
+        <result column="user_sex" property="userSex" />
+        <result column="avatar" property="avatar" />
+        <result column="start_nation" property="startNation" />
+        <result column="start_city" property="startCity" />
+        <result column="dest_nation" property="destNation" />
+        <result column="dest_city" property="destCity" />
+        <result column="start_time" property="startTime" />
+        <result column="end_time" property="endTime" />
+        <result column="perf_vehicle" property="prefVehicle" />
+        <result column="meg" property="meg" />
+        <result column="user_regtime" property="userRegTime" />
+        <result column="user_modetime" property="userModeTime" />
     </resultMap>
 
+
     <select id="queryUserByName" resultMap="userMap">
-        SELECT `id`,`name`,`pwd` FROM `user` WHERE `name`=#{name};
+        SELECT
+            user_id,
+            username,
+            password,
+            email,
+            user_sex,
+            avatar,
+            start_nation,
+            start_city,
+            dest_nation,
+            dest_city,
+            start_time,
+            end_time,
+            perf_vehicle,
+            meg,
+            user_regtime,
+            user_modetime
+        FROM users
+        WHERE username=#{name}
     </select>
 </mapper>

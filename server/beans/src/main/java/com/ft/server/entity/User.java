@@ -1,8 +1,12 @@
 package com.ft.server.entity;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.sql.Date;
 
 /**
  * @author lee
@@ -11,8 +15,41 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@ApiModel(value = "user object", description = "information")
 public class User {
-    private int id;
-    private String name;
-    private String pwd;
+
+    @ApiModelProperty(dataType = "int",value = "id", required = true)
+    private int userId;
+
+    @ApiModelProperty(dataType = "string",value = "username", required = true)
+    private String username;
+
+    @ApiModelProperty(dataType = "string",value = "password", required = true)
+    private String password;
+
+    private String email;
+
+    private char userSex;
+
+    private String avatar;
+
+    private int startNation;
+
+    private int startCity;
+
+    private int destNation;
+
+    private int destCity;
+
+    private Date startTime;
+
+    private Date endTime;
+
+    private String perfVehicle;
+
+    private String meg;
+
+    private Date userRegTime;
+
+    private Date userModeTime;
 }
