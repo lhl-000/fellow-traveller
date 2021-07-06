@@ -1,12 +1,24 @@
-import React, { useState } from 'react';
-import { List, InputItem, ImagePicker, Toast } from 'antd-mobile';
+import React from 'react';
+import { List, InputItem, ImagePicker, Picker, Toast } from 'antd-mobile';
 
 
 export default function User(props) {
 
     const { getFieldProps } = props.form;
-    const { files, setFiles}  = props.data;
-    
+    const { files, setFiles}  = props.data; 
+    const { selectedSex, setSelectedSex} = props.data;
+    const sexData = [
+      {
+        label: 'male',
+        value: 'male'
+      },
+      {
+        label: 'female',
+        value: 'female'
+      }, 
+    ]
+
+
     const handleChange = (files) => {
       if (files[0]?.file?.size / 1024 / 1024 > 0.5) {
           Toast.fail('Picture size should less than 0.5M');
@@ -14,6 +26,10 @@ export default function User(props) {
       }
       setFiles(files);
   };
+
+  const handleSexChange = (value) => {
+    setSelectedSex(value);
+  }
 
     return (
         <div className='user'>
@@ -55,6 +71,23 @@ export default function User(props) {
             >
             Confirmed:
             </InputItem>
+            <InputItem
+              {...getFieldProps('email', {
+                rules: [{ required: true }]
+              })}
+              placeholder='email address'
+            >
+              Email:
+            </InputItem>
+            <Picker
+                data={sexData}
+                title="sex"
+                value={selectedSex}
+                cascade={true}
+                onChange={handleSexChange}
+            >
+                <List.Item>sex: </List.Item>
+            </Picker>
           </List>
         </div>
     )

@@ -34,7 +34,6 @@ export const editUserAsync = (data, history) => {
 }
 
 export const loginAsync = (data, history) => {
-    console.log(data, history);
     return async () => {
         const result = await Http({
             url: '/user/login',

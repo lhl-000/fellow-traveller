@@ -22,6 +22,9 @@ public class ResultVO {
     @ApiModelProperty(value = "responded message", dataType = "string")
     private String msg;
 
+    @ApiModelProperty(value = "responded err message", dataType = "string")
+    private String errMsg;
+
     @ApiModelProperty(value = "responded data")
     private Object data;
 }

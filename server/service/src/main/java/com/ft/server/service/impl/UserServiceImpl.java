@@ -28,37 +28,47 @@ public class UserServiceImpl implements UserService {
     public ResultVO checkLogin(String name, String pwd) {
        User user =  userDAO.queryUserByName(name);
        if (user == null) {
-           return new ResultVO(1, "username doesn't exist", null);
+           return new ResultVO(200, null,"Username doesn't exist",  null);
        } else {
            if (user.getPassword().equals(pwd)) {
-               return new ResultVO(10000, "login successfully", user);
+               return new ResultVO(200, "Login successfully",null, user);
            } else {
-               return new ResultVO(10001, "wrong password", null);
+               return new ResultVO(200, null,"Wrong password or username", null);
            }
 
        }
     }
 
     @Transactional
-    public ResultVO userRegister(String name, String pwd) {
+    public ResultVO userRegister(User user) {
         synchronized (this) {
-            User user = userDAO.queryUserByName(name);
+            User newUser = userDAO.queryUserByName(user.getUsername());
 
-            if (user == null) {
-                String md5PWD = MD5Utils.md5(pwd);
-                user = new User();
-                user.setPassword(md5PWD);
-                user.setUsername(name);
-                user.setUserRegTime(new Date(System.currentTimeMillis()));
-                user.setUserModeTime(new Date(System.currentTimeMillis()));
+            if (newUser == null) {
+                String md5PWD = MD5Utils.md5(user.getPassword());
+                newUser = new User();
+                newUser.setPassword(md5PWD);
+                newUser.setUsername(user.getUsername());
+                newUser.setEmail(user.getEmail());
+                newUser.setAvatar(user.getAvatar());
+                newUser.setUserSex(user.getUserSex());
+                newUser.setMeg(user.getMeg());
+                newUser.setStartNation(user.getStartNation());
+                newUser.setStartCity(user.getStartCity());
+                newUser.setDestCity(user.getDestCity());
+                newUser.setDestNation(user.getDestNation());
+                newUser.setUserRegTime(user.getUserRegTime());
+                newUser.setUserModeTime(user.getUserModeTime());
+                newUser.setEndTime(user.getEndTime());
+                newUser.setStartTime(user.getStartTime());
                 int i = userDAO.insertUser(user);
                 if (i > 0) {
-                    return new ResultVO(201, "register successfully", null);
+                    return new ResultVO(200, "register successfully",null, null);
                 } else {
-                    return new ResultVO(10001, "fail to register", null);
+                    return new ResultVO(200, null,"fail to register", null);
                 }
             } else {
-                return new ResultVO(10001, "Username has been registered", null);
+                return new ResultVO(200, null,"Username has been registered", null);
             }
         }
     }

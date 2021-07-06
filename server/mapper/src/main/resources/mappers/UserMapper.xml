@@ -25,7 +25,6 @@
         <result column="user_modetime" property="userModeTime" />
     </resultMap>
 
-
     <select id="queryUserByName" resultMap="userMap">
         SELECT
             user_id,

@@ -58,7 +58,7 @@ function Edit(props) {
                 if (value.meg && value.meg.length > 40) {
                     Toast.fail('The message must be less than 40 dights');
                     return;
-                  } 
+                }
                 dispatch(editUserAsync({
                     avater: files[0].url,
                     meg: value.meg,
@@ -66,9 +66,10 @@ function Edit(props) {
                     startCity: selectedStartAdrr[1],
                     destinationNation: selectedDestinationAdrr[0],
                     destinationCity: selectedDestinationAdrr[1],
-                    vehicle : selectedVehicle,
+                    vehicle : selectedVehicle[0],
                     startTime: times.split('~')[0] + ' 0:0:0',
                     endTime: times.split('~')[1] + ' 23:59:59',
+                    userModeTime: dayjs().format('YYYY-MM-DD HH:mm:ss'),
                 }, props.history));
             }
         });

@@ -1,5 +1,6 @@
 package com.ft.server.service;
 
+import com.ft.server.entity.User;
 import com.ft.server.vo.ResultVO;
 
 /**
@@ -8,7 +9,7 @@ import com.ft.server.vo.ResultVO;
  */
 public interface UserService {
 
-    public ResultVO userRegister(String name, String pwd);
+    public ResultVO userRegister(User user);
 
     public ResultVO checkLogin(String name, String pwd);
 

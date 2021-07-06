@@ -21,8 +21,10 @@ function Register(props) {
     const [selectedVehicle, setSelectedVehicle] = useState(['0']);
     const initTime = dayjs().add(1, 'day').format('YYYY-MM-DD');
     const [times, setTimes] = useState(`${initTime}~${initTime}`);
+    const [selectedSex, setSelectedSex] = useState(['male'])
 
-
+    const emailPatt = /^[A-Za-z\d]+([-_.][A-Za-z\d]+)*@([A-Za-z\d]+[-.])+[A-Za-z\d]{2,4}$/;
+;
 
     const handleSubmit = () => {
         validateFields((error, value) => {
@@ -42,17 +44,29 @@ function Register(props) {
               Toast.fail('The message must be less than 40 dights');
               return;
             }
+            if (value.email && !emailPatt.test(value.email)) {
+              Toast.fail('The email format is incorrect');
+              return
+            }
+            const currentTime = dayjs().format('YYYY-MM-DD HH:mm:ss');
             dispatch(registerAsync({
-              avater: files[0].url,
-              meg: value.meg,
-              password: value.password,
-              startNation: selectedStartAdrr[0],
-              startCity: selectedStartAdrr[1],
-              destinationNation: selectedDestinationAdrr[0],
-              destinationCity: selectedDestinationAdrr[1],
-              vehicle : selectedVehicle,
-              startTime: times.split('~')[0] + ' 0:0:0',
-              endTime: times.split('~')[1] + ' 23:59:59',
+              user: {
+                userId: 0,
+                avater: files[0].url,
+                meg: value.meg,
+                password: value.password,
+                email: value.email,
+                sex: selectedSex[0],
+                startNation: selectedStartAdrr[0],
+                startCity: selectedStartAdrr[1],
+                destNation: selectedDestinationAdrr[0],
+                destCity: selectedDestinationAdrr[1],
+                perfVehicle : selectedVehicle[0],
+                startTime: times.split('~')[0] + ' 0:0:0',
+                endTime: times.split('~')[1] + ' 23:59:59',
+                userRegTime: currentTime,
+                userModeTime: currentTime,
+              }
             }
               , props.history));
           }
@@ -67,7 +81,10 @@ function Register(props) {
         <div className='register-page'>
           <User
             form={props.form}
-            data={{files, setFiles}}
+            data={{files,
+              setFiles,
+              selectedSex,
+              setSelectedSex}}
           />
           <Travel
             form={props.form} 

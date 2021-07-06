@@ -1,5 +1,6 @@
 export const LONDING_ID = 'mk-loading';
 
+export const base_url = 'http://localhost:8080/api';
 export const PAGE = {
     pageSize: 8,
     pageNum: 1

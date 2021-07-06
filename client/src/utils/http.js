@@ -1,6 +1,6 @@
 import { Toast } from 'antd-mobile';
 import { useLocation } from 'react-router-dom';
-
+import { base_url } from '../enum/common';
 export default function Http({
   url,
   method = 'post',
@@ -30,10 +30,12 @@ export default function Http({
   }
 
   return new Promise((resolve, reject)=>{
-    fetch('/api' + url, params)
+    console.log(base_url + url, params);
+    console.log(body);
+    fetch(base_url + url, params)
       .then(res => res.json())
       .then(res => {
-        if(res.status === 200){
+        if(res.status === 200 && res.errMsg === null){
           resolve(res.data);
           setResult && setResult(res.data);
         }else {
