@@ -10,11 +10,11 @@ export default function User(props) {
     const sexData = [
       {
         label: 'male',
-        value: 'male'
+        value: 'M'
       },
       {
         label: 'female',
-        value: 'female'
+        value: 'F'
       }, 
     ]
 

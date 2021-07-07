@@ -3,10 +3,7 @@ package com.ft.server.controller;
 import com.ft.server.entity.User;
 import com.ft.server.service.UserService;
 import com.ft.server.vo.ResultVO;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiImplicitParams;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.*;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -39,8 +36,8 @@ public class UserController {
 
     @ApiOperation("user register")
     @RequestMapping(value = "register", method = RequestMethod.POST)
-    public ResultVO register(@RequestBody User user) {
-        return userService.userRegister((User)user);
+    public ResultVO register(@RequestBody  User user) {
+        System.out.println(user);
+        return userService.userRegister(user);
     }
-
 }

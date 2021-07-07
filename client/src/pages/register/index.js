@@ -6,7 +6,6 @@ import dayjs from 'dayjs';
 import { createForm } from 'rc-form';
 import { registerAsync } from '@/redux/actions/user';
 import { useDispatch} from 'react-redux';
-
 import './index.scss';
 
 function Register(props) {
@@ -21,7 +20,7 @@ function Register(props) {
     const [selectedVehicle, setSelectedVehicle] = useState(['0']);
     const initTime = dayjs().add(1, 'day').format('YYYY-MM-DD');
     const [times, setTimes] = useState(`${initTime}~${initTime}`);
-    const [selectedSex, setSelectedSex] = useState(['male'])
+    const [selectedSex, setSelectedSex] = useState(['M'])
 
     const emailPatt = /^[A-Za-z\d]+([-_.][A-Za-z\d]+)*@([A-Za-z\d]+[-.])+[A-Za-z\d]{2,4}$/;
 ;
@@ -50,29 +49,26 @@ function Register(props) {
             }
             const currentTime = dayjs().format('YYYY-MM-DD HH:mm:ss');
             dispatch(registerAsync({
-              user: {
-                userId: 0,
-                avater: files[0].url,
-                meg: value.meg,
+                username:value.username,
                 password: value.password,
-                email: value.email,
-                sex: selectedSex[0],
+                email: value.email, 
+                userSex: selectedSex[0],
+                avatar: files[0].url,
                 startNation: selectedStartAdrr[0],
                 startCity: selectedStartAdrr[1],
                 destNation: selectedDestinationAdrr[0],
                 destCity: selectedDestinationAdrr[1],
                 perfVehicle : selectedVehicle[0],
-                startTime: times.split('~')[0] + ' 0:0:0',
+                meg: value.meg,             
+                startTime: times.split('~')[0] + ' 00:00:00',
                 endTime: times.split('~')[1] + ' 23:59:59',
                 userRegTime: currentTime,
                 userModeTime: currentTime,
-              }
             }
               , props.history));
           }
         });
       };
-    
       const handleClick = () => {
         props.history.push('/login');
       };

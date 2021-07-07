@@ -10,7 +10,6 @@ import org.springframework.transaction.annotation.Transactional;
 import utils.MD5Utils;
 
 import javax.annotation.Resource;
-import java.sql.Date;
 
 
 /**
@@ -35,7 +34,6 @@ public class UserServiceImpl implements UserService {
            } else {
                return new ResultVO(200, null,"Wrong password or username", null);
            }
-
        }
     }
 
@@ -43,24 +41,12 @@ public class UserServiceImpl implements UserService {
     public ResultVO userRegister(User user) {
         synchronized (this) {
             User newUser = userDAO.queryUserByName(user.getUsername());
-
             if (newUser == null) {
                 String md5PWD = MD5Utils.md5(user.getPassword());
-                newUser = new User();
-                newUser.setPassword(md5PWD);
-                newUser.setUsername(user.getUsername());
-                newUser.setEmail(user.getEmail());
-                newUser.setAvatar(user.getAvatar());
-                newUser.setUserSex(user.getUserSex());
-                newUser.setMeg(user.getMeg());
-                newUser.setStartNation(user.getStartNation());
-                newUser.setStartCity(user.getStartCity());
-                newUser.setDestCity(user.getDestCity());
-                newUser.setDestNation(user.getDestNation());
-                newUser.setUserRegTime(user.getUserRegTime());
-                newUser.setUserModeTime(user.getUserModeTime());
-                newUser.setEndTime(user.getEndTime());
-                newUser.setStartTime(user.getStartTime());
+                user.setPassword(md5PWD);
+                if (user.getAvatar() == null) {
+                    user.setAvatar("default.jpg");
+                }
                 int i = userDAO.insertUser(user);
                 if (i > 0) {
                     return new ResultVO(200, "register successfully",null, null);

@@ -60,7 +60,7 @@ function Edit(props) {
                     return;
                 }
                 dispatch(editUserAsync({
-                    avater: files[0].url,
+                    avater: "files[0].url",
                     meg: value.meg,
                     startNation: selectedStartAdrr[0],
                     startCity: selectedStartAdrr[1],
