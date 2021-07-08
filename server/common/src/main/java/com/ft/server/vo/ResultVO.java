@@ -17,7 +17,7 @@ import lombok.NoArgsConstructor;
 public class ResultVO {
 
     @ApiModelProperty(value = "status code", dataType = "int")
-    private int code;
+    private int status;
 
     @ApiModelProperty(value = "responded message", dataType = "string")
     private String msg;

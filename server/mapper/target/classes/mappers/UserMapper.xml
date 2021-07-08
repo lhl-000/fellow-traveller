@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.ft.server.dao.UserDAO">
-    <insert id="insertUser">
+    <insert id="insertUser" useGeneratedKeys="true" keyProperty="userId">
         insert into users(username,password,email,user_sex,avatar,start_nation,
             start_city,dest_nation,dest_city,start_time,end_time,perf_vehicle,
             meg,user_regtime,user_modetime)
@@ -23,7 +23,7 @@
         <result column="dest_city" property="destCity" />
         <result column="start_time" property="startTime" />
         <result column="end_time" property="endTime" />
-        <result column="perf_vehicle" property="prefVehicle" />
+        <result column="perf_vehicle" property="perfVehicle" />
         <result column="meg" property="meg" />
         <result column="user_regtime" property="userRegTime" />
         <result column="user_modetime" property="userModeTime" />

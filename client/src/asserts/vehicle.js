@@ -1,20 +1,20 @@
 export const vehicle = [
     {
-      label: 'Whatever', value: '0'
+      label: 'Both', value: 'Both'
     },
     {
-      label: 'Train', value: '1'
+      label: 'Train', value: 'Train'
     },
     {
-      label: 'Bus', value: '2'
+      label: 'Bus', value: 'Bus'
     },
     {
-      label: 'Airplane', value: '3'
+      label: 'Airplane', value: 'Airplane'
     },
     {
-      label: 'Private car', value: '4'
+      label: 'Private car', value: 'Private car'
     },
     {
-      label: 'Cruise', value: '5'
+      label: 'Cruise', value: 'Cruise'
     }
   ]

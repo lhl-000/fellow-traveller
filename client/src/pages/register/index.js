@@ -17,7 +17,7 @@ function Register(props) {
     const [files, setFiles] = useState([]);
     const [selectedStartAdrr, setSelectedStartAdrr] = useState(['00000', '00001']);
     const [selectedDestinationAdrr, setSelectedDestinationAdrr] = useState(['10000', '10001']);
-    const [selectedVehicle, setSelectedVehicle] = useState(['0']);
+    const [selectedVehicle, setSelectedVehicle] = useState(['Both']);
     const initTime = dayjs().add(1, 'day').format('YYYY-MM-DD');
     const [times, setTimes] = useState(`${initTime}~${initTime}`);
     const [selectedSex, setSelectedSex] = useState(['M'])
@@ -51,7 +51,7 @@ function Register(props) {
             dispatch(registerAsync({
                 username:value.username,
                 password: value.password,
-                email: value.email, 
+                email: value.email,
                 userSex: selectedSex[0],
                 avatar: files[0].url,
                 startNation: selectedStartAdrr[0],
@@ -59,7 +59,7 @@ function Register(props) {
                 destNation: selectedDestinationAdrr[0],
                 destCity: selectedDestinationAdrr[1],
                 perfVehicle : selectedVehicle[0],
-                meg: value.meg,             
+                meg: value.meg,
                 startTime: times.split('~')[0] + ' 00:00:00',
                 endTime: times.split('~')[1] + ' 23:59:59',
                 userRegTime: currentTime,
@@ -69,6 +69,7 @@ function Register(props) {
           }
         });
       };
+
       const handleClick = () => {
         props.history.push('/login');
       };

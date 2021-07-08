@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react'
 import { withRouter } from 'react-router'
 import { Route, Redirect } from 'react-router-dom'
 import cookie from 'react-cookies';
@@ -6,7 +6,7 @@ import cookie from 'react-cookies';
 function AuthRouter(props) {
  
     const { component: Component, ...rest } = props
-    const isLogIn = cookie.load('user') ? true : false;
+    const isLogIn = cookie.load('token') ? true : false;
     return (
         <Route {...rest} render={(props) => (
             isLogIn

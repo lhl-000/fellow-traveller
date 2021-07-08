@@ -1,5 +1,6 @@
 package com.ft.server.controller;
 
+import com.alibaba.fastjson.JSONObject;
 import com.ft.server.entity.User;
 import com.ft.server.service.UserService;
 import com.ft.server.vo.ResultVO;
@@ -30,14 +31,17 @@ public class UserController {
             @ApiImplicitParam(dataType = "string", name = "password", value = "password", required = false, defaultValue = "")
     })
     @RequestMapping(value = "login", method = RequestMethod.POST)
-    public ResultVO login(String username, String password) {
-        return userService.checkLogin(username, password);
+//    public ResultVO login(String username, String password) {
+//        System.out.println(username+password);
+//        return userService.checkLogin(username, password);
+//    }
+        public ResultVO login(@RequestBody JSONObject json) {
+        return userService.checkLogin(json.getString("username"), json.getString("password"));
     }
 
     @ApiOperation("user register")
     @RequestMapping(value = "register", method = RequestMethod.POST)
     public ResultVO register(@RequestBody  User user) {
-        System.out.println(user);
         return userService.userRegister(user);
     }
 }

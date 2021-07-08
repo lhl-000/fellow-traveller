@@ -40,7 +40,8 @@ export const loginAsync = (data, history) => {
             body: data
         });
         if (result) {
-            cookie.save('user', result);
+            cookie.save('token', result.token);
+            cookie.save('username', result.username)
             history.push('/');
             Toast.success('Login successfully');
         }
@@ -53,8 +54,10 @@ export const registerAsync = (data, history) => {
             url: '/user/register',
             body: data
         });
+        console.log(result);
         if (result) {
-            cookie.save('user', result);
+            cookie.save('token', result.token);
+            cookie.save('username', result.username)
             Toast.success('Register successfully');
             history.push('/');
         }

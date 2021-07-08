@@ -11,7 +11,7 @@ function Header() {
         <div className='header'>
             <div className='header_title'>Fellow Traveller</div>
             <div className='header_login'>
-                {cookie.load('user')? cookie.load('user').username : 
+                {cookie.load('username')? cookie.load('username') : 
                 <>
                 <Link to='/login'>Login</Link> 
                 <span> | </span>

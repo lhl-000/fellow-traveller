@@ -31,10 +31,10 @@ export default function Http({
 
   return new Promise((resolve, reject)=>{
     console.log(base_url + url, params);
-    console.log(body);
     fetch(base_url + url, params)
       .then(res => res.json())
       .then(res => {
+        console.log(res);
         if(res.status === 200 && res.errMsg === null){
           resolve(res.data);
           setResult && setResult(res.data);
