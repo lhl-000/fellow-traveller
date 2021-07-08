@@ -1,5 +1,4 @@
 import { Toast } from 'antd-mobile';
-import { useLocation } from 'react-router-dom';
 import { base_url } from '../enum/common';
 export default function Http({
   url,
@@ -12,7 +11,7 @@ export default function Http({
   setLoading && setLoading(true);
 
   const defaultHeader = {
-    'Content-type': 'application/json'
+    'Content-type': 'application/json',
   };
 
   let params;

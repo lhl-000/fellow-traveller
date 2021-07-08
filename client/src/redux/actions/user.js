@@ -12,6 +12,7 @@ export const getUserAsync = (data) => {
     return async (dispatch) => {
         const user = await Http({
             url: '/user/detail',
+            headers: cookie.load('token'),
             body: data
         });
         if (user) {
@@ -24,6 +25,7 @@ export const editUserAsync = (data, history) => {
     return async () => {
         const result = await Http({
             url: '/user/edit',
+            headers: cookie.load('token'),
             body: data
         });
         if (result) {

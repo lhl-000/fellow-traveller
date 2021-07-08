@@ -31,10 +31,6 @@ public class UserController {
             @ApiImplicitParam(dataType = "string", name = "password", value = "password", required = false, defaultValue = "")
     })
     @RequestMapping(value = "login", method = RequestMethod.POST)
-//    public ResultVO login(String username, String password) {
-//        System.out.println(username+password);
-//        return userService.checkLogin(username, password);
-//    }
         public ResultVO login(@RequestBody JSONObject json) {
         return userService.checkLogin(json.getString("username"), json.getString("password"));
     }
@@ -44,4 +40,18 @@ public class UserController {
     public ResultVO register(@RequestBody  User user) {
         return userService.userRegister(user);
     }
+
+    @ApiOperation("user detail")
+    @RequestMapping(value = "detail", method = RequestMethod.POST)
+    public ResultVO getDetail(@RequestBody  JSONObject json) {
+        return userService.getDetail(json.getString("username"));
+    }
+
+//    @ApiOperation("user edit")
+//    @RequestMapping(value = "edit", method = RequestMethod.POST)
+//    public ResultVO edit(@RequestBody  JSONObject json) {
+//        return userService.userEdit(json.getString("username"));
+//    }
+
+
 }

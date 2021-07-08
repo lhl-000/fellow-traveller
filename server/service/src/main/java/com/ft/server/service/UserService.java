@@ -11,7 +11,9 @@ public interface UserService {
 
     public ResultVO userRegister(User user);
 
-    public ResultVO checkLogin(String name, String pwd);
+    public ResultVO checkLogin(String username, String password);
+
+    public ResultVO getDetail(String username);
 
 
 }

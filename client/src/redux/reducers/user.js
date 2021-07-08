@@ -1,15 +1,13 @@
 import { CommonEnum } from '@/enum';
 
 const initState = {
-    id: undefined,
-    name: undefined,
     avatar: undefined,
     meg: undefined,
     startNation: undefined,
     startCity: undefined,
-    destinationNation: undefined,
-    destinationCity: undefined,
-    vehicle : undefined,
+    destNation: undefined,
+    destCity: undefined,
+    perfVehicle : undefined,
     startTime: undefined,
     endTime: undefined,
 };

@@ -15,8 +15,8 @@ function Register(props) {
     const { validateFields } = props.form;
 
     const [files, setFiles] = useState([]);
-    const [selectedStartAdrr, setSelectedStartAdrr] = useState(['00000', '00001']);
-    const [selectedDestinationAdrr, setSelectedDestinationAdrr] = useState(['10000', '10001']);
+    const [selectedStartAdrr, setSelectedStartAdrr] = useState(['10000', '10001']);
+    const [selectedDestinationAdrr, setSelectedDestinationAdrr] = useState(['20000', '20001']);
     const [selectedVehicle, setSelectedVehicle] = useState(['Both']);
     const initTime = dayjs().add(1, 'day').format('YYYY-MM-DD');
     const [times, setTimes] = useState(`${initTime}~${initTime}`);

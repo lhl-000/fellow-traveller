@@ -1,29 +1,31 @@
-import React, { useState, useEffect } from 'react';
+import React, {useEffect } from 'react';
 import { List } from 'antd-mobile';
 import { useDispatch, shallowEqual, useSelector } from 'react-redux';
 import { getUserAsync } from '@/redux/actions/user';
-
+import cookie from 'react-cookies';
 import './index.scss';
 
 export default function User(props) {
 
     const selector = (state) => ({
-        username: state.user.name,
+        username: state.user.username,
         avatar: state.user.avatar,
         meg: state.user.meg,
     }); 
 
     const dispatch = useDispatch();
 
-    const { username, avatar, meg } = useSelector(selector, shallowEqual);
+    const username = cookie.load('username');
+
+    const { avatar, meg } = useSelector(selector, shallowEqual);
 
     const handleClick = () => {
-        props.history.push(`user/edit?id=${10}`);
+        props.history.push(`user/edit`);
     };
 
     useEffect(() => {
         dispatch(getUserAsync({
-            id: 10
+            username : username,
           }));
       }, [])
 
