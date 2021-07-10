@@ -23,6 +23,7 @@ public class CheckTokenInterceptor implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 
         String token = request.getParameter("token");
+
         if (token == null) {
             ResultVO resultVO = new ResultVO(200, null,"Please login firstly", null);
             doResponse(response,resultVO);

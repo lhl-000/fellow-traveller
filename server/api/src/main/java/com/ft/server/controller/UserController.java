@@ -5,9 +5,12 @@ import com.ft.server.entity.User;
 import com.ft.server.service.UserService;
 import com.ft.server.vo.ResultVO;
 import io.swagger.annotations.*;
+import jdk.swing.interop.SwingInterOpUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * @author lee
@@ -47,11 +50,21 @@ public class UserController {
         return userService.getDetail(json.getString("username"));
     }
 
-//    @ApiOperation("user edit")
-//    @RequestMapping(value = "edit", method = RequestMethod.POST)
-//    public ResultVO edit(@RequestBody  JSONObject json) {
-//        return userService.userEdit(json.getString("username"));
-//    }
-
+    @ApiOperation("user edit")
+    @RequestMapping(value = "edit", method = RequestMethod.POST)
+    public ResultVO edit(@RequestBody  JSONObject json) {
+        return userService.userEdit(json.getString("username")
+                ,json.getString("avatar")
+                ,json.getString("meg")
+                ,json.getInteger("destNation")
+                ,json.getInteger("destCity")
+                ,json.getInteger("startNation")
+                ,json.getInteger("startCity")
+                ,json.getString("perfVehicle")
+                ,json.getString("startTime")
+                ,json.getString("endTime")
+                ,json.getString("userModeTime")
+        );
+    }
 
 }

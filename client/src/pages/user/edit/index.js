@@ -6,6 +6,8 @@ import { useDispatch, useSelector, shallowEqual } from 'react-redux';
 import dayjs from 'dayjs';
 import { district } from '@/asserts/district';
 import { vehicle } from '@/asserts/vehicle';
+import cookie from 'react-cookies';
+import jwt_decode from "jwt-decode";
 
 import './index.scss';
 
@@ -23,19 +25,20 @@ function Edit(props) {
         endTime: state.user.endTime
     }); 
 
-    const [files, setFiles] = useState([]);
     const { getFieldProps, validateFields } = props.form;
     
     const dispatch = useDispatch();
 
     const { avatar, meg, startNation, startCity, destinationNation,
         destinationCity, defaultVehicle, startTime, endTime} = useSelector(selector, shallowEqual);
-
+    const [files, setFiles] = useState(new Array());
     const [selectedStartAdrr, setSelectedStartAdrr] = useState([startNation, startCity]);
     const [selectedDestinationAdrr, setSelectedDestinationAdrr] = useState([destinationNation, destinationCity]);
     const [selectedVehicle, setSelectedVehicle] = useState([defaultVehicle]);
     const [times, setTimes] = useState(`${startTime}~${endTime}`);
     const [dateShow, setDateShow] = useState(false);
+
+    const username = jwt_decode(cookie.load('token')).sub;
 
     const handleChange = (files) => {
         if (files[0]?.file?.size / 1024 / 1024 > 0.5) {
@@ -45,11 +48,9 @@ function Edit(props) {
         setFiles(files);
     };
 
+    console.log(destinationNation, destinationCity);
+
     const handleSubmit = () => {
-        if (!files.length) {
-            setFiles(avatar);
-            return;
-        }
         validateFields((error, value) => {
             if (error) {
                 Toast.fail('Please complete message');
@@ -60,14 +61,15 @@ function Edit(props) {
                     return;
                 }
                 dispatch(editUserAsync({
-                    avatar: files[0].url,
+                    username: username,
+                    avatar: files[0]?.url,
                     meg: value.meg,
                     startNation: selectedStartAdrr[0],
                     startCity: selectedStartAdrr[1],
                     destNation: selectedDestinationAdrr[0],
                     destCity: selectedDestinationAdrr[1],
                     perfVehicle : selectedVehicle[0],
-                    startTime: times.split('~')[0] + ' 0:0:0',
+                    startTime: times.split('~')[0] + ' 00:00:00',
                     endTime: times.split('~')[1] + ' 23:59:59',
                     userModeTime: dayjs().format('YYYY-MM-DD HH:mm:ss'),
                 }, props.history));
@@ -104,7 +106,7 @@ function Edit(props) {
                     <ImagePicker
                         files={files}
                         selectable={files.length < 1}
-                        onChange={handleChange}
+                        onChange={handleChange} 
                     />
                 </List.Item>
             </List>
@@ -155,8 +157,9 @@ function Edit(props) {
                 <TextareaItem
                     rows={2}
                     defaultValue={meg}
+                    placeholder={meg}
                       {...getFieldProps('meg', {
-                        rules: [{ required: true },]
+                        rules: [],
                       })}
                     >
                     Message:

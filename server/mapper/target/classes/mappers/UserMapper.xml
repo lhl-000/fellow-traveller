@@ -7,7 +7,7 @@
             meg,user_regtime,user_modetime)
         values(#{username}, #{password}, #{email}, #{userSex}, #{avatar},
             #{startNation}, #{startCity}, #{destNation}, #{destCity}, #{startTime},
-            #{endTime}, #{perfVehicle}, #{meg}, #{userRegTime}, #{userModeTime})
+            #{endTime}, #{perfVehicle}, #{meg}, #{userRegTime}, #{userModeTime});
     </insert>
 
     <resultMap id="userMap" type="User">
@@ -48,6 +48,21 @@
             user_regtime,
             user_modetime
         FROM users
-        WHERE username=#{name}
+        WHERE username=#{username};
     </select>
+
+    <update id="updateUser">
+        UPDATE users SET
+            avatar=#{avatar},
+            start_nation=#{startNation},
+            start_city=#{startCity},
+            dest_nation=#{destNation},
+            dest_city=#{destCity},
+            start_time=#{startTime},
+            end_time=#{endTime},
+            perf_vehicle=#{perfVehicle},
+            meg=#{meg},
+            user_modetime=#{userModeTime}
+            WHERE username=#{username};
+    </update>
 </mapper>

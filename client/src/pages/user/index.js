@@ -2,6 +2,7 @@ import React, {useEffect } from 'react';
 import { List } from 'antd-mobile';
 import { useDispatch, shallowEqual, useSelector } from 'react-redux';
 import { getUserAsync } from '@/redux/actions/user';
+import jwt_decode from "jwt-decode";
 import cookie from 'react-cookies';
 import './index.scss';
 
@@ -15,12 +16,12 @@ export default function User(props) {
 
     const dispatch = useDispatch();
 
-    const username = cookie.load('username');
+    const username = jwt_decode(cookie.load('token')).sub;
 
     const { avatar, meg } = useSelector(selector, shallowEqual);
 
     const handleClick = () => {
-        props.history.push(`user/edit`);
+        props.history.push('user/edit');
     };
 
     useEffect(() => {

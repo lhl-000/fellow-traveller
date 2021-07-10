@@ -13,6 +13,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import utils.MD5Utils;
 import javax.annotation.Resource;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 
@@ -40,14 +42,11 @@ public class UserServiceImpl implements UserService {
                HashMap<String,Object> map = new HashMap<>();
                String token = builder.setSubject(username)
                        .setIssuedAt(new Date())
-                       .setId(user.getUserId() + "")
+                       .setId(user.getUserId()+"")
                        .setExpiration(new Date(System.currentTimeMillis() + 7*24*60*60*1000))
                        .signWith(SignatureAlgorithm.HS256, "fellow-traveller")
                        .compact();
-               JSONObject res = new JSONObject();
-               res.put("token", token);
-               res.put("username", username);
-               return new ResultVO(200, "OK",null, res);
+               return new ResultVO(200, "OK",null, token);
            } else {
                return new ResultVO(200, null,"Wrong password or username", null);
            }
@@ -67,14 +66,11 @@ public class UserServiceImpl implements UserService {
                     HashMap<String,Object> map = new HashMap<>();
                     String token = builder.setSubject(user.getUsername())
                             .setIssuedAt(new Date())
-                            .setId(user.getUserId() + "")
+                            .setId(user.getUserId()+"")
                             .setExpiration(new Date(System.currentTimeMillis() + 7*24*60*60*1000))
                             .signWith(SignatureAlgorithm.HS256, "fellow-traveller")
                             .compact();
-                    JSONObject res = new JSONObject();
-                        res.put("token", token);
-                        res.put("username", user.getUsername());
-                    return new ResultVO(200, "register successfully",null, res);
+                    return new ResultVO(200, "register successfully",null, token);
                 } else {
                     return new ResultVO(200, null,"fail to register", null);
                 }
@@ -95,12 +91,54 @@ public class UserServiceImpl implements UserService {
             res.put("meg", user.getMeg());
             res.put("startNation", user.getStartNation()+"");
             res.put("startCity", user.getStartCity()+"");
-            res.put("destNation", user.getDestCity()+"");
+            res.put("destNation", user.getDestNation()+"");
             res.put("destCity", user.getDestCity()+"");
             res.put("perfVehicle", user.getPerfVehicle());
             res.put("startTime", user.getStartTime());
             res.put("endTime", user.getEndTime());
             return new ResultVO(200, "OK",null, res);
+        }
+    }
+
+
+    @Override
+    public ResultVO userEdit(String username, String avatar, String meg,
+                             int destNation, int destCity, int startNation,
+                             int startCity, String perfVehicle,String startTimeString,
+                             String endTimeString, String userModeTimeString) {
+        synchronized (this) {
+            User user = userDAO.queryUserByName(username);
+            if (user == null) {
+                return new ResultVO(200, null, "Username doesn't exist", null);
+            } else {
+                System.out.println(avatar);
+                if (avatar == null) {
+                    avatar = user.getAvatar();
+                }
+                if (meg == null) {
+                    meg = user.getMeg();
+                }
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+                Date userModeTime = null;
+                Date startTime = null;
+                Date endTime = null;
+                System.out.println(userModeTimeString + startTimeString + endTimeString);
+                try {
+                    userModeTime = sdf.parse(userModeTimeString);
+                    startTime = sdf.parse(startTimeString);
+                    endTime = sdf.parse(endTimeString);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                int i = userDAO.updateUser(username, avatar, meg,
+                        destNation, destCity, startNation,
+                        startCity, perfVehicle, startTime, endTime, userModeTime);
+                if (i > 0) {
+                    return new ResultVO(200, "OK", null, "OK");
+                } else {
+                    return new ResultVO(200, null, "Edit failed", null);
+                }
+            }
         }
     }
 
