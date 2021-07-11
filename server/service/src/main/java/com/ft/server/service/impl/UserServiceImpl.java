@@ -102,6 +102,7 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
+    @Transactional
     public ResultVO userEdit(String username, String avatar, String meg,
                              int destNation, int destCity, int startNation,
                              int startCity, String perfVehicle,String startTimeString,

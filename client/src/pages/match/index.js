@@ -5,6 +5,7 @@ import { useHttpHook, useObserverHook } from '@/hooks';
 import { CommonEnum } from '@/enum';
 import { Http } from '@/utils';
 import cookie from 'react-cookies';
+import jwt_decode from "jwt-decode";
 
 import './index.scss';
 
@@ -12,13 +13,12 @@ export default function Match(props) {
     const [page, setPage] = useState(CommonEnum.PAGE);
     const [people, setPeople] = useState([]);
     const [showLoading, setShowLoading] = useState(true);
-    const id = cookie.load('user').id;
-
+    const userId = jwt_decode(cookie.load('token')).jti;
     const invokeHttp = async (pageNum) => {
         const result = await Http({
-          url: '/match/lists',
+          url: 'people/match',
           body: {
-            id: id,
+            userId: userId,
             ...page,
             pageNum,
           }

@@ -1,6 +1,6 @@
 import React, { useState, useEffect, memo } from 'react'
 import {Link} from "react-router-dom";
-import cookie from 'react-cookies'
+import cookie from 'react-cookies';
 import jwt_decode from "jwt-decode";
 
 function Header() {

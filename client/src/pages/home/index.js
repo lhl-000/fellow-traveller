@@ -10,7 +10,7 @@ import './index.scss';
 export default function Home() {
 
     const [people, peopleLoading] = useHttpHook({
-        url: '/people/hot'
+        url: '/people/popular'
     });
 
     // const [district, districtLoading] = useHttpHook({

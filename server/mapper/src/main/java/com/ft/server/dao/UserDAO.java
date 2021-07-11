@@ -28,4 +28,5 @@ public interface UserDAO {
                           @Param("startTime") Date startTime,
                           @Param("endTime")Date endTime,
                           @Param("userModeTime")Date userModeTime);
+
 }

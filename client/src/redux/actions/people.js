@@ -17,7 +17,7 @@ export const resetData = (data) => ({
     data: data
 });
 
-export const getDetailAsync = (rootState, data) => {  
+export const getDetailAsync = (data) => {  
 	return async (dispatch)=>{
         const detail = await Http({
             url: '/people/detail',

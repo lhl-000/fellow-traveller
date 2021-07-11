@@ -1,9 +1,9 @@
-import React, { useState, useEffect, memo } from 'react'
+import React, { useEffect, memo } from 'react';
+import { BiFemaleSign, BiMaleSign } from 'react-icons/bi'
 
 function Hot(props) {
 
     useEffect(() => {
-
     }, [])
 
     return (
@@ -14,16 +14,16 @@ function Hot(props) {
                         return(
                         <div className='hot-lists-item'>
                             <div className='profilePicture'>
-                                <img alt='img' src={''} />
+                                <img alt='img' src={item.avatar} />
                             </div>
-                            <div className='name'>&nbsp;&nbsp;{item.name}&nbsp;&nbsp;</div>
-                            {item.isOnline
-                                ? <div className='status' style={{ 'background-color': 'yellowgreen'}}>&nbsp;Online&nbsp;</div> 
-                                : <div className='status' style={{ 'background-color': 'grey'}}>&nbsp;Offline&nbsp;</div>}
+                            <div className='name'><span>{item.username}</span>&nbsp;</div>
+                            {item.userSex === 'M'
+                                ? <div className='status'><BiMaleSign style={{ 'color': 'blue'}}></BiMaleSign></div> 
+                                : <div className='status'><BiFemaleSign style={{ 'color': 'pink'}}></BiFemaleSign></div>}
                             <div className='info'>
                                 <div className='info-start'>Start: {item.startCity} ({item.startNation})</div>
-                                <div className='info-destination'>Destination: {item.destinationCity} ({item.destinationNation})</div>
-                                <div className='times'>Planned time: {item.startTime} ~ {item.endTime} </div>
+                                <div className='info-destination'>Destination: {item.destCity} ({item.destNation})</div>
+                                <div className='times'>Planned time: {item.startTime.split(' ')[0]} ~ {item.endTime.split(' ')[0]} </div>
                             </div>
                         </div>
                         )

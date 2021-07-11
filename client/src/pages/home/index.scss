@@ -54,10 +54,16 @@
         background: #fff;
         box-sizing: border-box;
         border-radius: 12px;
+        text-align: center;
         .profilePicture {
           display: flex;
           align-items: center;
           justify-content: center;
+          img {
+            height: 60px;
+            width: 60px;
+            border-radius: 50%;
+          }
         }
         .name {
           display: inline-block;
@@ -70,8 +76,6 @@
           font-size: 12px;
           display: inline;
           font-weight: bolder;
-          color: white;
-          border-radius: 15%;
         }
         .info {
           display: inline-block;
