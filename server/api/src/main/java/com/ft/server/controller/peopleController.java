@@ -1,6 +1,8 @@
 package com.ft.server.controller;
 
 import com.alibaba.fastjson.JSONObject;
+import com.ft.server.entity.People;
+import com.ft.server.entity.SearchMeg;
 import com.ft.server.service.PeopleService;
 import com.ft.server.service.UserService;
 import com.ft.server.vo.ResultVO;
@@ -30,4 +32,19 @@ public class peopleController {
     public ResultVO getPopularPeople(HttpServletRequest request) {
         return peopleService.popularPeople();
     }
+
+    @RequestMapping(value = "search", method = RequestMethod.POST)
+    public ResultVO searchPeople(@RequestBody SearchMeg searchMeg) {
+        return peopleService.searchPeople(searchMeg);
+    }
+
+    @RequestMapping(value = "match", method = RequestMethod.POST)
+    public ResultVO matchPeople(@RequestBody JSONObject json) {
+        return peopleService.matchPeople(json.getInteger("userId"),
+                json.getInteger("pageNum"),
+                json.getInteger("pageSize"));
+    }
+
+
+
 }

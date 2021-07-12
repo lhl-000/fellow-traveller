@@ -1,5 +1,7 @@
 package com.ft.server.service;
 
+import com.ft.server.entity.People;
+import com.ft.server.entity.SearchMeg;
 import com.ft.server.vo.ResultVO;
 
 /**
@@ -10,5 +12,8 @@ public interface PeopleService  {
 
     public ResultVO popularPeople();
 
+    public ResultVO searchPeople(SearchMeg searchMeg);
+
+    public ResultVO matchPeople(int userId, int pageNum, int pageSize);
 
 }

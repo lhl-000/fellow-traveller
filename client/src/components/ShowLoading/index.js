@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import PropsTypes from 'prop-types';
 import { CommonEnum } from '@/enum'
 import './index.scss';

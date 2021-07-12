@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react';
 import { List, InputItem, Button, Toast } from 'antd-mobile';
 import { createForm } from 'rc-form';
 import { loginAsync } from '@/redux/actions/user';

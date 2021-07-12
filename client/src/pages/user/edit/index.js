@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { List, ImagePicker, Toast, Calendar,TextareaItem, Button, Picker } from 'antd-mobile';
 import { createForm } from 'rc-form';
 import { editUserAsync } from '@/redux/actions/user';
@@ -29,9 +29,9 @@ function Edit(props) {
     
     const dispatch = useDispatch();
 
-    const { avatar, meg, startNation, startCity, destinationNation,
+    const { meg, startNation, startCity, destinationNation,
         destinationCity, defaultVehicle, startTime, endTime} = useSelector(selector, shallowEqual);
-    const [files, setFiles] = useState(new Array());
+    const [files, setFiles] = useState([]);
     const [selectedStartAdrr, setSelectedStartAdrr] = useState([startNation, startCity]);
     const [selectedDestinationAdrr, setSelectedDestinationAdrr] = useState([destinationNation, destinationCity]);
     const [selectedVehicle, setSelectedVehicle] = useState([defaultVehicle]);

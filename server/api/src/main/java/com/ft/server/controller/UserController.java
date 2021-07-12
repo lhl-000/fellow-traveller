@@ -18,8 +18,6 @@ import java.util.Date;
  */
 
 @RestController
-//@Controller
-//@ResponseBody
 @RequestMapping("api/user")
 @Api(value = "user management", tags = "provide interface for login and register")
 @CrossOrigin

@@ -6,8 +6,8 @@ import { useHistory } from 'react-router-dom';
 function Search(props) {
 
     const history = useHistory();
-    const [selectedStartAdrr, setSelectedStartAdrr] = useState(['10000', '10001']);
-    const [selectedDestinationAdrr, setSelectedDestinationAdrr] = useState(['20000', '20001']);
+    const [selectedStartAdrr, setSelectedStartAdrr] = useState([10000, 10001]);
+    const [selectedDestinationAdrr, setSelectedDestinationAdrr] = useState([20000, 20001]);
 
     const initTime = dayjs().add(1, 'day').format('YYYY-MM-DD');
     const [times, setTimes] = useState(`${initTime}~${initTime}`);
@@ -40,7 +40,7 @@ function Search(props) {
         const endTime = times.split('~')[1];
         history.push({
             pathname: '/search',
-            search: `?startNation=${selectedStartAdrr[0]}&startCity=${selectedStartAdrr[1]}&destinationNation=${selectedDestinationAdrr[0]}&destinationCity=${selectedDestinationAdrr[1]}&stratTime=${startTime}&endTime=${endTime}`
+            search: `?startNation=${selectedStartAdrr[0]}&startCity=${selectedStartAdrr[1]}&destNation=${selectedDestinationAdrr[0]}&destCity=${selectedDestinationAdrr[1]}&startTime=${startTime}&endTime=${endTime}`
         })
     }
 

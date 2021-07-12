@@ -25,9 +25,9 @@ export default function Search(props) {
           peopleName,
           startNation: query?.get('startNation'),
           startCity: query?.get('startCity'),
-          destinationNation: query?.get('destinationNation'),
-          destinationCity: query?.get('destinationCity=10001'),
-          startTime: query?.get('startTime') + ' 0:0:0',
+          destNation: query?.get('destNation'),
+          destCity: query?.get('destCity'),
+          startTime: query?.get('startTime') + ' 00:00:00',
           endTime: query?.get('endTime') + ' 23:59:59'
         },
         watch: [page.pageNum, peopleSubmitName]
@@ -88,11 +88,11 @@ export default function Search(props) {
                 onCancel={handleCancel}
                 onSubmit={handleSumbit}
             />
-            {!peopleLists.length 
+            {!peopleLists.length && showLoading
                 ? <ActivityIndicator toast />
                 : <div className='result'>
                     {peopleLists.map( item => (
-                        <div className='item'>
+                        <div className='item' key={item.username}>
                             <img alt='img' src={''}  data-src='' className='item-img'></img>
                             <div className='item-right'>
                                 <div className='name'>{item.name}&nbsp;&nbsp;

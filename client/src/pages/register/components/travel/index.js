@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Picker, List, Calendar, TextareaItem } from 'antd-mobile'
 import dayjs from 'dayjs';
 import { district } from '@/asserts/district';

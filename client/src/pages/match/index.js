@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Lists from './components/Lists';
 import Header from './components/header';
-import { useHttpHook, useObserverHook } from '@/hooks';
+import { useObserverHook } from '@/hooks';
 import { CommonEnum } from '@/enum';
 import { Http } from '@/utils';
 import cookie from 'react-cookies';
@@ -14,9 +14,10 @@ export default function Match(props) {
     const [people, setPeople] = useState([]);
     const [showLoading, setShowLoading] = useState(true);
     const userId = jwt_decode(cookie.load('token')).jti;
+
     const invokeHttp = async (pageNum) => {
         const result = await Http({
-          url: 'people/match',
+          url: '/people/match',
           body: {
             userId: userId,
             ...page,
@@ -28,9 +29,13 @@ export default function Match(props) {
 
       const fetchPeople = async (pageNum) => {
         const result = await invokeHttp(pageNum);
-        if (result && result.length === page.pageSize) {
+        if (result) {
           setPeople(result);
-          setShowLoading(true);
+          if (result.length === page.pageSize) {    
+            setShowLoading(true);
+            } else {
+            setShowLoading(false);
+            }
         } else {
           setShowLoading(false);
         }
@@ -39,7 +44,7 @@ export default function Match(props) {
     useObserverHook('#' + CommonEnum.LONDING_ID , async (entries) => {
       if (entries[0].isIntersecting) {
         const result = await invokeHttp(page.pageNum + 1);
-        if (people && people.length != 0 && result && result.length === page.pageSize) {
+        if (people && people.length !== 0 && result && result.length === page.pageSize) {
           setPeople([...people, ...result]);
           setPage({
             ...page,
@@ -55,7 +60,6 @@ export default function Match(props) {
     useEffect(() => {
       fetchPeople(1);
     }, [])
-  
 
     return (
         <div className='match-page'>

@@ -89,10 +89,10 @@ public class UserServiceImpl implements UserService {
             JSONObject res = new JSONObject();
             res.put("avatar", user.getAvatar());
             res.put("meg", user.getMeg());
-            res.put("startNation", user.getStartNation()+"");
-            res.put("startCity", user.getStartCity()+"");
-            res.put("destNation", user.getDestNation()+"");
-            res.put("destCity", user.getDestCity()+"");
+            res.put("startNation", user.getStartNation());
+            res.put("startCity", user.getStartCity());
+            res.put("destNation", user.getDestNation());
+            res.put("destCity", user.getDestCity());
             res.put("perfVehicle", user.getPerfVehicle());
             res.put("startTime", user.getStartTime());
             res.put("endTime", user.getEndTime());

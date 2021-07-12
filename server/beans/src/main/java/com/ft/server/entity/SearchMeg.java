@@ -9,22 +9,13 @@ import java.sql.Date;
 
 /**
  * @author lee
- * @create 2021-07-11 9:07
+ * @create 2021-07-12 16:40
  */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class People {
-    private int userId;
 
-    private String username;
-
-    private String email;
-
-    private char userSex;
-
-    private String avatar;
-
+public class SearchMeg {
     private int startNation;
 
     private int startCity;
@@ -33,17 +24,13 @@ public class People {
 
     private int destCity;
 
-    private String perfVehicle;
+    private int pageSize;
 
-    private String meg;
+    private int pageNum;
 
     @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd HH:mm:ss")
     private Date startTime;
 
     @JsonFormat(shape=JsonFormat.Shape.STRING, pattern ="yyyy-MM-dd HH:mm:ss")
     private Date endTime;
-
-    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd HH:mm:ss")
-    private Date userRegTime;
-
 }

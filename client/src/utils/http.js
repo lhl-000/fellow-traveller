@@ -5,8 +5,8 @@ export default function Http({
   method = 'post',
   headers,
   body = {},
-  setLoading,
   setResult,
+  setLoading,
 }){
   setLoading && setLoading(true);
 

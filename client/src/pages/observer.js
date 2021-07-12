@@ -1,8 +1,7 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import { useObserverHook } from '@/hooks';
 
 export default function Observer(props) {
-    const [state, setstate] = useState();
     
     const handleClick = () => {
         props.history.push('/')
