@@ -45,6 +45,11 @@ public class peopleController {
                 json.getInteger("pageSize"));
     }
 
+    @RequestMapping(value = "detail", method = RequestMethod.POST)
+    public ResultVO getPeopleDetail(@RequestBody JSONObject json) {
+        return peopleService.getDetail(json.getInteger("userId"));
+    }
+
 
 
 }

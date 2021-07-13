@@ -16,4 +16,6 @@ public interface PeopleService  {
 
     public ResultVO matchPeople(int userId, int pageNum, int pageSize);
 
+    public ResultVO getDetail(int userId);
+
 }

@@ -1,12 +1,17 @@
-import React, { useEffect, memo } from 'react';
+import React, { memo } from 'react';
 import { BiFemaleSign, BiMaleSign } from 'react-icons/bi'
 import { districtMap } from '@/asserts/districtMap';
-
+import { useHistory } from 'react-router-dom';
 function Hot(props) {
 
-    useEffect(() => {
-        console.log(districtMap);
-    }, [])
+    const history = useHistory();
+
+    const handleClick = (value) => {
+        history.push({
+            pathname: '/people',
+            search: `?id=${value}`
+        })
+    }
 
     return (
         <div className='hot'>
@@ -14,7 +19,7 @@ function Hot(props) {
             <div className='hot-lists'>
                     {props?.people?.map(item => {
                         return(
-                        <div className='hot-lists-item' key={item.userId}>
+                        <div className='hot-lists-item' key={item.userId} onClick={()=>handleClick(item.userId)}>
                             <div className='profilePicture'>
                                 <img alt='img' src={item.avatar} />
                             </div>

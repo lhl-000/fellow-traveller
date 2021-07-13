@@ -1,9 +1,11 @@
-import React, { useState, useEffect } from 'react'
-import { SearchBar, ActivityIndicator } from 'antd-mobile'
-import { useHttpHook, useObserverHook, useImgHook } from '@/hooks'
-import { ShowLoading } from '../../components'
-import { CommonEnum } from '@/enum'
-
+import React, { useState, useEffect } from 'react';
+import { SearchBar, ActivityIndicator} from 'antd-mobile';
+import { useHttpHook, useObserverHook, useImgHook } from '@/hooks';
+import { BiFemaleSign, BiMaleSign } from 'react-icons/bi';
+import { ShowLoading } from '../../components';
+import { CommonEnum } from '@/enum';
+import { districtMap } from '@/asserts/districtMap';
+import { useHistory } from 'react-router-dom';
 import './index.scss';
 
 export default function Search(props) {
@@ -17,6 +19,15 @@ export default function Search(props) {
     const [peopleSubmitName, setPeopleSubmitName] = useState('');
 
     const query = new URLSearchParams(props.location.search);
+
+    const history = useHistory();
+
+    const handleClick = (value) => {
+        history.push({
+            pathname: '/people',
+            search: `?id=${value}`
+        })
+    }
 
     const [people, peopleLoading] = useHttpHook({
         url: '/people/search',
@@ -92,18 +103,18 @@ export default function Search(props) {
                 ? <ActivityIndicator toast />
                 : <div className='result'>
                     {peopleLists.map( item => (
-                        <div className='item' key={item.username}>
-                            <img alt='img' src={''}  data-src='' className='item-img'></img>
+                        <div className='item' key={item.username} onClick={()=>handleClick(item.userId)}>
+                            <img alt='img' src={''}  data-src={item.avatar} className='item-img'></img>
                             <div className='item-right'>
-                                <div className='name'>{item.name}&nbsp;&nbsp;
-                                {item.isOnline
-                                ? <span className='status' style={{ 'background-color': 'yellowgreen'}}>&nbsp;Online&nbsp;</span> 
-                                : <span className='status' style={{ 'background-color': 'grey'}}>&nbsp;Offline&nbsp;</span>}
+                                <div className='name'>{item.username}&nbsp;&nbsp;
+                                {item.userSex === 'M'
+                                ? <div className='status'><BiMaleSign style={{ 'color': 'blue'}}></BiMaleSign></div> 
+                                : <div className='status'><BiFemaleSign style={{ 'color': 'pink'}}></BiFemaleSign></div>}
                                 </div>
                                 <div className='info'>
-                                <div className='info-start'>Start point: {item.startCity}, {item.startNation}</div>
-                                <div className='info-destination'>Destination: {item.destinationCity}, {item.destinationNation}</div>
-                                <div className='times'> Planned time: <span>{item.startTime} ~ {item.endTime}</span>  </div>
+                                <div className='info-start'>Start point: {districtMap.get(item.startCity)}, {districtMap.get(item.startNation)}</div>
+                                <div className='info-destination'>Destination: {districtMap.get(item.destCity)}, {districtMap.get(item.destNation)}</div>
+                                <div className='times'>Planned time: <span>{item.startTime.split(' ')[0]} ~ {item.endTime.split(' ')[0]}</span>  </div>
                             </div>
                             </div>
                         </div>

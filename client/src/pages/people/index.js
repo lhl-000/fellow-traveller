@@ -27,7 +27,9 @@ export default function People() {
 
   const { search } = useLocation();
 
-  const query = new URLSearchParams(search);
+ const query = new URLSearchParams(search); 
+
+ const userId = query?.get('id');
 
   useObserverHook('#' + CommonEnum.LONDING_ID, (entries) => {
     if (comments && comments.length && showLoading && entries[0].isIntersecting) {
@@ -37,13 +39,13 @@ export default function People() {
 
   useEffect(() => {
     dispatch(getDetailAsync({
-      id: query?.get('id')
+      userId: userId
     }));
   }, []);
 
   useEffect(() => {
     dispatch(getCommentsAsync({ page, comments }, {
-      id: query?.get('id')
+      userId: userId
     }));
   }, [reloadCommentsNum]);
 
@@ -58,7 +60,7 @@ export default function People() {
       <Banner />
       <Info detail={detail} />
       <List lists={comments} showLoading={showLoading} />
-      <Footer />
+      <Footer userId={userId}/>
     </div>
   )
 }

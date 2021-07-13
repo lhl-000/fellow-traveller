@@ -1,24 +1,28 @@
-import React, { useState} from 'react'
+import React from 'react'
 import { Button } from 'antd-mobile';
+import { BiFemaleSign, BiMaleSign } from 'react-icons/bi';
+import { districtMap } from '@/asserts/districtMap';
 
 export default function Info(props) {
-
-    const [state, setstate] = useState();
 
     return (
         <div className='info'>
             <div className='info-top'>
-                <div className='profilePicture'>
-                    <img alt='pic' src=''></img>
+                <div className='avatar'>
+                    <img alt='pic' src={props.detail.avatar}></img>
                 </div>
-                {props.detail?.isOnline
-                    ? <div className='status' style={{ 'background-color': 'yellowgreen' }}>&nbsp;Online&nbsp;</div>
-                    : <div className='status' style={{ 'background-color': 'grey' }}>&nbsp;Offline&nbsp;</div>}
+                <div>
+                <div className='name'><span>{props.detail.username}</span></div>
+                </div>
+                {props.detail?.userSex === 'M'
+                    ? <div className='status'><BiMaleSign style={{ 'color': 'blue'}}></BiMaleSign></div>
+                    : <div className='status'><BiFemaleSign style={{ 'color': 'pink'}}></BiFemaleSign></div>}
             </div>
-            <div className='info-start'>Start point: {props.detail?.startNation} ----- {props.detail?.startCity}</div>
-            <div className='info-destination'>Destination: {props.detail?.destinationNation} ----- {props.detail?.destinationCity}</div>
-            <div className='times'>Planned Time: {props.detail?.startTime} ----- {props.detail?.endTime}</div>
-            <div className='vehicle'>Vehicle: {props.detail?.vehicle}  Number: {props.detail?.number}</div>
+            <div className='info-start'>Start point: {districtMap.get(props.detail?.startNation)} ----- {districtMap.get(props.detail?.startCity)}</div>
+            <div className='info-destination'>Destination: {districtMap.get(props.detail?.destNation)} ----- {districtMap.get(props.detail?.destCity)}</div>
+            <div className='times'>Planned Time: {props.detail?.startTime?.split(' ')[0]} ----- {props.detail?.endTime?.split(' ')[0]}</div>
+            <div className='vehicle'>Perfer vehicle: {props.detail?.perfVehicle}</div>
+            <div className='email'>Email: {props.detail?.email}</div>
             <div className='meg-board'>
                 <div className='meg'>message board: {props.detail?.meg} </div>
             </div>

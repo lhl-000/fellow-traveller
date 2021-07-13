@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Modal } from '@/components';
 import { TextareaItem, Button, Toast } from 'antd-mobile';
 import { addCommentsAsync } from '@/redux/actions/people'
 import { useDispatch } from 'react-redux';
-
+import cookie from 'react-cookies';
+import jwt_decode from "jwt-decode";
 export default function (props) {
 
   const [show, setShow] = useState(false);
@@ -25,19 +26,23 @@ export default function (props) {
   };
 
   const handleSubmit = () => {
+    if (!cookie.load('token')) {
+        Toast("Please login fristly");
+        return; 
+    }
     if(commentsValue){
       handleClose();
       dispatch(addCommentsAsync({
-        comment: commentsValue
+        userId: props.userId,
+        info: commentsValue,
+        commenterId: jwt_decode(cookie.load('token')).jti,
+        createTime: new Date().getTime(),
+        avatar:null
       }));
     }else {
       Toast.fail('Please add more message');
     }
   };
-
-  useEffect(() => {
-
-  }, [])
 
   return (
     <>

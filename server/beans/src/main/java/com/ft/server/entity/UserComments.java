@@ -15,9 +15,11 @@ public class UserComments {
 
     private int userId;
 
+    private String avatar;
+
     private int commenterId;
 
-    private int create_time;
+    private String createTime;
 
     private String info;
 }

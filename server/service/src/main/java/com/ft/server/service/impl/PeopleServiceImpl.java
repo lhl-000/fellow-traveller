@@ -10,6 +10,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -33,12 +34,20 @@ public class PeopleServiceImpl implements PeopleService {
     public ResultVO searchPeople(SearchMeg searchMeg) {
         PageHelper.startPage(searchMeg.getPageNum(),searchMeg.getPageSize());
         List<People> strictResult = peopleDAO.strictMatchPeopleBySearchMeg(searchMeg);
-        if (strictResult == null || strictResult.isEmpty()) {
-            return new ResultVO(200, "OK", null, strictResult);
-        }
-        System.out.println(strictResult);
-        List<People> fuzzyResult = peopleDAO.fuzzyMatchPeopleBySearchMeg(searchMeg);
-        return new ResultVO(200, "OK", null, fuzzyResult);
+
+        return new ResultVO(200, "OK", null, strictResult);
+
+        //        if (strictResult != null && !strictResult.isEmpty()) {
+//            return new ResultVO(200, "OK", null, strictResult);
+//        }
+//        List<People> fuzzyResult = peopleDAO.fuzzyMatchPeopleBySearchMeg(searchMeg);
+////        List<People> filterResult = new ArrayList<>();
+////        for (People people : fuzzyResult) {
+////            if (!strictResult.contains(people)) {
+////                filterResult.add(people);
+////            }
+////        }
+//        return new ResultVO(200, "OK", null, fuzzyResult);
     }
 
     @Override
@@ -48,11 +57,21 @@ public class PeopleServiceImpl implements PeopleService {
                 people.getStartCity(),
                 people.getDestNation(),
                 people.getDestCity(),
-                PageSize,
                 PageNum,
+                PageSize,
                 people.getStartTime(),
                 people.getEndTime());
         return searchPeople(searchMeg);
+    }
+
+    @Override
+    public ResultVO getDetail(int userId) {
+        People people = peopleDAO.queryPeopleById(userId);
+        if (people == null) {
+            return new ResultVO(200, null, "No user information was found", null);
+        }
+        return new ResultVO(200, "OK", null, people);
+
     }
 
 }

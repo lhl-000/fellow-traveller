@@ -10,6 +10,6 @@ mybatis:
   type-aliases-package: com.ft.server.entity
 pagehelper:
   helperDialect: mysql
-  reasonable: true
+  reasonable: false
   supportMethodsArguments: true
   pageSizeZero: false

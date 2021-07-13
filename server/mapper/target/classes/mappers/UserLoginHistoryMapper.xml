@@ -2,9 +2,6 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ft.server.dao.UserLoginHistoryDAO">
     <resultMap id="BaseResultMap" type="com.ft.server.entity.UserLoginHistory">
-        <!--
-          WARNING - @mbg.generated
-        -->
         <id column="ID" jdbcType="INTEGER" property="id" />
         <result column="AREA" jdbcType="VARCHAR" property="area" />
         <result column="COUNTRY" jdbcType="VARCHAR" property="country" />

@@ -44,7 +44,7 @@ public class UserController {
 
     @ApiOperation("user detail")
     @RequestMapping(value = "detail", method = RequestMethod.POST)
-    public ResultVO getDetail(@RequestBody  JSONObject json) {
+    public ResultVO getUserDetail(@RequestBody  JSONObject json) {
         return userService.getDetail(json.getString("username"));
     }
 

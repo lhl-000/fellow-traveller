@@ -4,12 +4,13 @@ import { timer } from '@/utils';
 
 export default function Lists(props) { 
 
+  const handleClick = props.handleClick;
     return (
          <div className='comment'>
            <h1 className='comment-title'>Comment</h1>
            <div className='comment-lists'>
               {props?.lists?.map(item => (
-                <div className='comment-lists-item' key={item?.id}>
+                <div className='comment-lists-item' key={item?.createTime} onClick={()=>handleClick(item.commenterId)}>
                   <img alt='user' className='avatar' src={item?.avatar} />
                   <div className='right'>
                     <div className='right-top'>

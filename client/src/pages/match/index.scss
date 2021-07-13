@@ -23,15 +23,16 @@
       background: #fff;
       margin-bottom: 12px;
       img {
-        width: 100px;
+        width: 66px;
         height: 66px;
+        margin-left: 10px;
         object-fit: cover;
       }
       &-right {
         @include flex-init(column, space-between);
         flex: 1;
-        height: 90px;
-        margin-left: 16px;
+        height: 110px;
+        margin-left: 10px;
         .name {
           display: inline;
           font-size: 16px;

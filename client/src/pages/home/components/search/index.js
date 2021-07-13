@@ -1,4 +1,4 @@
-import React, { useState, useEffect, memo } from 'react'
+import React, { useState, memo } from 'react'
 import { Picker, List, Calendar, Button } from 'antd-mobile'
 import dayjs from 'dayjs';
 import { useHistory } from 'react-router-dom';
@@ -12,10 +12,6 @@ function Search(props) {
     const initTime = dayjs().add(1, 'day').format('YYYY-MM-DD');
     const [times, setTimes] = useState(`${initTime}~${initTime}`);
     const [dateShow, setDateShow] = useState(false);
-
-    useEffect(() => {
-
-    }, []);
 
     const handleStartChange = (value) => {
         setSelectedStartAdrr(value);

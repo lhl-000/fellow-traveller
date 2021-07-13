@@ -1,7 +1,11 @@
 package com.ft.server.dao;
 
 import com.ft.server.entity.User;
+import com.ft.server.entity.UserComments;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 /**
  * @author lee
@@ -9,7 +13,13 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface UserCommentsDAO {
-    public int insertUserComment(User user);
+    public int insertUserComment(UserComments userComments);
 
-    public User queryUserById(int userId);
+    public List<UserComments> queryUserById(
+            @Param("userId")
+            int userId,
+            @Param("pageSize")
+            int pageSize,
+            @Param("pageNum")
+            int PageNum);
 }
