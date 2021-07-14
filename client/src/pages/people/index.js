@@ -7,7 +7,7 @@ import { useObserverHook } from '@/hooks';
 import { CommonEnum } from '@/enum';
 import { useDispatch, shallowEqual, useSelector } from 'react-redux';
 import { getDetailAsync, getCommentsAsync, resetData, reloadComments } from '@/redux/actions/people';
-import { useLocation } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 import './index.scss';
 
 
@@ -25,6 +25,8 @@ export default function People() {
 
   const dispatch = useDispatch();
 
+  const history = useHistory();
+
   const { search } = useLocation();
 
  useEffect(() => {
@@ -33,6 +35,17 @@ export default function People() {
   }
   }, []);
 
+  const query = new URLSearchParams(search);
+
+  const [userId, setUserId] = useState(query?.get('id'));
+
+  useEffect(() => {
+    history.listen(route => {
+      const jump = new URLSearchParams(route.search);
+      setUserId(jump?.get('id'));
+    })
+  }, [])
+
   useObserverHook('#' + CommonEnum.LONDING_ID, (entries) => {
     if (comments && comments.length && showLoading && entries[0].isIntersecting) {
       dispatch(reloadComments({}));
@@ -40,18 +53,16 @@ export default function People() {
   }, [comments, showLoading]);
 
   useEffect(() => {
-    const query = new URLSearchParams(search); 
     dispatch(getDetailAsync({
-      userId: query?.get('id')
+      userId: userId
     }));
-  }, []);
+  }, [userId]);
 
   useEffect(() => {
-    const query = new URLSearchParams(search);
     dispatch(getCommentsAsync({ page, comments }, {
-      userId: query?.get('id')
+      userId: userId
     }));
-  }, [reloadCommentsNum]);
+  }, [reloadCommentsNum, userId]);
 
   return (
     <div className='people-page'>

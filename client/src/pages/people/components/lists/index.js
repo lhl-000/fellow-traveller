@@ -12,8 +12,8 @@ export default function Lists(props) {
       pathname: '/people',
       search: `?id=${value}`
   })
-      window.scrollTo(0,0)
-      window.location.reload();
+      // window.scrollTo(0,0)
+      // window.location.reload();
   }
 
     return (
@@ -23,7 +23,7 @@ export default function Lists(props) {
               {props?.lists?.sort((a, b)=>{
                 return parseInt(b.createTime) - parseInt(a.createTime)
               }).map(item => (
-                <div className='comment-lists-item' key={item?.createTime} onClick={()=>handleClick(item.commenterId)}>
+                <div className='comment-lists-item' key={item?.createTime+item.userId} onClick={()=>handleClick(item.commenterId)}>
                   <img alt='user' className='avatar' src={item?.avatar} />
                   <div className='right'>
                     <div className='right-top'>
