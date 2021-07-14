@@ -59,6 +59,7 @@ export default function User(props) {
               {...getFieldProps('password', {
                 rules: [{ required: true }]
               })}
+              type='password'
               placeholder='must be larger than 8 dights'
             >
               Password：

@@ -49,6 +49,7 @@ function Login(props) {
                 {...getFieldProps('password', {
                     rules: [{ required: true }]
                     })}
+                type='password'
                 placeholder='password'>
                 Password:
                 </InputItem>
