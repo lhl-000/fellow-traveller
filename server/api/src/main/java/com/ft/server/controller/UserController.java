@@ -5,13 +5,10 @@ import com.ft.server.entity.User;
 import com.ft.server.service.UserService;
 import com.ft.server.vo.ResultVO;
 import io.swagger.annotations.*;
-import jdk.swing.interop.SwingInterOpUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
+import javax.servlet.http.HttpServletRequest;
 /**
  * @author lee
  * @create 2021-07-01 15:00
@@ -20,7 +17,7 @@ import java.util.Date;
 @RestController
 @RequestMapping("api/user")
 @Api(value = "user management", tags = "provide interface for login and register")
-@CrossOrigin
+@CrossOrigin(allowCredentials = "true")
 public class UserController {
 
     @Resource
@@ -32,8 +29,10 @@ public class UserController {
             @ApiImplicitParam(dataType = "string", name = "password", value = "password", required = false, defaultValue = "")
     })
     @RequestMapping(value = "login", method = RequestMethod.POST)
-        public ResultVO login(@RequestBody JSONObject json) {
-        return userService.checkLogin(json.getString("username"), json.getString("password"));
+        public ResultVO login(HttpServletRequest request, @RequestBody JSONObject json) {
+
+        String verifyCode = (String) request.getSession(false).getAttribute("verifyCode");
+        return userService.checkLogin(verifyCode, json.getString("username"), json.getString("password"), json.getString("verifyCode"));
     }
 
     @ApiOperation("user register")

@@ -7,6 +7,7 @@ export default function Http({
   body = {},
   setResult,
   setLoading,
+  credentials,
 }){
   setLoading && setLoading(true);
 
@@ -24,16 +25,15 @@ export default function Http({
         headers
       },
       method,
+      credentials,
       body: JSON.stringify(body)
     }
   }
 
   return new Promise((resolve, reject)=>{
-    console.log(base_url + url, params);
     fetch(base_url + url, params)
       .then(res => res.json())
       .then(res => {
-        console.log(res);
         if(res.status === 200 && res.errMsg === null){
           resolve(res.data);
           setResult && setResult(res.data);

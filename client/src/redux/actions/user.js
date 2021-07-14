@@ -40,6 +40,7 @@ export const loginAsync = (data, history) => {
     return async () => {
         const result = await Http({
             url: '/user/login',
+            credentials:'include',
             body: data
         });
         if (result) {

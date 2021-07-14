@@ -16,7 +16,7 @@ import javax.annotation.Resource;
 @RestController
 @RequestMapping("api/comments")
 @Api(value = "people management", tags = "provide interface for getting people info")
-@CrossOrigin
+@CrossOrigin()
 public class CommentsController {
     @Resource
     UserCommentsService userCommentsService;

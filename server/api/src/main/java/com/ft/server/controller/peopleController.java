@@ -1,14 +1,11 @@
 package com.ft.server.controller;
 
 import com.alibaba.fastjson.JSONObject;
-import com.ft.server.entity.People;
 import com.ft.server.entity.SearchMeg;
 import com.ft.server.service.PeopleService;
-import com.ft.server.service.UserService;
 import com.ft.server.vo.ResultVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;

@@ -31,8 +31,16 @@ public class UserServiceImpl implements UserService {
     private UserDAO userDAO;
 
     @Override
-    public ResultVO checkLogin(String username, String password) {
-       User user =  userDAO.queryUserByName(username);
+    public ResultVO checkLogin(String verifyCode, String username, String password, String userVerifyCode) {
+        if (userVerifyCode == null) {
+            return new ResultVO(200, null,"Please input verify code", null);
+        }  else if (verifyCode == null) {
+            return new ResultVO(200, null,"Verify code expired", null);
+        }
+        if (!userVerifyCode.equals(verifyCode)) {
+            return new ResultVO(200, null,"Your verify code was wrong", null);
+        }
+        User user =  userDAO.queryUserByName(username);
        if (user == null) {
            return new ResultVO(200, null,"Username doesn't exist",  null);
        } else {
@@ -70,9 +78,9 @@ public class UserServiceImpl implements UserService {
                             .setExpiration(new Date(System.currentTimeMillis() + 7*24*60*60*1000))
                             .signWith(SignatureAlgorithm.HS256, "fellow-traveller")
                             .compact();
-                    return new ResultVO(200, "register successfully",null, token);
+                    return new ResultVO(200, "Register successfully",null, token);
                 } else {
-                    return new ResultVO(200, null,"fail to register", null);
+                    return new ResultVO(200, null,"Fail to register", null);
                 }
             } else {
                 return new ResultVO(200, null,"Username has been registered", null);

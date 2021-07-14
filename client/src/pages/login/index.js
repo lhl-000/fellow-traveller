@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { List, InputItem, Button, Toast } from 'antd-mobile';
 import { createForm } from 'rc-form';
 import { loginAsync } from '@/redux/actions/user';
@@ -9,6 +9,8 @@ import './index.scss';
 function Login(props) {
 
     const { getFieldProps, validateFields } = props.form;
+
+    const [imgSrc, setImgSrc] = useState('http://localhost:8080/api/img/getVerifyCode');
 
     const dispatch = useDispatch();
 
@@ -22,6 +24,10 @@ function Login(props) {
             }
           });
     }
+
+    const handleVerifyCode =  ()=> {
+      setImgSrc('http://localhost:8080/api/img/getVerifyCode'+ Math.random())
+      }
 
     const handleClick = () => {
         props.history.push('/register');
@@ -46,8 +52,15 @@ function Login(props) {
                 placeholder='password'>
                 Password:
                 </InputItem>
-
+                <InputItem 
+                {...getFieldProps('verifyCode', {
+                    rules: [{ required: true }]
+                    })}
+                placeholder=''>
+                Verify code:
+                </InputItem>
            </List>
+           <img className="verifyCode" style={{height:40,width:100}} src={imgSrc} onClick={handleVerifyCode} alt="验证码" />
            <Button type='warning' onClick={handleSubmit}>Log in</Button>
            <div className='register' onClick={handleClick}>Still no account? Go to register</div>
         </div>
