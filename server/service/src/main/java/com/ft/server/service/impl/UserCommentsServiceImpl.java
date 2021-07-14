@@ -31,7 +31,7 @@ public class UserCommentsServiceImpl implements UserCommentsService {
         synchronized (this) {
             int result = userCommentsDAO.insertUserComment(userComments);
             if (result > 0) {
-                return new ResultVO(200, "OK", null, null );
+                return new ResultVO(200, "OK", null, "OK" );
             } else {
                 return new ResultVO(200,null , "Failed to comment", null );
             }

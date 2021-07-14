@@ -5,6 +5,7 @@ import { addCommentsAsync } from '@/redux/actions/people'
 import { useDispatch } from 'react-redux';
 import cookie from 'react-cookies';
 import jwt_decode from "jwt-decode";
+import { useLocation } from 'react-router-dom';
 export default function (props) {
 
   const [show, setShow] = useState(false);
@@ -12,6 +13,8 @@ export default function (props) {
   const [commentsValue, setCommentsValue] = useState();
 
   const dispatch = useDispatch();
+
+  const { search } = useLocation();
 
   const handleClick = () => {
     setShow(true)
@@ -27,13 +30,15 @@ export default function (props) {
 
   const handleSubmit = () => {
     if (!cookie.load('token')) {
+        handleClose();
         Toast("Please login fristly");
         return; 
     }
     if(commentsValue){
       handleClose();
+      const query = new URLSearchParams(search); 
       dispatch(addCommentsAsync({
-        userId: props.userId,
+        userId: query?.get('id'),
         info: commentsValue,
         commenterId: jwt_decode(cookie.load('token')).jti,
         createTime: new Date().getTime(),

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import Banner from './components/banner';
 import Info from './components/info';
 import List from './components/lists';
@@ -27,9 +27,11 @@ export default function People() {
 
   const { search } = useLocation();
 
- const query = new URLSearchParams(search); 
-
- const userId = query?.get('id');
+ useEffect(() => {
+  return () => {
+    dispatch(resetData({}));
+  }
+  }, []);
 
   useObserverHook('#' + CommonEnum.LONDING_ID, (entries) => {
     if (comments && comments.length && showLoading && entries[0].isIntersecting) {
@@ -38,29 +40,25 @@ export default function People() {
   }, [comments, showLoading]);
 
   useEffect(() => {
+    const query = new URLSearchParams(search); 
     dispatch(getDetailAsync({
-      userId: userId
+      userId: query?.get('id')
     }));
   }, []);
 
   useEffect(() => {
+    const query = new URLSearchParams(search);
     dispatch(getCommentsAsync({ page, comments }, {
-      userId: userId
+      userId: query?.get('id')
     }));
   }, [reloadCommentsNum]);
-
-  useEffect(() => {
-    return () => {
-      dispatch(resetData({}));
-    }
-  }, []);
 
   return (
     <div className='people-page'>
       <Banner />
       <Info detail={detail} />
-      <List lists={comments} showLoading={showLoading} />
-      <Footer userId={userId}/>
+      <List lists={comments} showLoading={showLoading}/>
+      <Footer/>
     </div>
   )
 }

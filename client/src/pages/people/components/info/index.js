@@ -6,7 +6,7 @@ import { districtMap } from '@/asserts/districtMap';
 export default function Info(props) {
 
     return (
-        <div className='info'>
+        <div className='info' key={props.detail.userId}>
             <div className='info-top'>
                 <div className='avatar'>
                     <img alt='pic' src={props.detail.avatar}></img>

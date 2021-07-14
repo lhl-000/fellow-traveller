@@ -8,7 +8,7 @@ export const getComments = (data) => ({type:CommonEnum.GETCOMMENTS, data: data})
 export const setShowLoading = (data) => ({type:CommonEnum.SETSHOWLOADING, data: data});
 
 export const reloadComments = (data) => ({
-    type:CommonEnum.RELOADCOMMENTS,
+    type: CommonEnum.RELOADCOMMENTS,
     data: data
 });
 
@@ -38,6 +38,8 @@ export const getCommentsAsync = (state, data) => {
             pageNum: page.pageNum
             }
         });
+        if (lists.length) {
+        }
         dispatch(getComments([...comments, ...lists]));
         dispatch(setShowLoading(lists.length ? true : false));
     }
