@@ -152,7 +152,7 @@ function Edit(props) {
                   </div>
             </List>
             <List 
-              renderHeader={() => 'Message board'}>
+              renderHeader={() => 'Sign'}>
               <div className='user-edit-meg'>
                 <TextareaItem
                     rows={2}
@@ -162,7 +162,7 @@ function Edit(props) {
                         rules: [],
                       })}
                     >
-                    Message:
+                    Sign:
                  </TextareaItem>
               </div>
             </List>

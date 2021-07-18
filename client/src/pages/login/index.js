@@ -3,8 +3,10 @@ import { List, InputItem, Button, Toast } from 'antd-mobile';
 import { createForm } from 'rc-form';
 import { loginAsync } from '@/redux/actions/user';
 import { useDispatch} from 'react-redux';
-
+import cookie from 'react-cookies';
 import './index.scss';
+
+import WebIM from '@/config/WebIM'
 
 function Login(props) {
 
@@ -14,6 +16,18 @@ function Login(props) {
 
     const dispatch = useDispatch();
 
+    const webIM_login = (username, password) =>{
+      return { 
+          user: username,
+          pwd: password,
+          appKey: WebIM.config.appkey,
+          success: function (res) {
+            var token = res.access_token;
+            cookie.save('im_token', token)
+          },      
+        }
+    }
+
     const handleSubmit = () => {
         validateFields((error, value) => {
             if (error) {
@@ -21,6 +35,8 @@ function Login(props) {
               return;
             } else {
               dispatch(loginAsync(value, props.history));
+              const options = webIM_login(value.username, value.password);
+              WebIM.conn.open(options);
             }
           });
     }

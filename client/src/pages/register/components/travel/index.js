@@ -85,16 +85,16 @@ export default function Travel(props) {
                   </div>
             </List>
             <List 
-              renderHeader={() => 'Message board'}>
+              renderHeader={() => 'Sign'}>
               <div className='travel-meg'>
                 <TextareaItem
                     rows={2}
                       {...getFieldProps('meg', {
                         rules: [{ required: true }]
                       })}
-                      placeholder='leave a message'
+                      placeholder='leave your  sign'
                     >
-                    Message:
+                    Sign:
                  </TextareaItem>
               </div>
             </List>

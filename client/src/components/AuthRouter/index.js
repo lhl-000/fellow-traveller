@@ -5,11 +5,15 @@ import cookie from 'react-cookies';
 
 function AuthRouter(props) {
  
-    const { component: Component, ...rest } = props
+    const { component: Component, im, ...rest } = props
     const isLogIn = cookie.load('token') ? true : false;
+    let isIMLogin = true;
+    if (im) {
+        isIMLogin = cookie.load('im_token') ? true : false;
+    }
     return (
         <Route {...rest} render={(props) => (
-            isLogIn
+            isLogIn && isIMLogin
                 ? <Component {...props} />
                 : <Redirect to="/login" />
         )} />

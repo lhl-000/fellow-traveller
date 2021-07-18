@@ -2,11 +2,12 @@ import React, {useEffect } from 'react';
 import { Button, List } from 'antd-mobile';
 import { useDispatch, shallowEqual, useSelector } from 'react-redux';
 import { getUserAsync } from '@/redux/actions/user';
-import jwt_decode from "jwt-decode";
 import cookie from 'react-cookies';
 import {useHistory} from 'react-router-dom';
+import jwt_decode from 'jwt-decode';
 import './index.scss';
 
+import WebIM from '@/config/WebIM';
 
 export default function User(props) {
 
@@ -35,7 +36,8 @@ export default function User(props) {
       }, [])
 
       const handleButtom = () => {
-        cookie.remove("token");
+        cookie.remove('token');
+        cookie.remove('im-token')
         history.push('./')
       }
 
@@ -46,7 +48,7 @@ export default function User(props) {
                 <div className='user'>
                     <img alt='user' src={avatar} />
                     <div className='name'>{username}</div>
-                    <div className='sign'>{meg}</div>
+                    <div className='sign'>Sign: {meg}</div>
                 </div>
             </div>
             <div className='lists'>

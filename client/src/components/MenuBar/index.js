@@ -25,7 +25,7 @@ class MenuBar extends Component {
                     link: '/match'
                 },
                 {
-                    title: 'chat',
+                    title: 'message',
                     selectedIcon: < BsFillChatDotsFill style={{fontSize: '1.5rem'}} />,
                     icon: <BsChatDots style={{fontSize: '1.5rem'}} />,
                     link: '/chat'

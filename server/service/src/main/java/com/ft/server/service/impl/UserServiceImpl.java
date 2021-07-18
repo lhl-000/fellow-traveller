@@ -1,8 +1,10 @@
 package com.ft.server.service.impl;
 
 import com.alibaba.fastjson.JSONObject;
+import com.easemob.im.server.EMException;
 import com.ft.server.dao.UserDAO;
 import com.ft.server.entity.User;
+import com.ft.server.service.HXIMService;
 import com.ft.server.service.UserService;
 import com.ft.server.vo.ResultVO;
 import io.jsonwebtoken.JwtBuilder;
@@ -11,6 +13,7 @@ import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import reactor.core.publisher.Mono;
 import utils.MD5Utils;
 import javax.annotation.Resource;
 import java.text.ParseException;
@@ -29,6 +32,8 @@ public class UserServiceImpl implements UserService {
 
     @Resource
     private UserDAO userDAO;
+
+    private HXIMService hximService;
 
     @Override
     public ResultVO checkLogin(String verifyCode, String username, String password, String userVerifyCode) {
@@ -69,6 +74,11 @@ public class UserServiceImpl implements UserService {
                 String md5PWD = MD5Utils.md5(user.getPassword());
                 user.setPassword(md5PWD);
                 int i = userDAO.insertUser(user);
+                hximService.service().user().create(user.getUsername(), user.getPassword())
+                        .doOnSuccess(ignore -> System.out.println("done"))
+                        .doOnError(err -> System.out.println("error: " + err.getMessage()))
+                        .onErrorResume(EMException.class, ignore -> Mono.empty())
+                        .block();
                 if (i > 0) {
                     JwtBuilder builder = Jwts.builder();
                     HashMap<String,Object> map = new HashMap<>();

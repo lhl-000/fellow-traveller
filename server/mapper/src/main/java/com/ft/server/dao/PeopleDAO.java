@@ -1,12 +1,7 @@
 package com.ft.server.dao;
-
 import com.ft.server.entity.People;
 import com.ft.server.entity.SearchMeg;
-import com.ft.server.entity.User;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
-
-import java.util.Date;
 import java.util.List;
 
 /**

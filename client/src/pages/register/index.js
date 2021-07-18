@@ -8,6 +8,10 @@ import { registerAsync } from '@/redux/actions/user';
 import { useDispatch} from 'react-redux';
 import './index.scss';
 
+// import WebIM from '@/config/WebIM'
+
+
+
 function Register(props) {
 
     const dispatch = useDispatch();
@@ -15,15 +19,42 @@ function Register(props) {
     const { validateFields } = props.form;
 
     const [files, setFiles] = useState([]);
-    const [selectedStartAdrr, setSelectedStartAdrr] = useState(['10000', '10001']);
-    const [selectedDestinationAdrr, setSelectedDestinationAdrr] = useState(['20000', '20001']);
+    const [selectedStartAdrr, setSelectedStartAdrr] = useState([10000, 10001]);
+    const [selectedDestinationAdrr, setSelectedDestinationAdrr] = useState([20000, 20001]);
     const [selectedVehicle, setSelectedVehicle] = useState(['Both']);
     const initTime = dayjs().add(1, 'day').format('YYYY-MM-DD');
     const [times, setTimes] = useState(`${initTime}~${initTime}`);
     const [selectedSex, setSelectedSex] = useState(['M'])
 
     const emailPatt = /^[A-Za-z\d]+([-_.][A-Za-z\d]+)*@([A-Za-z\d]+[-.])+[A-Za-z\d]{2,4}$/;
-;
+    const usernamePatt = new RegExp("^([\u4E00-\uFA29]|[\uE7C7-\uE7F3]|[a-zA-Z0-9])*$");
+
+    //环信服务器注册
+    // const webIM_regiester = (username, password, nickname) => {
+    //   return { 
+    //     username: username,
+    //     password: password,
+    //     nickname: nickname,
+    //     appKey: WebIM.config.appkey,
+    //     success: function () { },  
+    //     error: function (err) {
+    //         let errorData = JSON.parse(err.data);
+    //         if (errorData.error === 'duplicate_unique_property_exists') {
+    //             console.log('用户已存在！');
+    //         } else if (errorData.error === 'illegal_argument') {
+    //             if (errorData.error_description === 'USERNAME_TOO_LONG') {
+    //                 console.log('用户名超过64个字节！')
+    //             }else{
+    //                 console.log('用户名不合法！')
+    //             }
+    //         } else if (errorData.error === 'unauthorized') {
+    //             console.log('注册失败，无权限！')
+    //         } else if (errorData.error === 'resource_limited') {
+    //             console.log('您的App用户注册数量已达上限,请升级至企业版！')
+    //         }
+    //     }, 
+    //   }; 
+    // }
 
     const handleSubmit = () => {
         validateFields((error, value) => {
@@ -33,10 +64,11 @@ function Register(props) {
           } else {
             if (value.username.length > 64) {
               Toast.fail('The username is too long');
+              return;
             }
-            const pattern = new RegExp("^([\u4E00-\uFA29]|[\uE7C7-\uE7F3]|[a-zA-Z0-9])*$");
-            if (!pattern.test(value.usernmae)) {
+            if (!usernamePatt.test(value.usernmae)) {
               Toast.fail('The username has illegal characters');
+              return;
             }
             if (value.password && value.password.length < 8) {
               Toast.fail('The password must be larger than 8 dights');
@@ -73,6 +105,8 @@ function Register(props) {
                 userModeTime: currentTime,
             }
               , props.history));
+              // const options = webIM_regiester(value.username, value.password, value.username);
+              // WebIM.conn.registerUser(options);
           }
         });
       };

@@ -1,4 +1,4 @@
-import { Switch, Route, Redirect } from "react-router-dom";
+import { Switch, Route } from "react-router-dom";
 import Home from "./pages/home";
 import User from "./pages/user";
 import Match from "./pages/match";
@@ -16,7 +16,7 @@ function App() {
     <Switch>
       <Route path="/" exact component={Home} />
       <AuthRouter path="/match" component={Match}></AuthRouter>
-      <AuthRouter path="/chat" component={Chat}></AuthRouter>
+      <AuthRouter path="/chat" component={Chat} im={true}></AuthRouter>
       <AuthRouter path="/user/edit" component={Edit}></AuthRouter>
       <AuthRouter path="/user" component={User}></AuthRouter>
       <Route path="/search" component={Search} />

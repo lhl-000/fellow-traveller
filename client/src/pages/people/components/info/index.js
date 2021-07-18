@@ -2,9 +2,15 @@ import React from 'react'
 import { Button } from 'antd-mobile';
 import { BiFemaleSign, BiMaleSign } from 'react-icons/bi';
 import { districtMap } from '@/asserts/districtMap';
+import { useHistory } from 'react-router-dom';
 
 export default function Info(props) {
 
+    const history = useHistory();
+    
+    // const handleClick = () => {
+    //     history.push
+    // }
     return (
         <div className='info' key={props.detail.userId}>
             <div className='info-top'>
@@ -24,7 +30,7 @@ export default function Info(props) {
             <div className='vehicle'>Perfer vehicle: {props.detail?.perfVehicle}</div>
             <div className='email'>Email: {props.detail?.email}</div>
             <div className='meg-board'>
-                <div className='meg'>message board: {props.detail?.meg} </div>
+                <div className='meg'>Sign: {props.detail?.meg} </div>
             </div>
             <Button className='info-chat-but' type='warning'>Chat</Button>
         </div>

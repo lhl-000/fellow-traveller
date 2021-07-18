@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 /**
  * @author lee
  * @create 2021-07-01 15:00
@@ -30,9 +32,13 @@ public class UserController {
     })
     @RequestMapping(value = "login", method = RequestMethod.POST)
         public ResultVO login(HttpServletRequest request, @RequestBody JSONObject json) {
-
-        String verifyCode = (String) request.getSession(false).getAttribute("verifyCode");
-        return userService.checkLogin(verifyCode, json.getString("username"), json.getString("password"), json.getString("verifyCode"));
+        HttpSession session = request.getSession(false);
+        String verifyCode = (String) session.getAttribute("verifyCode");
+        ResultVO result =  userService.checkLogin(verifyCode, json.getString("username"), json.getString("password"), json.getString("verifyCode"));
+        if (result.getStatus() == 200) {
+            session.invalidate();
+        }
+        return result;
     }
 
     @ApiOperation("user register")

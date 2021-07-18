@@ -2,7 +2,6 @@
 import { Http } from '@/utils';
 import { Toast } from 'antd-mobile';
 import { CommonEnum } from '@/enum';
-import jwt_decode from "jwt-decode";
 import cookie from 'react-cookies';
 
 export const getUser = (data) => ({ type: CommonEnum.GETUSER, data: data });
@@ -57,7 +56,6 @@ export const registerAsync = (data, history) => {
             url: '/user/register',
             body: data
         });
-        console.log(result);
         if (result) {
             cookie.save('token', result);
             Toast.success('Register successfully');

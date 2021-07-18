@@ -1,16 +1,31 @@
 import React from 'react'
+import Header from './components/header';
+import Lists from './components/lists';
+import jwt_decode from 'jwt-decode';
+import cookie from 'react-cookies';
+
+import WebIM from '@/config/WebIM'
 
 export default function Chat() {
+
+    const options = {
+        user: jwt_decode(cookie.load('token')).sub,
+        accessToken: cookie.load('im-token'),
+        appKey: WebIM.config.appkey
+    };
+    WebIM.conn.open(options);
+
+
     
-    const config = {
-        appkey:'pwe86ga5psro6',
-        token:'+cHjUc+ef57BPm62oH+U5WKzsGgnSEly@aun0.cn.rongnav.com;aun0.cn.rongcfg.com',
-    }
+    // WebIM.conn.getRoster({
+    //     success: function (res) {
+    //         console.log('获取好友', res)
+    //     }
+    // })
 
     return (
         <div>
-            
-            chat
+            <Header><Lists/></Header>
         </div>
     )
 }
