@@ -1,10 +1,12 @@
 import React, {useEffect } from 'react';
-import { List } from 'antd-mobile';
+import { Button, List } from 'antd-mobile';
 import { useDispatch, shallowEqual, useSelector } from 'react-redux';
 import { getUserAsync } from '@/redux/actions/user';
 import jwt_decode from "jwt-decode";
 import cookie from 'react-cookies';
+import {useHistory} from 'react-router-dom';
 import './index.scss';
+
 
 export default function User(props) {
 
@@ -20,6 +22,8 @@ export default function User(props) {
 
     const { avatar, meg } = useSelector(selector, shallowEqual);
 
+    const history = useHistory();
+
     const handleClick = () => {
         props.history.push('user/edit');
     };
@@ -29,6 +33,11 @@ export default function User(props) {
             username : username,
           }));
       }, [])
+
+      const handleButtom = () => {
+        cookie.remove("token");
+        history.push('./')
+      }
 
     return (
         <div className='user-page'>
@@ -53,6 +62,7 @@ export default function User(props) {
                     </List.Item>
                 </List>
             </div>
+            <Button className='logout-btn' type='warning' style={{ marginTop: '20px' }} onClick={handleButtom}>Logout</Button>
         </div>
     )
 }

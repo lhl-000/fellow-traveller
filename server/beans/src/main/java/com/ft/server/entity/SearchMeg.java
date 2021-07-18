@@ -16,6 +16,9 @@ import java.sql.Date;
 @AllArgsConstructor
 
 public class SearchMeg {
+
+    private String peopleName;
+
     private int startNation;
 
     private int startCity;

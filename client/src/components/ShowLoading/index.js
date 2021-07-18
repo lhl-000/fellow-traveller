@@ -9,7 +9,7 @@ export default function ShowLoading(props) {
         <div>
             {props.showLoading 
                 ? <div id={CommonEnum.LONDING_ID} className='loading-info'>loading</div> 
-                : <div className='loading-info'>没有数据了~</div>}
+                : <div className='loading-info'>No more data~</div>}
         </div>
     )
 }

@@ -28,15 +28,7 @@ export default function People() {
   const history = useHistory();
 
   const { search } = useLocation();
-
- useEffect(() => {
-  return () => {
-    dispatch(resetData({}));
-  }
-  }, []);
-
   const query = new URLSearchParams(search);
-
   const [userId, setUserId] = useState(query?.get('id'));
 
   useEffect(() => {
@@ -45,6 +37,12 @@ export default function People() {
       setUserId(jump?.get('id'));
     })
   }, [])
+
+ useEffect(() => {
+  return () => {
+    dispatch(resetData({}));
+  }
+  }, [userId]);
 
   useObserverHook('#' + CommonEnum.LONDING_ID, (entries) => {
     if (comments && comments.length && showLoading && entries[0].isIntersecting) {

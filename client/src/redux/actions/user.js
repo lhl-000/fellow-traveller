@@ -45,7 +45,6 @@ export const loginAsync = (data, history) => {
         });
         if (result) {
             cookie.save('token', result);
-            console.log(jwt_decode(result));
             history.push('/');
             Toast.success('Login successfully');
         }

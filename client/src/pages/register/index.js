@@ -31,6 +31,13 @@ function Register(props) {
             Toast.fail('Please fill the information completely');
             return;
           } else {
+            if (value.username.length > 64) {
+              Toast.fail('The username is too long');
+            }
+            const pattern = new RegExp("^([\u4E00-\uFA29]|[\uE7C7-\uE7F3]|[a-zA-Z0-9])*$");
+            if (!pattern.test(value.usernmae)) {
+              Toast.fail('The username has illegal characters');
+            }
             if (value.password && value.password.length < 8) {
               Toast.fail('The password must be larger than 8 dights');
               return;

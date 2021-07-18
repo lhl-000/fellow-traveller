@@ -125,4 +125,24 @@
             WHERE user_id = #{userId}
     </select>
 
+    <select id="queryPeopleByName" resultMap="peopleMap">
+            select
+            user_id,
+            username,
+            email,
+            user_sex,
+            avatar,
+            start_nation,
+            start_city,
+            dest_nation,
+            dest_city,
+            start_time,
+            end_time,
+            perf_vehicle,
+            meg,
+            user_regtime
+            FROM users
+            WHERE username LIKE #{peopleName}
+    </select>
+
 </mapper>

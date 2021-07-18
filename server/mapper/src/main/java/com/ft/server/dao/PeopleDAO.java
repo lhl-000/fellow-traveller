@@ -20,6 +20,8 @@ public interface PeopleDAO {
 
     public People queryPeopleById(int userId);
 
+    public List<People> queryPeopleByName(String peopleName);
+
     public List<People> strictMatchPeopleBySearchMeg(SearchMeg searchMeg);
 
     public List<People> fuzzyMatchPeopleBySearchMeg(SearchMeg searchMeg);

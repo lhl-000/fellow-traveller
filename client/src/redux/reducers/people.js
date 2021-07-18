@@ -27,7 +27,7 @@ export default function peopleReducer(preState = initState, action) {
         case CommonEnum.RESETDATA:
             preState.comments = [];
             preState.page.pageNum = 1;
-            preState.showLoading = true;
+            preState.showLoading = false;
             preState.reloadCommentsNum = 0;
             return preState;
         default:

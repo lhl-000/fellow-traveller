@@ -33,8 +33,11 @@ public class PeopleServiceImpl implements PeopleService {
     @Override
     public ResultVO searchPeople(SearchMeg searchMeg) {
         PageHelper.startPage(searchMeg.getPageNum(),searchMeg.getPageSize());
+        if (!(searchMeg.getPeopleName() == null) && !(searchMeg.getPeopleName() == "")) {
+            List<People> result = peopleDAO.queryPeopleByName(searchMeg.getPeopleName());
+            return new ResultVO(200, "OK", null, result);
+        }
         List<People> strictResult = peopleDAO.strictMatchPeopleBySearchMeg(searchMeg);
-
         return new ResultVO(200, "OK", null, strictResult);
 
         //        if (strictResult != null && !strictResult.isEmpty()) {
@@ -53,7 +56,7 @@ public class PeopleServiceImpl implements PeopleService {
     @Override
     public ResultVO matchPeople(int userId, int PageSize, int PageNum) {
         People people = peopleDAO.queryPeopleById(userId);
-        SearchMeg searchMeg = new SearchMeg(people.getStartNation(),
+        SearchMeg searchMeg = new SearchMeg(null, people.getStartNation(),
                 people.getStartCity(),
                 people.getDestNation(),
                 people.getDestCity(),

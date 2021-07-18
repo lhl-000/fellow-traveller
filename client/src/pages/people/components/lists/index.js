@@ -36,8 +36,9 @@ export default function Lists(props) {
                   </div>
                 </div>
               ))}
-        <ShowLoading showLoading={props?.showLoading} />
-      </div>
+          </div>
+          <ShowLoading showLoading={props?.showLoading} />
+
     </div>
     )
 }

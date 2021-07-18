@@ -49,7 +49,7 @@
       margin-top: 20px;
     }
     &-lists {
-      margin: 12px 12px 60px 12px;
+      margin: 12px 12px 0px 12px;
       background: #fff;
       &-item {
         @include flex-init(row, flex-start, flex-start);
@@ -72,6 +72,9 @@
           }
         }
       }
+    }
+    .loading-info {
+      padding-bottom: 80px;
     }
   }
 
