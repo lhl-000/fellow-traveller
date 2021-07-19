@@ -11,7 +11,8 @@ export default function Info(props) {
     const handleClick = () => {
         history.push({
             pathname: '/chat/private',
-            search: `?name=${props.detail.username}`
+            search: `?name=${props.detail.username}`,
+            state: {preUrl: window.location.pathname+window.location.search}
         })
     }
     return (

@@ -49,7 +49,6 @@ export const loginAsync = (data, history, target) => {
             } else {
                 history.push('/');
             }
-            
             Toast.success('Login successfully');
         }
     }

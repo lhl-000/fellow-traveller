@@ -10,7 +10,7 @@ export default function Chat() {
 
     const options = {
         user: jwt_decode(cookie.load('token')).sub,
-        accessToken: cookie.load('im-token'),
+        accessToken: cookie.load('im_token'),
         appKey: WebIM.config.appkey
     };
     WebIM.conn.open(options);
@@ -26,4 +26,4 @@ export default function Chat() {
             <Header><Private/></Header>
         </div>
     )
-}
+} 
