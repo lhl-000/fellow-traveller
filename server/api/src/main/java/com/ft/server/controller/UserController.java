@@ -35,7 +35,7 @@ public class UserController {
         HttpSession session = request.getSession(false);
         String verifyCode = (String) session.getAttribute("verifyCode");
         ResultVO result =  userService.checkLogin(verifyCode, json.getString("username"), json.getString("password"), json.getString("verifyCode"));
-        if (result.getStatus() == 200) {
+        if (result.getMsg() != null) {
             session.invalidate();
         }
         return result;

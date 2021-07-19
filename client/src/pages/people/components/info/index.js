@@ -8,9 +8,12 @@ export default function Info(props) {
 
     const history = useHistory();
     
-    // const handleClick = () => {
-    //     history.push
-    // }
+    const handleClick = () => {
+        history.push({
+            pathname: '/chat/private',
+            search: `?name=${props.detail.username}`
+        })
+    }
     return (
         <div className='info' key={props.detail.userId}>
             <div className='info-top'>
@@ -32,7 +35,7 @@ export default function Info(props) {
             <div className='meg-board'>
                 <div className='meg'>Sign: {props.detail?.meg} </div>
             </div>
-            <Button className='info-chat-but' type='warning'>Chat</Button>
+            <Button className='info-chat-but' type='warning' onClick={handleClick}>Chat</Button>
         </div>
     )
 }

@@ -2,6 +2,7 @@ import { Switch, Route } from "react-router-dom";
 import Home from "./pages/home";
 import User from "./pages/user";
 import Match from "./pages/match";
+import Private from './pages/chat/components/private/components/page';
 import Chat from "./pages/chat";
 import Search from './pages/search';
 import Observer from './pages/observer';
@@ -16,6 +17,7 @@ function App() {
     <Switch>
       <Route path="/" exact component={Home} />
       <AuthRouter path="/match" component={Match}></AuthRouter>
+      <AuthRouter path="/chat/private" component={Private} im={true}></AuthRouter>
       <AuthRouter path="/chat" component={Chat} im={true}></AuthRouter>
       <AuthRouter path="/user/edit" component={Edit}></AuthRouter>
       <AuthRouter path="/user" component={User}></AuthRouter>

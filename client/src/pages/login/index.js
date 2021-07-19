@@ -34,9 +34,10 @@ function Login(props) {
               Toast.fail('Please fill the information completely');
               return;
             } else {
-              dispatch(loginAsync(value, props.history));
+              dispatch(loginAsync(value, props.history, props.location.state.preUrl));
               const options = webIM_login(value.username, value.password);
               WebIM.conn.open(options);
+              handleVerifyCode();
             }
           });
     }

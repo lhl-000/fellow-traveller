@@ -1,6 +1,6 @@
 import React from 'react'
 import Header from './components/header';
-import Lists from './components/lists';
+import Private from './components/private';
 import jwt_decode from 'jwt-decode';
 import cookie from 'react-cookies';
 
@@ -14,9 +14,7 @@ export default function Chat() {
         appKey: WebIM.config.appkey
     };
     WebIM.conn.open(options);
-
-
-    
+   
     // WebIM.conn.getRoster({
     //     success: function (res) {
     //         console.log('获取好友', res)
@@ -25,7 +23,7 @@ export default function Chat() {
 
     return (
         <div>
-            <Header><Lists/></Header>
+            <Header><Private/></Header>
         </div>
     )
 }

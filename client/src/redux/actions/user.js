@@ -35,7 +35,7 @@ export const editUserAsync = (data, history) => {
     }
 }
 
-export const loginAsync = (data, history) => {
+export const loginAsync = (data, history, target) => {
     return async () => {
         const result = await Http({
             url: '/user/login',
@@ -44,7 +44,12 @@ export const loginAsync = (data, history) => {
         });
         if (result) {
             cookie.save('token', result);
-            history.push('/');
+            if (target) {
+                history.push(target);
+            } else {
+                history.push('/');
+            }
+            
             Toast.success('Login successfully');
         }
     }

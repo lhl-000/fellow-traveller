@@ -15,7 +15,9 @@ function AuthRouter(props) {
         <Route {...rest} render={(props) => (
             isLogIn && isIMLogin
                 ? <Component {...props} />
-                : <Redirect to="/login" />
+                : <Redirect  to={{pathname: '/login', 
+                            state: {preUrl: window.location.pathname+window.location.search} 
+                                }} />
         )} />
     )
     
