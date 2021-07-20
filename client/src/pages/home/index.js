@@ -26,7 +26,6 @@ export default function Home() {
                 district={district}
                 districtLoading={districtLoading}
                 /> 
-            {/* <Hot groups={groups}/> */}
             <Hot people={people} peopleLoading={peopleLoading}/>
         </div>
     )

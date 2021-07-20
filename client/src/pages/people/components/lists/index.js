@@ -12,8 +12,6 @@ export default function Lists(props) {
       pathname: '/people',
       search: `?id=${value}`
   })
-      // window.scrollTo(0,0)
-      // window.location.reload();
   }
 
     return (

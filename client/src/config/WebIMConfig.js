@@ -28,7 +28,7 @@ var config = {
     /*
      * Application AppKey
      */
-    appkey: '1156210717083467#demo',
+    appkey:  '1156210717083467#demo',
     /*
      * Application Host
      */

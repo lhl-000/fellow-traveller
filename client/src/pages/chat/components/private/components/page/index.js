@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react'
-import { Toast} from 'antd-mobile';
+import { Toast } from 'antd-mobile';
 import Footer from './components/footer';
 import Header from './components/header';
 import { useLocation } from 'react-router-dom';
 import jwt_decode from 'jwt-decode';
 import cookie from 'react-cookies';
+import { timer } from '@/utils';
 import './index.scss';
 
 import WebIM from '@/config/WebIM'
@@ -13,26 +14,102 @@ export default function Page(props) {
     const { search } = useLocation();
     const query = new URLSearchParams(search);
     const name = query?.get('name');
+    const user = jwt_decode(cookie.load('token')).sub;
     const [message, setMessage] = useState('');
 
+    const [chatLists, setChatLists] = useState([]);
+
+    let conn= WebIM.conn;;
     const handleSubmit = () => {
         if (message == '') {
             Toast.fail('message cannot be empty')
         }
         sendPrivateText(message, name);
         setMessage('');
+        setChatLists([...chatLists, {
+            from: user,
+            to: name,
+            data: message,
+            time: new Date().getTime()
+        }])
     }
 
-    const conn = WebIM.conn;
+    const pageInit = async () => {
+       conn = WebIM.conn;  
     //连接
-    conn.open(
-        {
-            user: jwt_decode(cookie.load('token')).sub,
-            accessToken: cookie.load('im_token'),
-            appKey: WebIM.config.appkey
-        }
+        await conn.open(
+            {
+                user: user,
+                accessToken: cookie.load('im_token'),
+                appKey: WebIM.config.appkey
+            }
     );
+        await conn.listen({
+                // onOpened: function ( message ) { //连接成功回调
+                //     console.log(message);
+                // },  
+                // onClosed: function ( message ) {
+                //     console.log(message);
+                // },         //连接关闭回调
+                onTextMessage: function ( message ) {
+                    setChatLists([...chatLists,
+                    {
+                        from: message.from,
+                        to: message.to,
+                        data: message.data,
+                        time: message.time,
+                    }]);
+                },    //收到文本消息 
+                onError: function ( message ) {
+                    // Toast.fail("Failed to send message, try to refresh the page")
+                    console.log(message);
+                },          //失败回调
+                // onReceivedMessage: function(message){
+                //     console.log(message);
+                // },    //收到消息送达服务器回执
+        }); 
 
+                    //获得历史消息
+            await conn.fetchHistoryMessages(
+                {
+                    queue: name, //需特别注意queue属性值为大小写字母混合，以及纯大写字母，会导致拉取漫游为空数组，因此注意将属性值装换为纯小写
+                    isGroup: false,
+                    count: 10,
+                    success: function(res){
+                        let historyMessages = []
+                        res.map((item) => {
+                            historyMessages.push(
+                                {
+                                    from: item.from,
+                                    to: item.to,
+                                    data: item.data,
+                                    time: item.time,
+                                }
+                            )
+                        })
+                        console.log(historyMessages);
+                        setChatLists([ ...historyMessages,...chatLists])
+                    },
+                    fail: function(){
+                        console.log('failed to fetch history messages');
+                    }
+                }
+            )
+    }
+
+    // const scrollButtom = () => {
+    //     const div = document.getElementById('buttom');
+	//     div.scrollTop = div.scrollHeight;
+    // }
+
+    useEffect(() => {
+        conn = WebIM.conn;
+        pageInit()
+    }, []);
+
+    // useEffect(() => {
+    //     scrollButtom();
+    // }, [chatLists])
 
     function sendPrivateText(meg, target) {
         let id = conn.getUniqueId();                 // 生成本地消息id
@@ -51,41 +128,23 @@ export default function Page(props) {
         conn.send(msg.body);
     };
 
-    conn.listen({
-        onOpened: function ( message ) {          //连接成功回调
-            console.log(message);
-        },  
-        onClosed: function ( message ) {
-            console.log(message);
-        },         //连接关闭回调
-        onTextMessage: function ( message ) {
-            console.log(message);
-        },    //收到文本消息   //本机网络掉线
-        onError: function ( message ) {
-            console.log(message);
-        },          //失败回调
-        onReceivedMessage: function(message){
-            console.log(message);
-        },    //收到消息送达服务器回执
-    });
-
-        //获得历史消息
-        conn.fetchHistoryMessages(
-            {
-                queue: name, //需特别注意queue属性值为大小写字母混合，以及纯大写字母，会导致拉取漫游为空数组，因此注意将属性值装换为纯小写
-                isGroup: false,
-                count: 10,
-                success: function(res){
-                   console.log(res) //获取拉取成功的历史消息
-                },
-                fail: function(){}
-            }
-        )
-
     return (
        <div className='private-chat-page'>
            <Header name={name} location={props?.location} />
-
+            <div className='message-lists'>
+                {chatLists.map((item) => {
+                    return (
+                        <div className='message-item' key={item.time}>
+                            <div className={ `message-content ${item.from === user? 'my': 'target'}`}>
+                                <div className='from'>{item.from}</div>
+                                <div className='meg'>{item.data}</div>
+                                <div className='time'>{timer(item.time)}</div>
+                            </div>
+                        </div>
+                    )
+                })}
+                {/* <div id='buttom'></div> */}
+            </div>
            <Footer
                 handleSubmit={handleSubmit}
                 setMessage={setMessage}

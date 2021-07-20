@@ -96,7 +96,7 @@ export default function Search(props) {
                 placeholder='Search fellow travelers'
                 value={peopleName}
                 onChange={handleChange}
-                onCancel={handleCancel}
+                cancelText='cancel'
                 onSubmit={handleSumbit}
             />
             {!peopleLists.length && showLoading

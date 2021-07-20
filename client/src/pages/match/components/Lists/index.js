@@ -22,7 +22,7 @@ export default function Lists(props) {
     }
 
     return (
-        <div classname='match-page-people'>
+        <div className='match-page-people'>
             {!people.length 
                 ? <ChatSkeletons />
                 : <div className='result'>
