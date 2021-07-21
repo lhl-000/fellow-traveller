@@ -13,15 +13,19 @@ export default function Private() {
     const options = {
         user: user,
         accessToken: cookie.load('im_token'),
-        appKey: WebIM.config.appkey
+        appKey: WebIM.config.appkey,
     };
+    
+    const conn = WebIM.conn;
+    conn.open(options);
+
     useEffect(() => {
-        WebIM.conn.open(options);
-        WebIM.conn.getSessionList().then((res) => {
-            setSesionList(...sesionList, ...res?.channel_infos);
+        const conn = WebIM.conn;
+        conn.open(options);
+        conn.getSessionList().then((res) => {
+            setSesionList([...sesionList, ...res.data.channel_infos]);
         })
     }, [])
-
     return (
         <div>
             <Lists user={user} sesionList={sesionList}/>

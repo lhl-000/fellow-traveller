@@ -16,10 +16,9 @@ export default function Page(props) {
     const name = query?.get('name');
     const user = jwt_decode(cookie.load('token')).sub;
     const [message, setMessage] = useState('');
-
     const [chatLists, setChatLists] = useState([]);
 
-    let conn= WebIM.conn;;
+    let conn= WebIM.conn;
     const handleSubmit = () => {
         if (message == '') {
             Toast.fail('message cannot be empty')
@@ -44,57 +43,59 @@ export default function Page(props) {
                 appKey: WebIM.config.appkey
             }
     );
-        await conn.listen({
-                // onOpened: function ( message ) { //连接成功回调
-                //     console.log(message);
-                // },  
-                // onClosed: function ( message ) {
-                //     console.log(message);
-                // },         //连接关闭回调
-                onTextMessage: function ( message ) {
-                    setChatLists([...chatLists,
-                    {
-                        from: message.from,
-                        to: message.to,
-                        data: message.data,
-                        time: message.time,
-                    }]);
-                },    //收到文本消息 
-                onError: function ( message ) {
-                    // Toast.fail("Failed to send message, try to refresh the page")
-                    console.log(message);
-                },          //失败回调
-                // onReceivedMessage: function(message){
-                //     console.log(message);
-                // },    //收到消息送达服务器回执
-        }); 
 
+    conn.fetchHistoryMessages(
+        {
+            queue: name, //需特别注意queue属性值为大小写字母混合，以及纯大写字母，会导致拉取漫游为空数组，因此注意将属性值装换为纯小写
+            isGroup: false,
+            count: 10,
+            success: function(res){
+                let historyMessages = []
+                res.map((item) => {
+                    historyMessages.push(
+                        {
+                            from: item.from,
+                            to: item.to,
+                            data: item.data,
+                            time: item.time,
+                        }
+                    )
+                })
+                console.log(historyMessages);
+                setChatLists([ ...historyMessages,...chatLists])
+            },
+            fail: function(){
+                console.log('failed to fetch history messages');
+            }
+        }
+    )
+
+    conn.listen({
+        // onOpened: function ( message ) { //连接成功回调
+        //     console.log(message);
+        // },  
+        // onClosed: function ( message ) {
+        //     console.log(message);
+        // },         //连接关闭回调
+        onTextMessage: function ( message ) {
+            setChatLists([...chatLists,
+            {
+                from: message.from,
+                to: message.to,
+                data: message.data,
+                time: message.time,
+            }]);
+        },    //收到文本消息 
+        onError: function ( message ) {
+            // Toast.fail("Failed to send message, try to refresh the page")
+            console.log(message);
+        },          //失败回调
+        // onReceivedMessage: function(message){
+        //     console.log(message);
+        // },    //收到消息送达服务器回执
+}); 
                     //获得历史消息
-            await conn.fetchHistoryMessages(
-                {
-                    queue: name, //需特别注意queue属性值为大小写字母混合，以及纯大写字母，会导致拉取漫游为空数组，因此注意将属性值装换为纯小写
-                    isGroup: false,
-                    count: 10,
-                    success: function(res){
-                        let historyMessages = []
-                        res.map((item) => {
-                            historyMessages.push(
-                                {
-                                    from: item.from,
-                                    to: item.to,
-                                    data: item.data,
-                                    time: item.time,
-                                }
-                            )
-                        })
-                        console.log(historyMessages);
-                        setChatLists([ ...historyMessages,...chatLists])
-                    },
-                    fail: function(){
-                        console.log('failed to fetch history messages');
-                    }
-                }
-            )
+
     }
 
     // const scrollButtom = () => {
@@ -107,9 +108,9 @@ export default function Page(props) {
         pageInit()
     }, []);
 
-    // useEffect(() => {
-    //     scrollButtom();
-    // }, [chatLists])
+    useEffect(() => {
+        window.scrollTo(0, document.body.scrollHeight);
+    }, [chatLists])
 
     function sendPrivateText(meg, target) {
         let id = conn.getUniqueId();                 // 生成本地消息id
@@ -134,7 +135,7 @@ export default function Page(props) {
             <div className='message-lists'>
                 {chatLists.map((item) => {
                     return (
-                        <div className='message-item' key={item.time}>
+                        <div className='message-item' key={item.time + item.data}>
                             <div className={ `message-content ${item.from === user? 'my': 'target'}`}>
                                 <div className='from'>{item.from}</div>
                                 <div className='meg'>{item.data}</div>

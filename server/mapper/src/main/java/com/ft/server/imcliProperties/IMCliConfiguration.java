@@ -1,4 +1,4 @@
-//package com.ft.server.service;
+//package com.ft.server.imcliProperties;
 //import com.easemob.im.server.EMProperties;
 //import com.easemob.im.server.EMService;
 //import com.ft.server.imcliProperties.IMCliProperties;

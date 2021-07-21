@@ -1,6 +1,4 @@
 package com.ft.server.service;
-
-import com.ft.server.entity.People;
 import com.ft.server.entity.SearchMeg;
 import com.ft.server.vo.ResultVO;
 

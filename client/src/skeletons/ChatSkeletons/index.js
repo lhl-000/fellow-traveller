@@ -12,8 +12,8 @@ export default function ChatSkeletons(props) {
 
   return (
     <div className='chat-skeletons'>
-      {state.map(item => (
-        <div className='chat-item' key={item}>
+      {state.map((item, index) => (
+        <div className='chat-item' key={index}>
           <div className={'skeletons left'}></div>
           <div className='center'>
             <div className={'skeletons item1'}></div>

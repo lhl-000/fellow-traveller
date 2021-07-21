@@ -24,7 +24,9 @@ function Login(props) {
           success: function (res) {
             var token = res.access_token;
             cookie.save('im_token', token)
-          },      
+          },
+          error: function(){
+          }
         }
     }
 

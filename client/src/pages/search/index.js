@@ -74,10 +74,10 @@ export default function Search(props) {
         setPeopleName(value);
     }
 
-    const handleCancel = (value) => {
-        setPeopleName('');
-        _handleSumbit(value);
-    }
+    // const handleCancel = (value) => {
+    //     setPeopleName('');
+    //     _handleSumbit(value);
+    // }
 
     const handleSumbit = (value) => {
         _handleSumbit(value);

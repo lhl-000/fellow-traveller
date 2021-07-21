@@ -6,9 +6,10 @@ import dayjs from 'dayjs';
 import { createForm } from 'rc-form';
 import { registerAsync } from '@/redux/actions/user';
 import { useDispatch} from 'react-redux';
+import cookie from 'react-cookies';
 import './index.scss';
 
-// import WebIM from '@/config/WebIM'
+import WebIM from '@/config/WebIM'
 
 
 
@@ -29,32 +30,47 @@ function Register(props) {
     const emailPatt = /^[A-Za-z\d]+([-_.][A-Za-z\d]+)*@([A-Za-z\d]+[-.])+[A-Za-z\d]{2,4}$/;
     const usernamePatt = new RegExp("^([\u4E00-\uFA29]|[\uE7C7-\uE7F3]|[a-zA-Z0-9])*$");
 
-    //环信服务器注册
-    // const webIM_regiester = (username, password, nickname) => {
-    //   return { 
-    //     username: username,
-    //     password: password,
-    //     nickname: nickname,
-    //     appKey: WebIM.config.appkey,
-    //     success: function () { },  
-    //     error: function (err) {
-    //         let errorData = JSON.parse(err.data);
-    //         if (errorData.error === 'duplicate_unique_property_exists') {
-    //             console.log('用户已存在！');
-    //         } else if (errorData.error === 'illegal_argument') {
-    //             if (errorData.error_description === 'USERNAME_TOO_LONG') {
-    //                 console.log('用户名超过64个字节！')
-    //             }else{
-    //                 console.log('用户名不合法！')
-    //             }
-    //         } else if (errorData.error === 'unauthorized') {
-    //             console.log('注册失败，无权限！')
-    //         } else if (errorData.error === 'resource_limited') {
-    //             console.log('您的App用户注册数量已达上限,请升级至企业版！')
-    //         }
-    //     }, 
-    //   }; 
-    // }
+    const conn = WebIM.conn;
+    // 环信服务器注册
+    const webIM_regiester = (username, password, nickname) => {
+      return { 
+        username: username,
+        password: password,
+        nickname: nickname,
+        appKey: WebIM.config.appkey,
+        success: function () { },  
+        error: function (err) {
+            let errorData = JSON.parse(err.data);
+            if (errorData.error === 'duplicate_unique_property_exists') {
+                console.log('用户已存在！');
+            } else if (errorData.error === 'illegal_argument') {
+                if (errorData.error_description === 'USERNAME_TOO_LONG') {
+                    console.log('用户名超过64个字节！')
+                }else{
+                    console.log('用户名不合法！')
+                }
+            } else if (errorData.error === 'unauthorized') {
+                console.log('注册失败，无权限！')
+            } else if (errorData.error === 'resource_limited') {
+                console.log('您的App用户注册数量已达上限,请升级至企业版！')
+            }
+        }, 
+      }; 
+    }
+
+    const webIM_login = (username, password) =>{
+      return { 
+          user: username,
+          pwd: password,
+          appKey: WebIM.config.appkey,
+          success: function (res) {
+            var token = res.access_token;
+            cookie.save('im_token', token)
+          },    
+          error: function(){
+          }  
+        }
+    }
 
     const handleSubmit = () => {
         validateFields((error, value) => {
@@ -105,8 +121,10 @@ function Register(props) {
                 userModeTime: currentTime,
             }
               , props.history));
-              // const options = webIM_regiester(value.username, value.password, value.username);
-              // WebIM.conn.registerUser(options);
+              const options = webIM_regiester(value.username, value.password, value.username);
+              conn.registerUser(options);
+              const loginOptions = webIM_login(value.username, value.password);
+              conn.open(loginOptions);
           }
         });
       };

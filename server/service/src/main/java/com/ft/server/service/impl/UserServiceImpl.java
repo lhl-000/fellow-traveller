@@ -1,6 +1,7 @@
 package com.ft.server.service.impl;
 
 import com.alibaba.fastjson.JSONObject;
+import com.easemob.im.server.EMProperties;
 import com.easemob.im.server.EMService;
 import com.ft.server.dao.UserDAO;
 import com.ft.server.entity.User;
@@ -31,7 +32,6 @@ public class UserServiceImpl implements UserService {
     @Resource
     private UserDAO userDAO;
 
-//    @Resource
 //    private EMService emService;
 
     @Override
@@ -70,10 +70,17 @@ public class UserServiceImpl implements UserService {
         synchronized (this) {
             User newUser = userDAO.queryUserByName(user.getUsername());
             if (newUser == null) {
+//                EMProperties properties = EMProperties.builder()
+//                        .setAppkey("1156210717083467#demo")
+//                        .setClientId("YXA6LBdhWMMlTAWn4auHpgdOfA")
+//                        .setClientSecret("YXA6yiQ6YU8MO80pkojMx1bFf6NINCk")
+//                        .build();
+
+//                emService = new EMService(properties);
 //                emService.user().create(user.getUsername(), user.getPassword())
 //                        .block();
-//                String md5PWD = MD5Utils.md5(user.getPassword());
-//                user.setPassword(md5PWD);
+                String md5PWD = MD5Utils.md5(user.getPassword());
+                user.setPassword(md5PWD);
                 int i = userDAO.insertUser(user);
 
                 if (i > 0) {

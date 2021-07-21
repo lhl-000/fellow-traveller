@@ -8,6 +8,7 @@ export default function Lists(props) {
     const Brief = Item.Brief;
     const defaultAvatar = 'https://download-sdk.oss-cn-beijing.aliyuncs.com/downloads/IMDemo/avatar/Image1.png'
     const {sesionList, user} = props
+    console.log(props);
     const history = useHistory();
 
     const handleClick = (value) => {
@@ -20,33 +21,37 @@ export default function Lists(props) {
         <div>
             <List renderHeader={() => 'Message'} className="chat-list">               
             {
-                sesionList.map((item) => {
+                props.sesionList.map((item) => {
+                    const payload = JSON.parse(item.meta.payload);
+                    return (
                     <Item
                         arrow="horizontal"
                         thumb={defaultAvatar}
                         multipleLine
-                        onClick={handleClick(item.meta?.from === user? item.meta?.to : item.meta?.from)}
+                        onClick={handleClick.bind(this, payload.from === user? payload.to : payload.from)}
                         key={item.channel_id}
                         >
-                        {item.meta?.from === user? item.meta?.to : item.meta?.from}
-                         <Brief>last time: {timer(item.meta?.timestamp)}
-                         &nbsq;&nbsq;&nbsq;&nbsq;&nbsq;
-                         <span className='unread'>{item.unread_num}</span>
-                         unread
+                        {payload.from === user? payload.to : payload.from}
+                         <Brief>
+                         last time: {timer(item.meta?.timestamp)}
+                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                         {item.unread_num === 0? 0 : <span className='unread'>{item.unread_num}</span>}
+                         
+                         &nbsp; unread
                          </Brief>
-                         <div>123</div>
                     </Item>
+                    )
                 }
                 )
             }
-                <Item
+                {/* <Item
                     arrow="horizontal"
                     thumb={defaultAvatar}
                     multipleLine
                     onClick={() => {}}
                 >
                 Title <Brief>subtitle</Brief>
-                </Item>
+                </Item> */}
             </List>
         </div>
     )

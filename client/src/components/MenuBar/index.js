@@ -43,7 +43,7 @@ class MenuBar extends Component {
     }
 
     render() {
-        const { show, pathname,history } = this.props;
+        const { show, pathname, history } = this.props;
         return (
             <div className='menu-bar'>
                 <TabBar hidden={!show}>
