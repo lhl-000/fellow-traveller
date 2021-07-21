@@ -9,22 +9,25 @@ export default function Private() {
     const [sesionList, setSesionList] = useState([]);
 
     const user = jwt_decode(cookie.load('token')).sub;
-
+    const token = cookie.load('im_token')
     const options = {
         user: user,
-        accessToken: cookie.load('im_token'),
+        accessToken: token,
         appKey: WebIM.config.appkey,
     };
-    
-    const conn = WebIM.conn;
-    conn.open(options);
 
-    useEffect(() => {
-        const conn = WebIM.conn;
+    let conn = null;
+
+    const listInit = async () => {
+        conn = WebIM.conn;
         conn.open(options);
         conn.getSessionList().then((res) => {
             setSesionList([...sesionList, ...res.data.channel_infos]);
         })
+    }
+
+    useEffect(() => {
+        listInit();
     }, [])
     return (
         <div>

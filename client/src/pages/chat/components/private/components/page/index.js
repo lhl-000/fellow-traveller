@@ -18,7 +18,7 @@ export default function Page(props) {
     const [message, setMessage] = useState('');
     const [chatLists, setChatLists] = useState([]);
 
-    let conn= WebIM.conn;
+    let conn = null;
     const handleSubmit = () => {
         if (message == '') {
             Toast.fail('message cannot be empty')
@@ -34,8 +34,9 @@ export default function Page(props) {
     }
 
     const pageInit = async () => {
-       conn = WebIM.conn;  
+        conn = WebIM.conn;  
     //连接
+    console.log('1');
         await conn.open(
             {
                 user: user,
@@ -43,6 +44,7 @@ export default function Page(props) {
                 appKey: WebIM.config.appkey
             }
     );
+    console.log('2');
 
     conn.fetchHistoryMessages(
         {
@@ -69,6 +71,7 @@ export default function Page(props) {
             }
         }
     )
+    console.log('3');
 
     conn.listen({
         // onOpened: function ( message ) { //连接成功回调
@@ -104,7 +107,6 @@ export default function Page(props) {
     // }
 
     useEffect(() => {
-        conn = WebIM.conn;
         pageInit()
     }, []);
 

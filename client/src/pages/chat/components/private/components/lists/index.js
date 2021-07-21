@@ -8,7 +8,6 @@ export default function Lists(props) {
     const Brief = Item.Brief;
     const defaultAvatar = 'https://download-sdk.oss-cn-beijing.aliyuncs.com/downloads/IMDemo/avatar/Image1.png'
     const {sesionList, user} = props
-    console.log(props);
     const history = useHistory();
 
     const handleClick = (value) => {

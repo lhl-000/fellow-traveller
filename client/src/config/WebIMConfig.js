@@ -18,26 +18,20 @@ var config = {
      * im-api-v2.easemob.com/ws 线上环境
      * im-api-v2-hsb.easemob.com/ws 沙箱环境
      */
-    socketServer:(window.location.protocol === "https:" ? "https:" : "http:") + "//im-api-v2.easemob.com/ws",
+    socketServer:"//im-api-v2.easemob.com/ws",
     /*
      * Backend REST API URL
      * a1.easemob.com 线上环境
      * a1-hsb.easemob.com 沙箱环境
      */
-    restServer: (window.location.protocol === "https:" ? "https:" : "http:") + "//a1.easemob.com",
+    restServer: "//a1.easemob.com",
     /*
      * Application AppKey
      */
     appkey:  '1156210717083467#demo',
-    /*
-     * Application Host
-     */
-    Host: 'easemob.com',
-    /*
-     * Whether to use HTTPS
-     * @parameter {Boolean} true or false
-     */
-    https: true,
+
+
+    https: false,
 
     /*
     * 公有云配置默认为 true，
@@ -49,7 +43,7 @@ var config = {
      * true: A visitor can sign in to multiple webpages and receive messages at all the webpages.
      * false: A visitor can sign in to only one webpage and receive messages at the webpage.
      */
-    isMultiLoginSessions: true,
+    isMultiLoginSessions: false,
     /**
      * isSandBox=true:  socketURL: 'im-api.sandbox.easemob.com',  apiURL: '//a1.sdb.easemob.com',
      * isSandBox=false: socketURL: 'im-api.easemob.com',          apiURL: '//a1.easemob.com',
@@ -60,7 +54,7 @@ var config = {
      * Whether to console.log
      * @parameter {Boolean} true or false
      */
-    isDebug: true,
+    isDebug: false,
     /**
      * will auto connect the websocket server autoReconnectNumMax times in background when client is offline.
      * won't auto connect if autoReconnectNumMax=0.
@@ -68,8 +62,7 @@ var config = {
     autoReconnectNumMax: 5,
     /**
      * webrtc supports WebKit and https only
-     */
-    isWebRTC: window.RTCPeerConnection && /^https\:$/.test(window.location.protocol),
+     *
     /*
      * Upload pictures or file to your own server and send message with url
      * @parameter {Boolean} true or false
