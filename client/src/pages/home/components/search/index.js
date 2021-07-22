@@ -1,7 +1,8 @@
 import React, { useState, memo } from 'react'
-import { Picker, List, Calendar, Button } from 'antd-mobile'
+import { LocaleProvider, Picker, List, Calendar, Button } from 'antd-mobile'
 import dayjs from 'dayjs';
 import { useHistory } from 'react-router-dom';
+import enUS from 'antd-mobile/lib/locale-provider/en_US';
 
 function Search(props) {
 
@@ -73,13 +74,14 @@ function Search(props) {
                 <p className='search-time_right'>{times}</p>
             </div>
             <Button type="warning" size='large' onClick={handleClick}>Search</Button>
+            <LocaleProvider locale={enUS}>
             <Calendar
                 visible={dateShow}
                 onCancel={handleDate}
                 onConfirm={handleDateConfirm}
             >
             </Calendar>
-
+            </LocaleProvider>
         </div>
     )
 }

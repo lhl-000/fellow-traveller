@@ -1,8 +1,6 @@
 package com.ft.server.service.impl;
 
 import com.alibaba.fastjson.JSONObject;
-import com.easemob.im.server.EMProperties;
-import com.easemob.im.server.EMService;
 import com.ft.server.dao.UserDAO;
 import com.ft.server.entity.User;
 import com.ft.server.service.UserService;
@@ -10,6 +8,8 @@ import com.ft.server.vo.ResultVO;
 import io.jsonwebtoken.JwtBuilder;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -31,6 +31,8 @@ public class UserServiceImpl implements UserService {
 
     @Resource
     private UserDAO userDAO;
+
+    private Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
 
 //    private EMService emService;
 
@@ -58,6 +60,7 @@ public class UserServiceImpl implements UserService {
                        .setExpiration(new Date(System.currentTimeMillis() + 7*24*60*60*1000))
                        .signWith(SignatureAlgorithm.HS256, "fellow-traveller")
                        .compact();
+               logger.info(user.getUserId() + "---Login---Success---" + new Date());
                return new ResultVO(200, "OK",null, token);
            } else {
                return new ResultVO(200, null,"Wrong password or username", null);
@@ -92,6 +95,7 @@ public class UserServiceImpl implements UserService {
                             .setExpiration(new Date(System.currentTimeMillis() + 7*24*60*60*1000))
                             .signWith(SignatureAlgorithm.HS256, "fellow-traveller")
                             .compact();
+                    logger.info(i + " " + user.getUsername() + "---Register---Success---" + new Date());
                     return new ResultVO(200, "Register successfully",null, token);
                 } else {
                     return new ResultVO(200, null,"Fail to register", null);
@@ -118,6 +122,7 @@ public class UserServiceImpl implements UserService {
             res.put("perfVehicle", user.getPerfVehicle());
             res.put("startTime", user.getStartTime());
             res.put("endTime", user.getEndTime());
+            logger.info(user.getUserId() + "---Get detail---Success---" + new Date());
             return new ResultVO(200, "OK",null, res);
         }
     }
@@ -157,8 +162,10 @@ public class UserServiceImpl implements UserService {
                         destNation, destCity, startNation,
                         startCity, perfVehicle, startTime, endTime, userModeTime);
                 if (i > 0) {
+                    logger.info(user.getUserId() + "---Edit info---Success---" + new Date());
                     return new ResultVO(200, "OK", null, "OK");
                 } else {
+                    logger.info(user.getUserId() + "---Edit info---Failed---" + new Date());
                     return new ResultVO(200, null, "Edit failed", null);
                 }
             }
