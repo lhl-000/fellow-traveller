@@ -48,6 +48,11 @@ export default function Private() {
 
     useEffect(() => {
         listInit();
+        return(()=>{
+            if (conn != null) {
+                conn.close();
+            }
+        })
     }, [])
     return (
         <div>

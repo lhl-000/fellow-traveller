@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { List, InputItem, Button, Toast } from 'antd-mobile';
 import { createForm } from 'rc-form';
 import { loginAsync } from '@/redux/actions/user';
@@ -15,6 +15,10 @@ function Login(props) {
     const [imgSrc, setImgSrc] = useState('http://localhost:8080/api/img/getVerifyCode');
 
     const dispatch = useDispatch();
+
+    let timer = null;
+
+    let conn = null;
 
     const webIM_login = (username, password) =>{
       return { 
@@ -37,29 +41,39 @@ function Login(props) {
               return;
             } else {
               const options = webIM_login(value.username, value.password);
-              WebIM.conn.open(options);
-              WebIM.conn.listen({
-                    onOpened: function ( message ) { //连接成功回调
-                        console.log(message);
+              conn = WebIM.conn;
+              conn.open(options);
+              conn.listen({
+                    onOpened: function ( message ) { 
                     },  
                     onClosed: function ( message ) {
-                        console.log(message);
                     },         //连接关闭回调
                     onTextMessage: function ( message ) {
-                        console.log(message);
                     },    //收到文本消息 
                     onError: function ( message ) {
                         // Toast.fail("Failed to send message, try to refresh the page")
                     },          //失败回调
                     onReceivedMessage: function(message){
-            
                     },    //收到消息送达服务器回执
             }); 
               dispatch(loginAsync(value, props.history, props?.location?.state?.preUrl));
-              handleVerifyCode();
+              timer = setTimeout(()=>{
+                handleVerifyCode()
+              }, 1000);
             }
           });
     }
+
+    useEffect(() => {
+      return () => {
+        if (timer != null) {
+          clearTimeout(timer);
+        }
+        if (conn != null) {
+          conn.close();
+        }
+      }
+    }, [])
 
     const handleVerifyCode =  ()=> {
       setImgSrc('http://localhost:8080/api/img/getVerifyCode'+ Math.random())

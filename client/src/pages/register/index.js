@@ -1,4 +1,4 @@
-import React,  {useState } from 'react';
+import React,  {useState, useEffect } from 'react';
 import User from './components/user';
 import Travel from './components/travel';
 import { Button, Toast} from 'antd-mobile';
@@ -30,7 +30,7 @@ function Register(props) {
     const emailPatt = /^[A-Za-z\d]+([-_.][A-Za-z\d]+)*@([A-Za-z\d]+[-.])+[A-Za-z\d]{2,4}$/;
     const usernamePatt = new RegExp("^([\u4E00-\uFA29]|[\uE7C7-\uE7F3]|[a-zA-Z0-9])*$");
 
-    const conn = WebIM.conn;
+    let conn = null;
     // 环信服务器注册
     const webIM_regiester = (username, password, nickname) => {
       return { 
@@ -103,6 +103,10 @@ function Register(props) {
               return
             }
             const currentTime = dayjs().format('YYYY-MM-DD HH:mm:ss');
+            const options = webIM_regiester(value.username, value.password, value.username);
+            const loginOptions = webIM_login(value.username, value.password);
+            conn = WebIM.conn;
+            conn.registerUser(options);
             dispatch(registerAsync({
                 username:value.username,
                 password: value.password,
@@ -121,9 +125,6 @@ function Register(props) {
                 userModeTime: currentTime,
             }
               , props.history));
-              const options = webIM_regiester(value.username, value.password, value.username);
-              conn.registerUser(options);
-              const loginOptions = webIM_login(value.username, value.password);
               conn.open(loginOptions);
               conn.listen({
                 onOpened: function ( message ) { //连接成功回调
@@ -149,6 +150,14 @@ function Register(props) {
       const handleClick = () => {
         props.history.push('/login');
       };
+
+      useEffect(() => {
+        return () => {
+          if (conn != null) {
+            conn.close();
+          }
+        }
+      }, [])
   
       return (
         <div className='register-page'>

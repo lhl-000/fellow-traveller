@@ -3,7 +3,7 @@ import { Http } from '@/utils';
 import { Toast } from 'antd-mobile';
 import { CommonEnum } from '@/enum';
 import cookie from 'react-cookies';
-
+import WebIM from '@/config/WebIM'
 export const getUser = (data) => ({ type: CommonEnum.GETUSER, data: data });
 
 export const editUser = (data) => ({ type: CommonEnum.EDITUSER, data: data });
@@ -35,7 +35,7 @@ export const editUserAsync = (data, history) => {
     }
 }
 
-export const loginAsync = (data, history, target) => {
+export const loginAsync = (data, history, target, options) => {
     return async () => {
         const result = await Http({
             url: '/user/login',

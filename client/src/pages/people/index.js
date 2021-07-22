@@ -36,6 +36,9 @@ export default function People() {
       const jump = new URLSearchParams(route.search);
       setUserId(jump?.get('id'));
     })
+    return (() => {
+        
+    })
   }, [])
 
  useEffect(() => {
@@ -60,7 +63,7 @@ export default function People() {
     dispatch(getCommentsAsync({ page, comments }, {
       userId: userId
     }));
-  }, [reloadCommentsNum, userId]);
+  }, [reloadCommentsNum, userId,showLoading]);
 
   return (
     <div className='people-page'>

@@ -33,6 +33,9 @@ public class UserController {
     @RequestMapping(value = "login", method = RequestMethod.POST)
         public ResultVO login(HttpServletRequest request, @RequestBody JSONObject json) {
         HttpSession session = request.getSession(false);
+        if (session == null || session.getAttribute("verifyCode") == null) {
+            return new ResultVO(200, null, "Verify code is expired", null);
+        }
         String verifyCode = (String) session.getAttribute("verifyCode");
         ResultVO result =  userService.checkLogin(verifyCode, json.getString("username"), json.getString("password"), json.getString("verifyCode"));
         if (result.getMsg() != null) {

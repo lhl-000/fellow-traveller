@@ -37,7 +37,7 @@ export default function User(props) {
 
       const handleButtom = () => {
         cookie.remove('token');
-        cookie.remove('im-token')
+        cookie.remove('im_token')
         history.push('./')
       }
 
