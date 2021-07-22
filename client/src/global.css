@@ -4,8 +4,12 @@ body,
   height: 100%;
 }
 
-body {
-  margin: 0;
+@media screen and (min-width: 800px) {
+  body {
+    padding-left: 20%;
+    padding-right: 20% !important;
+    zoom: 0.8;
+  }
 }
 
 .skeletons {

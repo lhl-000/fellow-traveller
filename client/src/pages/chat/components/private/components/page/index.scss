@@ -1,3 +1,9 @@
+@media screen and (min-width: 800px) {
+  .header {
+    width: 60% !important;
+  }
+}
+
 .private-chat-page {
   .header {
     position: fixed;
@@ -7,7 +13,6 @@
     margin-top: 0px;
     top: 0px;
     background-color: white;
-
     .back {
       position: absolute;
       padding-top: 10px;

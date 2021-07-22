@@ -10,8 +10,8 @@ import store from './redux/store';
 
 
 import './asserts/umi.css';
-import './global.css';
 import 'antd-mobile/dist/antd-mobile.css';
+import './global.css';
 
 ReactDOM.render(
   <BrowserRouter>

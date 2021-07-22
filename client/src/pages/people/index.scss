@@ -7,13 +7,19 @@
     display: inline;
     color: wheat;
   }
-  width: 100%;
   height: 220px;
   background-image: url("../../asserts/samway.jpg");
   background-repeat: no-repeat;
   background-size: cover;
   position: fixed;
   z-index: -1;
+}
+
+@media screen and (min-width: 800px) {
+  .banner {
+    background-size: cover;
+    width: 60%;
+  }
 }
 
 .people-page {
