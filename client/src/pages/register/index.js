@@ -125,6 +125,23 @@ function Register(props) {
               conn.registerUser(options);
               const loginOptions = webIM_login(value.username, value.password);
               conn.open(loginOptions);
+              conn.listen({
+                onOpened: function ( message ) { //连接成功回调
+                    console.log(message);
+                },  
+                onClosed: function ( message ) {
+                    console.log(message);
+                },         //连接关闭回调
+                onTextMessage: function ( message ) {
+                    console.log(message);
+                },    //收到文本消息 
+                onError: function ( message ) {
+                    // Toast.fail("Failed to send message, try to refresh the page")
+                },          //失败回调
+                onReceivedMessage: function(message){
+        
+                },    //收到消息送达服务器回执
+        }); 
           }
         });
       };

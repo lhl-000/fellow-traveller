@@ -11,7 +11,7 @@ let options = {
     isMultiLoginSessions: WebIM.config.isMultiLoginSessions,
     isDebug: WebIM.config.isDebug,
     https: WebIM.config.https,
-    isAutoLogin: false,
+    isAutoLogin: WebIM.config.isAutoLogin,
     heartBeatWait: WebIM.config.heartBeatWait,
     autoReconnectNumMax: WebIM.config.autoReconnectNumMax,
     delivery: WebIM.config.delivery,

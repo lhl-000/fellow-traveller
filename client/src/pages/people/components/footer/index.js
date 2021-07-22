@@ -31,7 +31,7 @@ export default function (props) {
   const handleSubmit = () => {
     if (!cookie.load('token')) {
         handleClose();
-        Toast("Please login fristly");
+        Toast.fail("Please login fristly");
         return; 
     }
     if(commentsValue){

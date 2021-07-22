@@ -36,9 +36,26 @@ function Login(props) {
               Toast.fail('Please fill the information completely');
               return;
             } else {
-              dispatch(loginAsync(value, props.history, props?.location?.state?.preUrl));
               const options = webIM_login(value.username, value.password);
               WebIM.conn.open(options);
+              WebIM.conn.listen({
+                    onOpened: function ( message ) { //连接成功回调
+                        console.log(message);
+                    },  
+                    onClosed: function ( message ) {
+                        console.log(message);
+                    },         //连接关闭回调
+                    onTextMessage: function ( message ) {
+                        console.log(message);
+                    },    //收到文本消息 
+                    onError: function ( message ) {
+                        // Toast.fail("Failed to send message, try to refresh the page")
+                    },          //失败回调
+                    onReceivedMessage: function(message){
+            
+                    },    //收到消息送达服务器回执
+            }); 
+              dispatch(loginAsync(value, props.history, props?.location?.state?.preUrl));
               handleVerifyCode();
             }
           });

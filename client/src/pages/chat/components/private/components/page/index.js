@@ -35,8 +35,6 @@ export default function Page(props) {
 
     const pageInit = async () => {
         conn = WebIM.conn;  
-    //连接
-    console.log('1');
         await conn.open(
             {
                 user: user,
@@ -44,7 +42,6 @@ export default function Page(props) {
                 appKey: WebIM.config.appkey
             }
     );
-    console.log('2');
 
     conn.fetchHistoryMessages(
         {
@@ -70,8 +67,7 @@ export default function Page(props) {
                 console.log('failed to fetch history messages');
             }
         }
-    )
-    console.log('3');
+    ).catch((e) => {})
 
     conn.listen({
         // onOpened: function ( message ) { //连接成功回调
@@ -89,12 +85,11 @@ export default function Page(props) {
                 time: message.time,
             }]);
         },    //收到文本消息 
-        onError: function ( message ) {
-            // Toast.fail("Failed to send message, try to refresh the page")
-            console.log(message);
-        },          //失败回调
+        // onError: function ( message ) {
+        //     // Toast.fail("Failed to send message, try to refresh the page")
+        // },          //失败回调
         // onReceivedMessage: function(message){
-        //     console.log(message);
+
         // },    //收到消息送达服务器回执
 }); 
                     //获得历史消息

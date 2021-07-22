@@ -45,9 +45,9 @@ export const loginAsync = (data, history, target) => {
         if (result) {
             cookie.save('token', result);
             if (target) {
-                history.push(target);
+                history.replace(target);
             } else {
-                history.push('/');
+                history.replace('/');
             }
             Toast.success('Login successfully');
         }
