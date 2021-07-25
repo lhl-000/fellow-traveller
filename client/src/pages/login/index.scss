@@ -11,3 +11,9 @@
     top: 140px;
   }
 }
+
+@media screen and (min-width: 800px) {
+  .verifyCode {
+    right: 20% !important;
+  }
+}

@@ -6,10 +6,12 @@ import { useDispatch, useSelector, shallowEqual } from 'react-redux';
 import dayjs from 'dayjs';
 import { district } from '@/asserts/district';
 import { vehicle } from '@/asserts/vehicle';
+import { BsArrowLeftShort } from "react-icons/bs";
 import cookie from 'react-cookies';
 import jwt_decode from "jwt-decode";
 
 import './index.scss';
+import { useHistory } from 'react-router-dom';
 
 function Edit(props) {
 
@@ -28,6 +30,13 @@ function Edit(props) {
     const { getFieldProps, validateFields } = props.form;
     
     const dispatch = useDispatch();
+
+    const history = useHistory();
+
+
+    const handleClick = () =>{
+        history.goBack();
+    }
 
     const { meg, startNation, startCity, destinationNation,
         destinationCity, defaultVehicle, startTime, endTime} = useSelector(selector, shallowEqual);
@@ -173,6 +182,7 @@ function Edit(props) {
             >
             </Calendar>
             <Button type='warning' style={{ marginTop: '20px' }} onClick={handleSubmit}>Edit</Button>
+            <Button type='warning' style={{ marginTop: '20px' }} onClick={handleClick}>Back</Button>
         </div>
     )
 }

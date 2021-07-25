@@ -7,7 +7,7 @@ import './index.scss';
 export default function Private() {
 
     const [sesionList, setSesionList] = useState([]);
-
+    const [show, setShow] = useState(true)
     const user = jwt_decode(cookie.load('token')).sub;
     const token = cookie.load('im_token')
     const options = {
@@ -24,13 +24,13 @@ export default function Private() {
 
         conn.listen({
             onOpened: function ( message ) { //连接成功回调
-                console.log(message);
+                // console.log(message);
             },  
             onClosed: function ( message ) {
-                console.log(message);
+                // console.log(message);
             },         //连接关闭回调
             onTextMessage: function ( message ) {
-                console.log(message);
+                // console.log(message);
             },    //收到文本消息 
             onError: function ( message ) {
                 // Toast.fail("Failed to send message, try to refresh the page")
@@ -42,7 +42,8 @@ export default function Private() {
         setTimeout(()=>{
             conn.getSessionList().then((res) => {
                 setSesionList([...sesionList, ...res.data.channel_infos]);
-                }).catch((e) => {})
+                setShow(false);
+            }).catch((e) => {})
         }, 500)
     }
 
@@ -57,6 +58,9 @@ export default function Private() {
     return (
         <div>
             <Lists user={user} sesionList={sesionList}/>
+            {show? 
+                <div style={{textAlign: 'center'}} className='loading'>loading ...</div> 
+                : null}
         </div>
     )
 }

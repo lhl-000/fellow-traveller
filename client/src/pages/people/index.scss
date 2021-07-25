@@ -3,16 +3,19 @@
 .banner {
   top: 0px;
   width: 100%;
-  .back {
-    display: inline;
-    color: wheat;
-  }
   height: 220px;
   background-image: url("../../asserts/samway.jpg");
   background-repeat: no-repeat;
   background-size: cover;
   position: fixed;
   z-index: -1;
+}
+
+.back {
+  top: 0;
+  display: inline;
+  color: wheat;
+  position: fixed;
 }
 
 @media screen and (min-width: 800px) {

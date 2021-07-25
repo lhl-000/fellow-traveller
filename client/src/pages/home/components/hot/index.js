@@ -23,10 +23,11 @@ function Hot(props) {
                             <div className='profilePicture'>
                                 <img alt='img' src={item.avatar} />
                             </div>
-                            <div className='name'><span>{item.username}</span>&nbsp;</div>
+                            <div className='name'><span>{item.username}</span>&nbsp;
                             {item.userSex === 'M'
                                 ? <div className='status'><BiMaleSign style={{ 'color': 'blue'}}></BiMaleSign></div> 
                                 : <div className='status'><BiFemaleSign style={{ 'color': 'pink'}}></BiFemaleSign></div>}
+                                </div>
                             <div className='info'>
                                 <div className='info-start'>Start: {districtMap.get(item.startCity)} ({districtMap.get(item.startNation)})</div>
                                 <div className='info-destination'>Destination: {districtMap.get(item.destCity)} ({districtMap.get(item.destNation)})</div>

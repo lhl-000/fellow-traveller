@@ -3,6 +3,7 @@ import Banner from './components/banner';
 import Info from './components/info';
 import List from './components/lists';
 import Footer from './components/footer';
+import { BsArrowLeftShort } from "react-icons/bs";
 import { useObserverHook } from '@/hooks';
 import { CommonEnum } from '@/enum';
 import { useDispatch, shallowEqual, useSelector } from 'react-redux';
@@ -65,8 +66,16 @@ export default function People() {
     }));
   }, [reloadCommentsNum, userId,showLoading]);
 
+  const handleClick = () =>{
+    history.goBack();
+}
+
+
   return (
     <div className='people-page'>
+      <div className='back' onClick={handleClick}>
+          <BsArrowLeftShort size={40}/>
+      </div>
       <Banner />
       <Info detail={detail} />
       <List lists={comments} showLoading={showLoading}/>

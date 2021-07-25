@@ -110,6 +110,9 @@ export default function Page(props) {
     }, [chatLists])
 
     function sendPrivateText(meg, target) {
+        if (conn == null) {
+            conn = WebIM.conn
+        }
         let id = conn.getUniqueId();                 // 生成本地消息id
         let msg = new WebIM.message('txt', id);      // 创建文本消息
         msg.set({
