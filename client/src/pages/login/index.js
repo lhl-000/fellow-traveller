@@ -3,6 +3,7 @@ import { List, InputItem, Button, Toast } from 'antd-mobile';
 import { createForm } from 'rc-form';
 import { loginAsync } from '@/redux/actions/user';
 import { useDispatch} from 'react-redux';
+import { base_url } from '@/enum/common';
 import cookie from 'react-cookies';
 import './index.scss';
 
@@ -12,7 +13,7 @@ function Login(props) {
 
     const { getFieldProps, validateFields } = props.form;
 
-    const [imgSrc, setImgSrc] = useState('http://localhost:8080/api/img/getVerifyCode');
+    const [imgSrc, setImgSrc] = useState(base_url+'/img/getVerifyCode');
 
     const dispatch = useDispatch();
 
