@@ -1,2 +1,6 @@
+com\ft\server\service\UserCommentsService.class
 com\ft\server\service\UserService.class
 com\ft\server\service\impl\UserServiceImpl.class
+com\ft\server\service\PeopleService.class
+com\ft\server\service\impl\PeopleServiceImpl.class
+com\ft\server\service\impl\UserCommentsServiceImpl.class
