@@ -1,5 +1,13 @@
 @import "../../asserts/mixin.scss";
 
+@media screen and (min-width: 800px) {
+  .header_login {
+    position: absolute;
+    padding-left: 80%;
+    margin-right: 0px;
+  }
+}
+
 .home {
   width: 100%;
   position: relative;
