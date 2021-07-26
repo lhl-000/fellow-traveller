@@ -75,3 +75,7 @@ typings/
 .fusebox/
 
 ./target/
+server/common/target/
+server/beans/target/
+server/mapper/target/
+
