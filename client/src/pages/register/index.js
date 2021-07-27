@@ -30,6 +30,7 @@ function Register(props) {
     const emailPatt = /^[A-Za-z\d]+([-_.][A-Za-z\d]+)*@([A-Za-z\d]+[-.])+[A-Za-z\d]{2,4}$/;
     const usernamePatt = new RegExp("^([\u4E00-\uFA29]|[\uE7C7-\uE7F3]|[a-zA-Z0-9])*$");
 
+    let userValue = null; 
     let conn = null;
     // 环信服务器注册
     const webIM_regiester = (username, password, nickname) => {
@@ -38,8 +39,12 @@ function Register(props) {
         password: password,
         nickname: nickname,
         appKey: WebIM.config.appkey,
-        success: function () { },  
+        success: function () {
+          const loginOptions = webIM_login(userValue.username, userValue.password);
+          conn.open(loginOptions);
+         },  
         error: function (err) {
+          Toast.fail("Fail to register, please try again")
             let errorData = JSON.parse(err.data);
             if (errorData.error === 'duplicate_unique_property_exists') {
                 console.log('用户已存在！');
@@ -65,9 +70,29 @@ function Register(props) {
           appKey: WebIM.config.appkey,
           success: function (res) {
             var token = res.access_token;
-            cookie.save('im_token', token)
+            cookie.save('im_token', token);
+            const currentTime = dayjs().format('YYYY-MM-DD HH:mm:ss');
+            dispatch(registerAsync({
+              username:userValue.username,
+              password: userValue.password,
+              email: userValue.email,
+              userSex: selectedSex[0],
+              avatar: files[0].url,
+              startNation: selectedStartAdrr[0],
+              startCity: selectedStartAdrr[1],
+              destNation: selectedDestinationAdrr[0],
+              destCity: selectedDestinationAdrr[1],
+              perfVehicle : selectedVehicle[0],
+              meg: userValue.meg,
+              startTime: times.split('~')[0] + ' 00:00:00',
+              endTime: times.split('~')[1] + ' 23:59:59',
+              userRegTime: currentTime,
+              userModeTime: currentTime,
+          }
+            , props.history));
           },    
           error: function(){
+            Toast.fail('fail to register');
           }  
         }
     }
@@ -102,47 +127,10 @@ function Register(props) {
               Toast.fail('The email format is incorrect');
               return
             }
-            const currentTime = dayjs().format('YYYY-MM-DD HH:mm:ss');
+            userValue = value;
             const options = webIM_regiester(value.username, value.password, value.username);
-            const loginOptions = webIM_login(value.username, value.password);
             conn = WebIM.conn;
-            conn.registerUser(options);
-            dispatch(registerAsync({
-                username:value.username,
-                password: value.password,
-                email: value.email,
-                userSex: selectedSex[0],
-                avatar: files[0].url,
-                startNation: selectedStartAdrr[0],
-                startCity: selectedStartAdrr[1],
-                destNation: selectedDestinationAdrr[0],
-                destCity: selectedDestinationAdrr[1],
-                perfVehicle : selectedVehicle[0],
-                meg: value.meg,
-                startTime: times.split('~')[0] + ' 00:00:00',
-                endTime: times.split('~')[1] + ' 23:59:59',
-                userRegTime: currentTime,
-                userModeTime: currentTime,
-            }
-              , props.history));
-              conn.open(loginOptions);
-              conn.listen({
-                onOpened: function ( message ) { //连接成功回调
-                    console.log(message);
-                },  
-                onClosed: function ( message ) {
-                    console.log(message);
-                },         //连接关闭回调
-                onTextMessage: function ( message ) {
-                    console.log(message);
-                },    //收到文本消息 
-                onError: function ( message ) {
-                    // Toast.fail("Failed to send message, try to refresh the page")
-                },          //失败回调
-                onReceivedMessage: function(message){
-        
-                },    //收到消息送达服务器回执
-        }); 
+            conn.registerUser(options);   
           }
         });
       };

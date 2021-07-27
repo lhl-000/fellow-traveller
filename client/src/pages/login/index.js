@@ -17,7 +17,7 @@ function Login(props) {
 
     const dispatch = useDispatch();
 
-    // let timer = null;
+    let userValue;
 
     let conn = null;
 
@@ -28,48 +28,31 @@ function Login(props) {
           appKey: WebIM.config.appkey,
           success: function (res) {
             var token = res.access_token;
-            cookie.save('im_token', token)
+            cookie.save('im_token', token);
+            dispatch(loginAsync(userValue, props.history, props?.location?.state?.preUrl, handleVerifyCode));
           },
           error: function(){
+            Toast.fail('Please try again');
           }
         }
     }
 
-    const handleSubmit = () => {
+    const handleSubmit = async() => {
         validateFields((error, value) => {
             if (error) {
               Toast.fail('Please fill the information completely');
               return;
             } else {
+              userValue = value;
               const options = webIM_login(value.username, value.password);
               conn = WebIM.conn;
               conn.open(options);
-              conn.listen({
-                    onOpened: function ( message ) { 
-                    },  
-                    onClosed: function ( message ) {
-                    },         //连接关闭回调
-                    onTextMessage: function ( message ) {
-                    },    //收到文本消息 
-                    onError: function ( message ) {
-                        // Toast.fail("Failed to send message, try to refresh the page")
-                    },          //失败回调
-                    onReceivedMessage: function(message){
-                    },    //收到消息送达服务器回执
-            }); 
-              dispatch(loginAsync(value, props.history, props?.location?.state?.preUrl, handleVerifyCode));
-              // timer = setTimeout(()=>{
-              //   handleVerifyCode()
-              // }, 1000);
             }
           });
     }
 
     useEffect(() => {
       return () => {
-        // if (timer != null) {
-        //   clearTimeout(timer);
-        // }
         if (conn != null) {
           conn.close();
         }
