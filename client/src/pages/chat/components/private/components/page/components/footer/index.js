@@ -1,5 +1,5 @@
-import React from 'react'
-import { InputItem } from 'antd-mobile';
+import React, { useState, useEffect } from 'react'
+import { List, InputItem } from 'antd-mobile';
 import { BsReplyFill, BsOutlet, BsFillImageFill } from "react-icons/bs";
 export default function Footer(props) {
 
@@ -7,6 +7,12 @@ export default function Footer(props) {
 
     const handleChange = (value) => {
         setMessage(value);
+    }
+
+    const handleKeyup = (e) => {
+        if(e.keyCode === 13) {
+            handleSubmit();
+        }
     }
 
     return (
@@ -22,13 +28,17 @@ export default function Footer(props) {
                 
             </div>
             <div>
+                <List>
                 <InputItem className='input-line'
                     value={message}
                     placeholder='message'
                     onChange={handleChange}
-                    extra={<BsReplyFill size={20} onClick={handleSubmit}/>}
+                    extra={<BsReplyFill size={20} onClick={handleSubmit}
+                    />}
+                    onKeyUp={handleKeyup}
                 >  
                 </InputItem>
+                </List>
             </div>
             </div>
         </div>

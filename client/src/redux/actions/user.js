@@ -35,7 +35,7 @@ export const editUserAsync = (data, history) => {
     }
 }
 
-export const loginAsync = (data, history, target, options) => {
+export const loginAsync = (data, history, target) => {
     return async () => {
         const result = await Http({
             url: '/user/login',

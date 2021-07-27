@@ -12,7 +12,7 @@ export default function Info(props) {
         history.push({
             pathname: '/chat/private',
             search: `?name=${props.detail.username}`,
-            state: {preUrl: window.location.pathname+window.location.search}
+            // state: {preUrl: window.location.pathname+window.location.search}
         })
     }
     return (

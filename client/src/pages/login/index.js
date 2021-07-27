@@ -76,7 +76,7 @@ function Login(props) {
       }
     }, [])
 
-    const handleVerifyCode =  ()=> {
+    const handleVerifyCode = ()=> {
       setImgSrc(base_url+'/img/getVerifyCode'+ Math.random())
       }
 
