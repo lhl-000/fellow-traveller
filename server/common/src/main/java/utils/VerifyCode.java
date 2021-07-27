@@ -12,7 +12,7 @@ public class VerifyCode {
         graphics.fillRect(0, 0, width, height);//填充背景
         graphics.setFont(new Font("微软雅黑", Font.BOLD, 40));
         //数字和字母的组合
-        String baseNumLetter = "123456789abcdefghijklmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ";
+        String baseNumLetter = "0123456789";
         StringBuffer sBuffer = new StringBuffer();
         int x = 10;  //旋转原点的 x 坐标
         String ch = "";
