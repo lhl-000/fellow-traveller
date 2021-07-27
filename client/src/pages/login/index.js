@@ -32,7 +32,7 @@ function Login(props) {
             dispatch(loginAsync(userValue, props.history, props?.location?.state?.preUrl, handleVerifyCode));
           },
           error: function(){
-            Toast.fail('Please try again');
+            Toast.fail('The username or password is incorrect');
           }
         }
     }
