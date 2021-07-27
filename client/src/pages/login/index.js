@@ -17,7 +17,7 @@ function Login(props) {
 
     const dispatch = useDispatch();
 
-    let timer = null;
+    // let timer = null;
 
     let conn = null;
 
@@ -57,19 +57,19 @@ function Login(props) {
                     onReceivedMessage: function(message){
                     },    //收到消息送达服务器回执
             }); 
-              dispatch(loginAsync(value, props.history, props?.location?.state?.preUrl));
-              timer = setTimeout(()=>{
-                handleVerifyCode()
-              }, 1000);
+              dispatch(loginAsync(value, props.history, props?.location?.state?.preUrl, handleVerifyCode));
+              // timer = setTimeout(()=>{
+              //   handleVerifyCode()
+              // }, 1000);
             }
           });
     }
 
     useEffect(() => {
       return () => {
-        if (timer != null) {
-          clearTimeout(timer);
-        }
+        // if (timer != null) {
+        //   clearTimeout(timer);
+        // }
         if (conn != null) {
           conn.close();
         }

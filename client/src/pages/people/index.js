@@ -33,12 +33,12 @@ export default function People() {
   const [userId, setUserId] = useState(query?.get('id'));
 
   useEffect(() => {
-    history.listen(route => {
+    const unlisten = history.listen(route => {
       const jump = new URLSearchParams(route.search);
       setUserId(jump?.get('id'));
     })
     return (() => {
-        
+        unlisten();
     })
   }, [])
 

@@ -35,19 +35,26 @@ export const editUserAsync = (data, history) => {
     }
 }
 
-export const loginAsync = (data, history, target) => {
+export const loginAsync = (data, history, target, handleVerifyCode) => {
     return async () => {
         const result = await Http({
             url: '/user/login',
             credentials:'include',
-            body: data
+            body: data,
+            verifyCode:handleVerifyCode
         });
         if (result) {
             cookie.save('token', result);
             if (target) {
-                history.replace(target);
+                setTimeout(()=>{
+                    history.replace(target);
+                }, 1000)
+                
             } else {
-                history.replace('/');
+                setTimeout(()=>{
+                    history.replace('/');
+                }, 1000)
+
             }
             Toast.success('Login successfully');
         }

@@ -8,6 +8,7 @@ export default function Http({
   setResult,
   setLoading,
   credentials,
+  verifyCode
 }){
   setLoading && setLoading(true);
 
@@ -40,6 +41,9 @@ export default function Http({
           resolve(res.data);
           setResult && setResult(res.data);
         }else {
+          if (verifyCode) {
+            verifyCode();
+          }
           Toast.fail(res.errMsg);
           reject(res.errMsg);
         }
