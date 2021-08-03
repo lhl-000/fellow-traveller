@@ -31,7 +31,7 @@ var config = {
     appkey:  '1156210717083467#demo',
 
 
-    https: false,
+    https: true,
 
     /*
     * 公有云配置默认为 true，
