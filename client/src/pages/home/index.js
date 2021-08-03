@@ -2,6 +2,7 @@ import React from 'react'
 import Header from './components/header';
 import Search from './components/search';
 import Hot from './components/hot';
+import Footer from './components/footer';
 import { useHttpHook } from '@/hooks';
 import { district } from '@/asserts/district';
 
@@ -24,6 +25,7 @@ export default function Home() {
                 districtLoading={districtLoading}
                 /> 
             <Hot people={people} peopleLoading={peopleLoading}/>
+            <Footer/>
         </div>
     )
 }
