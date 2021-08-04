@@ -23,8 +23,8 @@
             user_comments.info
         FROM user_comments
         INNER JOIN users
-        ON user_comments.user_id = users.user_id
-        WHERE users.user_id=#{userId}
+        ON user_comments.commenter_id = users.user_id
+        WHERE user_comments.user_id=#{userId}
     </select>
 
 </mapper>
