@@ -33,10 +33,10 @@ export default function Lists(props) {
                         {payload.from === user? payload.to : payload.from}
                          <Brief>
                          last time: {timer(item.meta?.timestamp)}
-                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                         &nbsp;
                          {item.unread_num === 0? 0 : <span className='unread'>{item.unread_num}</span>}
                          
-                         &nbsp; unread
+                         unread
                          </Brief>
                     </Item>
                     )

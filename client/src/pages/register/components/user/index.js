@@ -68,6 +68,7 @@ export default function User(props) {
               {...getFieldProps('cfmPassword', {
                 rules: [{ required: true }]
               })}
+              type='password'
               placeholder='confirmed password'
             >
             Confirmed:
