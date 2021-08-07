@@ -1,6 +1,6 @@
 export const LONDING_ID = 'mk-loading';
 
- export const base_url = 'api';
+export const base_url = '/api';
 // export const base_url = 'http://47.99.32.221:8080/api';
 // export const base_url = 'http://localhost:8080/api';
 export const PAGE = {
