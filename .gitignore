@@ -74,7 +74,6 @@ typings/
 # FuseBox cache
 .fusebox/
 
-server/common/target/
-server/beans/target/
-server/mapper/target/
+
+target/
 
