@@ -22,14 +22,18 @@ function Register(props) {
     const [files, setFiles] = useState([]);
     const [selectedStartAdrr, setSelectedStartAdrr] = useState([10000, 10001]);
     const [selectedDestinationAdrr, setSelectedDestinationAdrr] = useState([20000, 20001]);
-    const [selectedVehicle, setSelectedVehicle] = useState(['Both']);
+    const [selectedVehicle, setSelectedVehicle] = useState(['none']);
+    const [transfer1, setTransfer1] = useState([30000, 30001]);
+    const [transfer2, setTransfer2] = useState([30000, 30001]);
+    const [transfer3, setTransfer3] = useState([30000, 30001]);
+    const [transfer4, setTransfer4] = useState([30000, 30001]);
     const initTime = dayjs().add(1, 'day').format('YYYY-MM-DD');
     const [times, setTimes] = useState(`${initTime}~${initTime}`);
     const [selectedSex, setSelectedSex] = useState(['M'])
-
     const emailPatt = /^[A-Za-z\d]+([-_.][A-Za-z\d]+)*@([A-Za-z\d]+[-.])+[A-Za-z\d]{2,4}$/;
     const usernamePatt = new RegExp("^([\u4E00-\uFA29]|[\uE7C7-\uE7F3]|[a-zA-Z0-9])*$");
-
+    const [checkedVehicle, setheckedVehicle] = useState(new Map())
+    // var checkedVehicle = new Map();
     let userValue = null; 
     let conn = null;
     // 环信服务器注册
@@ -82,7 +86,15 @@ function Register(props) {
               startCity: selectedStartAdrr[1],
               destNation: selectedDestinationAdrr[0],
               destCity: selectedDestinationAdrr[1],
-              perfVehicle : selectedVehicle[0],
+              transfer1Nation:transfer1[0],
+              transfer1City:transfer1[1],
+              transfer2Nation:transfer2[0],
+              transfer2City:transfer2[1],
+              transfer3Nation:transfer3[0],
+              transfer3City:transfer3[1],
+              transfer4Nation:transfer4[0],
+              transfer4City:transfer4[1],
+              perfVehicle : selectedVehicle,
               meg: userValue.meg,
               startTime: times.split('~')[0] + ' 00:00:00',
               endTime: times.split('~')[1] + ' 23:59:59',
@@ -107,6 +119,10 @@ function Register(props) {
               Toast.fail('The username is too long');
               return;
             }
+            // if (checkedVehicle.size == 0) {
+            //   Toast.fail('Please choose your perferred means of transport');
+            //   return;
+            // }
             if (!usernamePatt.test(value.usernmae)) {
               Toast.fail('The username has illegal characters');
               return;
@@ -158,14 +174,24 @@ function Register(props) {
           />
           <Travel
             form={props.form} 
-            data={{selectedStartAdrr, 
+            data={{
+              transfer1,
+              transfer2,
+              transfer3,
+              transfer4,
+              selectedStartAdrr, 
               setSelectedStartAdrr,
               selectedDestinationAdrr,
               setSelectedDestinationAdrr,
               selectedVehicle,
               setSelectedVehicle,
+              checkedVehicle,
               times,
-              setTimes
+              setTimes,
+              setTransfer1,
+              setTransfer2,
+              setTransfer3,
+              setTransfer4
             }}
           /> 
           <Button type='warning' onClick={handleSubmit}>Register</Button>

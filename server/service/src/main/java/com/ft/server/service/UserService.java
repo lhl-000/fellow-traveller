@@ -17,7 +17,11 @@ public interface UserService {
 
     public ResultVO userEdit(String username, String avatar, String meg,
                              int destNation, int destCity, int startNation,
-                             int startCity, String perfVehicle, String startTime,
+                             int startCity, int  transfer1Nation, int transfer1City,
+                             int  transfer2Nation,int transfer2City,
+                             int  transfer3Nation,int transfer3City, int transfer4Nation,
+                             int transfer4City,
+                             String perfVehicle, String startTime,
                              String endTime, String userModeTime);
 
 }

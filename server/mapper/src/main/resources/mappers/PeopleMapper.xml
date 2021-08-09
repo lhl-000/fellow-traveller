@@ -11,6 +11,14 @@
         <result column="start_city" property="startCity" />
         <result column="dest_nation" property="destNation" />
         <result column="dest_city" property="destCity" />
+        <result column="transfer_nation1" property="transfer1Nation" />
+        <result column="transfer_city1" property="transfer1City" />
+        <result column="transfer_nation2" property="transfer2Nation" />
+        <result column="transfer_city2" property="transfer2City" />
+        <result column="transfer_nation3" property="transfer3Nation" />
+        <result column="transfer_city3" property="transfer3City" />
+        <result column="transfer_nation4" property="transfer4Nation" />
+        <result column="transfer_city4" property="transfer4City" />
         <result column="start_time" property="startTime" />
         <result column="end_time" property="endTime" />
         <result column="perf_vehicle" property="perfVehicle" />
@@ -18,7 +26,7 @@
         <result column="user_regtime" property="userRegTime" />
     </resultMap>
 
-    <select id="queryUserById" resultMap="peopleMap">
+    <select id="queryPeopleById" resultMap="peopleMap">
         SELECT
             user_id,
             username,
@@ -29,11 +37,19 @@
             start_city,
             dest_nation,
             dest_city,
+            transfer_nation1,
+            transfer_city1,
+            transfer_nation2,
+            transfer_city2,
+            transfer_nation3,
+            transfer_city3,
+            transfer_nation4,
+            transfer_city4,
             start_time,
             end_time,
             perf_vehicle,
             meg,
-            user_regtime,
+            user_regtime
         FROM users
         WHERE user_id=#{userId};
     </select>
@@ -70,16 +86,33 @@
             start_city,
             dest_nation,
             dest_city,
+            transfer_nation1,
+            transfer_city1,
+            transfer_nation2,
+            transfer_city2,
+            transfer_nation3,
+            transfer_city3,
+            transfer_nation4,
+            transfer_city4,
             start_time,
             end_time,
             perf_vehicle,
             meg,
             user_regtime
             FROM users
-            WHERE start_city = #{startCity}
-            AND dest_city = #{destCity}
-            AND start_time &lt;= #{endTime}
+            WHERE
+            start_time &lt;= #{endTime}
             AND end_time >= #{startTime}
+            AND (start_city = #{startCity}
+            OR transfer_city1 = #{startCity}
+            OR transfer_city2 = #{startCity}
+            OR transfer_city3 = #{startCity}
+            OR transfer_city4 = #{startCity})
+            AND (dest_city = #{destCity}
+            OR transfer_city1 = #{destCity}
+            OR transfer_city2 = #{destCity}
+            OR transfer_city3 = #{destCity}
+            OR transfer_city4 = #{destCity})
     </select>
 
     <select id="fuzzyMatchPeopleBySearchMeg" resultMap="peopleMap">
@@ -93,37 +126,54 @@
             start_city,
             dest_nation,
             dest_city,
+            transfer_nation1,
+            transfer_city1,
+            transfer_nation2,
+            transfer_city2,
+            transfer_nation3,
+            transfer_city3,
+            transfer_nation4,
+            transfer_city4,
             start_time,
             end_time,
             perf_vehicle,
             meg,
             user_regtime
             FROM users
-            WHERE start_nation = #{startNation}
-            AND dest_nation = #{destNation}
-            AND start_time &lt;= #{endTime}
+            WHERE
+            start_time &lt;= #{endTime}
             AND end_time >= #{startTime}
+            AND user_id != #{userId}
+            AND (start_city = #{startCity}
+            OR transfer_city1 = #{startCity}
+            OR transfer_city2 = #{startCity}
+            OR transfer_city3 = #{startCity}
+            OR transfer_city4 = #{startCity})
+            AND (dest_city = #{destCity}
+            OR transfer_city1 = #{destCity}
+            OR transfer_city2 = #{destCity}
+            OR transfer_city3 = #{destCity}
+            OR transfer_city4 = #{destCity})
     </select>
-
-    <select id="queryPeopleById" resultMap="peopleMap">
-            select
-            user_id,
-            username,
-            email,
-            user_sex,
-            avatar,
-            start_nation,
-            start_city,
-            dest_nation,
-            dest_city,
-            start_time,
-            end_time,
-            perf_vehicle,
-            meg,
-            user_regtime
-            FROM users
-            WHERE user_id = #{userId}
-    </select>
+<!--    <select id="queryPeopleById" resultMap="peopleMap">-->
+<!--            select-->
+<!--            user_id,-->
+<!--            username,-->
+<!--            email,-->
+<!--            user_sex,-->
+<!--            avatar,-->
+<!--            start_nation,-->
+<!--            start_city,-->
+<!--            dest_nation,-->
+<!--            dest_city,-->
+<!--            start_time,-->
+<!--            end_time,-->
+<!--            perf_vehicle,-->
+<!--            meg,-->
+<!--            user_regtime-->
+<!--            FROM users-->
+<!--            WHERE user_id = #{userId}-->
+<!--    </select>-->
 
     <select id="queryPeopleByName" resultMap="peopleMap">
             select

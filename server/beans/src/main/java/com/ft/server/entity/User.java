@@ -42,6 +42,22 @@ public class User {
 
     private int destCity;
 
+    private int  transfer1Nation;
+
+    private int transfer1City;
+
+    private int  transfer2Nation;
+
+    private int transfer2City;
+
+    private int  transfer3Nation;
+
+    private int transfer3City;
+
+    private int  transfer4Nation;
+
+    private int transfer4City;
+
     private String perfVehicle;
 
     private String meg;

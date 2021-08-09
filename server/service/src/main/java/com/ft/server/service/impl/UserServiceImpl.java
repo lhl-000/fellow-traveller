@@ -132,7 +132,10 @@ public class UserServiceImpl implements UserService {
     @Transactional
     public ResultVO userEdit(String username, String avatar, String meg,
                              int destNation, int destCity, int startNation,
-                             int startCity, String perfVehicle,String startTimeString,
+                             int startCity, int  transfer1Nation, int transfer1City,
+                             int  transfer2Nation,int transfer2City,
+                             int  transfer3Nation,int transfer3City, int transfer4Nation,
+                             int transfer4City,String perfVehicle,String startTimeString,
                              String endTimeString, String userModeTimeString) {
         synchronized (this) {
             User user = userDAO.queryUserByName(username);
@@ -160,7 +163,10 @@ public class UserServiceImpl implements UserService {
                 }
                 int i = userDAO.updateUser(username, avatar, meg,
                         destNation, destCity, startNation,
-                        startCity, perfVehicle, startTime, endTime, userModeTime);
+                        startCity,transfer1Nation, transfer1City,
+                transfer2Nation,transfer2City,
+                transfer3Nation,transfer3City,transfer4Nation,
+                transfer4City, perfVehicle, startTime, endTime, userModeTime);
                 if (i > 0) {
                     logger.info(user.getUserId() + "---Edit info---Success---" + new Date());
                     return new ResultVO(200, "OK", null, "OK");

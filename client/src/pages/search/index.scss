@@ -9,25 +9,26 @@
   }
   .result {
     width: 100%;
-    margin-top: 40px;
+    margin-top: 30px;
     padding: 10px;
     box-sizing: border-box;
     .item {
       @include flex-init(row, flex-start);
-      height: 100px;
-      padding: 6px;
+      height: 125px;
+      padding: 2px;
       background: #fff;
-      margin-bottom: 6px;
+      margin-bottom: 3px;
       img {
         width: 66px;
         height: 66px;
         object-fit: cover;
         border-radius: 50%;
+        margin-left: 20px;
       }
       &-right {
         @include flex-init(column, space-between);
         flex: 1;
-        height: 90px;
+        height: 110px;
         margin-left: 16px;
         .name {
           display: inline;

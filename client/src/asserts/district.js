@@ -193,5 +193,10 @@ export const district = [
         {label: ' Zhuzhou Ningde', value: 10116},
         {label: ' Zibo', value: 10117},       
       ]
+    },
+    {
+      label: 'None', value: 30000, children: [
+        {label: 'None', value: 30001}
+      ]
     }
   ]

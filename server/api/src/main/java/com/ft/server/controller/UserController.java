@@ -47,6 +47,7 @@ public class UserController {
     @ApiOperation("user register")
     @RequestMapping(value = "register", method = RequestMethod.POST)
     public ResultVO register(@RequestBody  User user) {
+        System.out.println(user);
         return userService.userRegister(user);
     }
 
@@ -66,6 +67,14 @@ public class UserController {
                 ,json.getInteger("destCity")
                 ,json.getInteger("startNation")
                 ,json.getInteger("startCity")
+                ,json.getInteger("transfer1Nation")
+                ,json.getInteger("transfer1City")
+                ,json.getInteger("transfer2Nation")
+                ,json.getInteger("transfer2City")
+                ,json.getInteger("transfer3Nation")
+                ,json.getInteger("transfer3City")
+                ,json.getInteger("transfer4Nation")
+                ,json.getInteger("transfer4City")
                 ,json.getString("perfVehicle")
                 ,json.getString("startTime")
                 ,json.getString("endTime")

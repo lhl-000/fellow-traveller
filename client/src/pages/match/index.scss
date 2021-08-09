@@ -32,7 +32,7 @@
       &-right {
         @include flex-init(column, space-between);
         flex: 1;
-        height: 110px;
+        height: 130px;
         margin-left: 10px;
         .name {
           display: inline;

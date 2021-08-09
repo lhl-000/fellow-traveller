@@ -1,8 +1,5 @@
 export const vehicle = [
     {
-      label: 'Both', value: 'Both'
-    },
-    {
       label: 'Train', value: 'Train'
     },
     {

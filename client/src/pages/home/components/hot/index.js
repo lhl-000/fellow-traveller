@@ -31,7 +31,7 @@ function Hot(props) {
                             <div className='info'>
                                 <div className='info-start'>Start: {districtMap.get(item.startCity)} ({districtMap.get(item.startNation)})</div>
                                 <div className='info-destination'>Destination: {districtMap.get(item.destCity)} ({districtMap.get(item.destNation)})</div>
-                                <div className='times'>Planned time: {item.startTime.split(' ')[0]} ~ {item.endTime.split(' ')[0]} </div>
+                                <div className='times'>Depatrue time: {item.startTime.split(' ')[0]} ~ {item.endTime.split(' ')[0]} </div>
                             </div>
                         </div>
                         )
