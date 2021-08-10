@@ -46,7 +46,25 @@ function Register(props) {
         appKey: WebIM.config.appkey,
         success: function () {
           const loginOptions = webIM_login(userValue.username, userValue.password);
-          conn.open(loginOptions).catch((e) => {});
+          conn.open(loginOptions);
+          conn.listen({
+            onOpened: function ( message ) { //连接成功回调
+                // console.log(message);
+            },  
+            onClosed: function ( message ) {
+                // console.log(message);
+            },         //连接关闭回调
+            onTextMessage: function ( message ) {
+                // console.log(message);
+            },    //收到文本消息 
+            onError: function ( message ) {
+                // Toast.fail("Failed to send message, try to refresh the page")
+            },          //失败回调
+            onReceivedMessage: function(message){
+    
+            },    //收到消息送达服务器回执
+    }); 
+    conn?.close();
          },  
         error: function (err) {
           Toast.fail("Fail to register, please try again")

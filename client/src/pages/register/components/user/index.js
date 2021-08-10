@@ -82,10 +82,8 @@ export default function User(props) {
               Email:
             </InputItem>
             <InputItem
-              {...getFieldProps('qq', {
-                rules: [{ required: true }]
-              })}
-              placeholder='your QQ number'
+              {...getFieldProps('qq')}
+              placeholder='QQ number or keep it empty'
             >
               QQ:
             </InputItem>

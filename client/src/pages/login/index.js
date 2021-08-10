@@ -21,6 +21,8 @@ function Login(props) {
 
     let conn = null;
 
+    let toast = true;
+
     const webIM_login = (username, password) =>{
       return { 
           user: username,
@@ -30,9 +32,16 @@ function Login(props) {
             var token = res.access_token;
             cookie.save('im_token', token);
             dispatch(loginAsync(userValue, props.history, props?.location?.state?.preUrl, handleVerifyCode));
+            conn?.close();
           },
           error: function(){
-            Toast.fail('The username or password is incorrect');
+            if (toast) {
+               toast=false;
+              Toast.fail('The username or password is incorrect',1,() => {
+                toast=true;
+              });
+            }
+
           }
         }
     }
@@ -43,10 +52,31 @@ function Login(props) {
               Toast.fail('Please fill the information completely');
               return;
             } else {
+              if (!new RegExp(/^[0-9]{4}$/).test(value.verifyCode)) {
+                Toast.fail('Your verify code was wrong');
+                return;
+              }
               userValue = value;
               const options = webIM_login(value.username, value.password);
               conn = WebIM.conn;
-              conn.open(options).catch((e) => {});
+              conn.open(options);
+              conn.listen({
+                onOpened: function ( message ) { //连接成功回调
+                    // console.log(message);
+                },  
+                onClosed: function ( message ) {
+                    // console.log(message);
+                },         //连接关闭回调
+                onTextMessage: function ( message ) {
+                    // console.log(message);
+                },    //收到文本消息 
+                onError: function ( message ) {
+                    // Toast.fail("Failed to send message, try to refresh the page")
+                },          //失败回调
+                onReceivedMessage: function(message){
+        
+                },    //收到消息送达服务器回执
+        }); 
             }
           });
     }
