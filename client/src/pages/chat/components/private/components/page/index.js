@@ -41,7 +41,7 @@ export default function Page(props) {
                 accessToken: cookie.load('im_token'),
                 appKey: WebIM.config.appkey
             }
-    );
+    ).catch((e) => {});
 
     conn.fetchHistoryMessages(
         {
@@ -60,7 +60,7 @@ export default function Page(props) {
                         }
                     )
                 })
-                console.log(historyMessages);
+                // console.log(historyMessages);
                 setChatLists([ ...historyMessages,...chatLists])
             },
             fail: function(){

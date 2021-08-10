@@ -24,6 +24,7 @@
         <result column="perf_vehicle" property="perfVehicle" />
         <result column="meg" property="meg" />
         <result column="user_regtime" property="userRegTime" />
+        <result column="qq_number" property="qq" />
     </resultMap>
 
     <select id="queryPeopleById" resultMap="peopleMap">
@@ -32,6 +33,7 @@
             username,
             email,
             user_sex,
+            qq_number,
             avatar,
             start_nation,
             start_city,

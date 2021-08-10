@@ -46,7 +46,7 @@ function Login(props) {
               userValue = value;
               const options = webIM_login(value.username, value.password);
               conn = WebIM.conn;
-              conn.open(options);
+              conn.open(options).catch((e) => {});
             }
           });
     }

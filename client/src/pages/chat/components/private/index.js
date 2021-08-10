@@ -20,7 +20,7 @@ export default function Private() {
 
     const listInit =  () => {
         conn = WebIM.conn;
-        conn.open(options);
+        conn.open(options).catch((e) => {});
 
         conn.listen({
             onOpened: function ( message ) { //连接成功回调

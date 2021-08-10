@@ -58,6 +58,8 @@ public class User {
 
     private int transfer4City;
 
+    private int qq;
+
     private String perfVehicle;
 
     private String meg;

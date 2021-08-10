@@ -1,5 +1,10 @@
 @import "../../asserts/mixin.scss";
 
+@media screen and (min-width: 800px) {
+  .qqchat {
+    right: 26% !important;
+  }
+}
 .banner {
   top: 0px;
   width: 100%;
@@ -60,6 +65,23 @@
     }
     &-msg {
       padding: 5px 0;
+    }
+    .chats {
+      display: block;
+      .interchat {
+        width: 120px;
+      }
+
+      .qqchat {
+        position: absolute;
+        display: block;
+        right: 6%;
+
+        transform: translateY(-115%);
+        img {
+          width: 120px;
+        }
+      }
     }
   }
 

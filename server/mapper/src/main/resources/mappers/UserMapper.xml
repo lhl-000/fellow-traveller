@@ -2,12 +2,12 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.ft.server.dao.UserDAO">
     <insert id="insertUser" useGeneratedKeys="true" keyProperty="userId">
-        insert into users(username,password,email,user_sex,avatar,start_nation,
+        insert into users(username,password,email,qq_number,user_sex,avatar,start_nation,
             start_city,dest_nation,dest_city,transfer_nation1,transfer_city1,
             transfer_nation2,transfer_city2,transfer_nation3,transfer_city3,
             transfer_nation4,transfer_city4,start_time,end_time,perf_vehicle,
             meg,user_regtime,user_modetime)
-        values(#{username}, #{password}, #{email}, #{userSex}, #{avatar},
+        values(#{username}, #{password}, #{email},#{qq}, #{userSex}, #{avatar},
             #{startNation}, #{startCity}, #{destNation}, #{destCity},
             #{transfer1Nation}, #{transfer1City},#{transfer2Nation}, #{transfer2City},
             #{transfer3Nation}, #{transfer3City},#{transfer4Nation}, #{transfer4City},
@@ -25,6 +25,7 @@
         <result column="start_city" property="startCity" />
         <result column="dest_nation" property="destNation" />
         <result column="dest_city" property="destCity" />
+        <result column="qq_number" property="qq" />
         <result column="transfer_nation1" property="transfer1Nation" />
         <result column="transfer_city1" property="transfer1City" />
         <result column="transfer_nation2" property="transfer2Nation" />
@@ -53,6 +54,7 @@
             start_city,
             dest_nation,
             dest_city,
+            qq_number,
             transfer_nation1,
             transfer_city1,
             transfer_nation2,

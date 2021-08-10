@@ -49,6 +49,8 @@ public class People {
 
     private int destCity;
 
+    private int qq;
+
     private String perfVehicle;
 
     private String meg;

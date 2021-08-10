@@ -81,6 +81,14 @@ export default function User(props) {
             >
               Email:
             </InputItem>
+            <InputItem
+              {...getFieldProps('qq', {
+                rules: [{ required: true }]
+              })}
+              placeholder='your QQ number'
+            >
+              QQ:
+            </InputItem>
             <Picker
                 data={sexData}
                 title="sex"

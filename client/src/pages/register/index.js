@@ -36,6 +36,7 @@ function Register(props) {
     // var checkedVehicle = new Map();
     let userValue = null; 
     let conn = null;
+    let qqPattern = /^[1-9][0-9]{4,10}$/;
     // 环信服务器注册
     const webIM_regiester = (username, password, nickname) => {
       return { 
@@ -45,7 +46,7 @@ function Register(props) {
         appKey: WebIM.config.appkey,
         success: function () {
           const loginOptions = webIM_login(userValue.username, userValue.password);
-          conn.open(loginOptions);
+          conn.open(loginOptions).catch((e) => {});
          },  
         error: function (err) {
           Toast.fail("Fail to register, please try again")
@@ -82,6 +83,7 @@ function Register(props) {
               email: userValue.email,
               userSex: selectedSex[0],
               avatar: files[0].url,
+              qq:userValue.qq,
               startNation: selectedStartAdrr[0],
               startCity: selectedStartAdrr[1],
               destNation: selectedDestinationAdrr[0],
@@ -131,6 +133,10 @@ function Register(props) {
               Toast.fail('The password must be larger than 8 dights');
               return;
             }
+            if (!qqPattern.test(value.qq) || value.qq.length != 0) {
+              Toast.fail('The qq number must have right format or be empty');
+              return;
+            }
             if (value.password !== value.cfmPassword) {
               Toast.fail('The password and confirmed password must be the same');
               return;
@@ -146,7 +152,7 @@ function Register(props) {
             userValue = value;
             const options = webIM_regiester(value.username, value.password, value.username);
             conn = WebIM.conn;
-            conn.registerUser(options);   
+            conn.registerUser(options).catch((e) => {});;   
           }
         });
       };

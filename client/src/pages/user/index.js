@@ -1,5 +1,5 @@
 import React, {useEffect } from 'react';
-import { Button, List } from 'antd-mobile';
+import { Button, List, Toast} from 'antd-mobile';
 import { useDispatch, shallowEqual, useSelector } from 'react-redux';
 import { getUserAsync } from '@/redux/actions/user';
 import cookie from 'react-cookies';
@@ -29,6 +29,18 @@ export default function User(props) {
         props.history.push('user/edit');
     };
 
+    const handleAgreement = () => {
+        Toast.info("User agreement will be available in the next version", 1)
+    }
+
+    const handleProblem= () => {
+        Toast.info("Common problem will be available in the next version", 1)
+    }
+
+    const handleContact = () => {
+        Toast.info("Please send email to fr20938@bristol.ac.uk", 2)
+    }
+
     useEffect(() => {
         dispatch(getUserAsync({
             username : username,
@@ -53,13 +65,13 @@ export default function User(props) {
             </div>
             <div className='lists'>
                 <List>
-                    <List.Item arrow='horizontal'>
+                    <List.Item arrow='horizontal' onClick={handleAgreement}>
                         User agreement
                     </List.Item>
-                    <List.Item arrow='horizontal'>
+                    <List.Item arrow='horizontal' onClick={handleProblem}>
                         Common problem
                     </List.Item>
-                    <List.Item arrow='horizontal'>
+                    <List.Item arrow='horizontal' onClick={handleContact}>
                         Contact me
                     </List.Item>
                 </List>

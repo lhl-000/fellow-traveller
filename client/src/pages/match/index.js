@@ -42,7 +42,7 @@ export default function Match(props) {
       };
 
     useObserverHook('#' + CommonEnum.LONDING_ID , async (entries) => {
-      console.log(entries);
+      // console.log(entries);
       if (entries[0].isIntersecting) {
         const result = await invokeHttp(page.pageNum + 1);
         if (people && people.length !== 0 && result && result.length === page.pageSize) {

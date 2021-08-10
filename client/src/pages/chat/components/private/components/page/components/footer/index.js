@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { List, InputItem } from 'antd-mobile';
+import { List, InputItem, Toast } from 'antd-mobile';
 import { BsReplyFill, BsOutlet, BsFillImageFill } from "react-icons/bs";
 export default function Footer(props) {
 
@@ -15,10 +15,14 @@ export default function Footer(props) {
         }
     }
 
+    const handlePicture = () => {
+        Toast.info("Please send picture by qq chat",1);
+    }
+
     return (
         <div className='footer'>
             <div className='input-box'>
-            <div className='function-bar'>
+            <div className='function-bar' onClick={handlePicture}>
                 <div className='bar-item'>
                     <BsOutlet size={20} /> 
                 </div>
