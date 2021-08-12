@@ -1,13 +1,16 @@
 import React from 'react'
-import { Button } from 'antd-mobile';
+import { Button, Toast } from 'antd-mobile';
 import { BiFemaleSign, BiMaleSign } from 'react-icons/bi';
 import { districtMap } from '@/asserts/districtMap';
 import { useHistory } from 'react-router-dom';
-import qqChatImg from '../../../../asserts/qqchat.png'
+import qqChatImg from '../../../../asserts/qqchat.png';
+import cookie from 'react-cookies';
 
 export default function Info(props) {
 
     const history = useHistory();
+
+    const isLogIn = cookie.load('token') ? true : false;
     
     const handleClick = () => {
         history.push({
@@ -15,6 +18,13 @@ export default function Info(props) {
             search: `?name=${props.detail.username}`,
             // state: {preUrl: window.location.pathname+window.location.search}
         })
+    }
+
+    const handleQQClick = (e) => {
+        if (!isLogIn) {
+            Toast.fail("Please login first",1);
+            e.preventDefault()
+        }
     }
 
     let qqChatLinkForPC = 'http://wpa.qq.com/msgrd?v=3&uin=' + props.detail.qq + '&site=qq&menu=yes';
@@ -61,15 +71,15 @@ export default function Info(props) {
                 <Button className='interchat' type='warning' onClick={handleClick}>Chat</Button>
                     <div className='qqchat'>
                         {/(iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent) == true?
-                                                <a href={qqChatLinkForIos} target="_blank" >
+                                                <a href={qqChatLinkForIos} target="_blank" onClick={handleQQClick}>
                                                 <img alt='QQchat' src={qqChatImg}></img></a>
                                                 :
                                                 /(Android)/i.test(navigator.userAgent)? 
-                                                <a href={qqChatLinkForAnd} target="_blank" >
+                                                <a href={qqChatLinkForAnd} target="_blank" onClick={handleQQClick}>
                                                 <img alt='QQchat' src={qqChatImg}></img></a>
                                                 :
-                                                <a href={qqChatLinkForPC} target="_blank" >
-                                                <img alt='QQchat' src={qqChatImg}></img></a>
+                                                <a href={qqChatLinkForPC} target="_blank" onClick={handleQQClick}>
+                                                <img alt='QQchat' src={qqChatImg}></img></a> 
                     }
                     </div>
                 </div>

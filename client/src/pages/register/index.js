@@ -151,7 +151,7 @@ function Register(props) {
               Toast.fail('The password must be larger than 8 dights');
               return;
             }
-            if (!qqPattern.test(value.qq) || value.qq.length != 0) {
+            if (!qqPattern.test(value.qq) && value.qq.length != 0) {
               Toast.fail('The qq number must have right format or be empty');
               return;
             }

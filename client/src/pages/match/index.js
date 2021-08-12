@@ -12,6 +12,7 @@ import './index.scss';
 export default function Match(props) {
     const [page, setPage] = useState(CommonEnum.PAGE);
     const [people, setPeople] = useState([]);
+    const [showSkeletons, setShowSkeletons] = useState(true)
     const [showLoading, setShowLoading] = useState(true);
     const userId = jwt_decode(cookie.load('token')).jti;
 
@@ -31,6 +32,7 @@ export default function Match(props) {
         const result = await invokeHttp(pageNum);
         if (result) {
           setPeople(result);
+          setShowSkeletons(false);
           if (result.length === page.pageSize) {    
             setShowLoading(true);
             } else {
@@ -66,7 +68,7 @@ export default function Match(props) {
     return (
         <div className='match-page'>
           <Header/>
-          <Lists people={people} showLoading={showLoading}/>
+          <Lists people={people} showLoading={showLoading} showSkeletons={showSkeletons}/>
         </div>
     )
 }

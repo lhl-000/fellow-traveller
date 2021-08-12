@@ -6,7 +6,7 @@ import { BiFemaleSign, BiMaleSign } from 'react-icons/bi';
 import { districtMap } from '@/asserts/districtMap';
 import { useHistory } from 'react-router-dom';
 export default function Lists(props) {
-    const { people, showLoading } = props;
+    const { people, showLoading, showSkeletons } = props;
 
     useImgHook('.item-img', (enties) => {
         
@@ -23,7 +23,7 @@ export default function Lists(props) {
 
     return (
         <div className='match-page-people'>
-            {!people.length 
+            {showSkeletons
                 ? <ChatSkeletons />
                 : <div className='result'>
                     {people.map( item => (
@@ -43,7 +43,7 @@ export default function Lists(props) {
                                 {/* {item.transfer4City==30001? <></> : <span>&nbsp;{districtMap.get(item.transfer4City)}</span> } */}
                                 </div>
                                 <div className='info-destination'>Destination: {districtMap.get(item.destCity)}, {districtMap.get(item.destNation)}</div>
-                                <div className='info-perfVhicle'>Favorite Vehicle: {item.perfVehicle}</div>
+                                {/* <div className='info-perfVhicle'>Favorite Vehicle: {item.perfVehicle}] </div> */}
                                 <div className='times'> Depature time: <span>{item.startTime.split(' ')[0]} ~ {item.endTime.split(' ')[0]}</span>  </div>
                             </div>
                             </div>

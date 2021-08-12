@@ -14,7 +14,7 @@
     box-sizing: border-box;
     .item {
       @include flex-init(row, flex-start);
-      height: 125px;
+      height: 150px;
       padding: 2px;
       background: #fff;
       margin-bottom: 3px;
@@ -28,7 +28,7 @@
       &-right {
         @include flex-init(column, space-between);
         flex: 1;
-        height: 110px;
+        height: 130px;
         margin-left: 16px;
         .name {
           display: inline;
