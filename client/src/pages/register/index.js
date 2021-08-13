@@ -151,9 +151,13 @@ function Register(props) {
               Toast.fail('The password must be larger than 8 dights');
               return;
             }
-            if (!qqPattern.test(value.qq) && value.qq.length != 0) {
-              Toast.fail('The qq number must have right format or be empty');
-              return;
+            if ( value.qq == null || !qqPattern.test(value.qq)) {
+              if (value.qq == null) {
+                value.qq = 0;
+              } else {
+                Toast.fail('The qq number must have right format or be empty');
+                return;
+              }
             }
             if (value.password !== value.cfmPassword) {
               Toast.fail('The password and confirmed password must be the same');
@@ -170,7 +174,7 @@ function Register(props) {
             userValue = value;
             const options = webIM_regiester(value.username, value.password, value.username);
             conn = WebIM.conn;
-            conn.registerUser(options).catch((e) => {});;   
+            conn.registerUser(options);   
           }
         });
       };
