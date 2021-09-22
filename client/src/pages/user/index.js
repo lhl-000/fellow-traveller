@@ -30,11 +30,11 @@ export default function User(props) {
     };
 
     const handleAgreement = () => {
-        Toast.info("User agreement will be available in the next version", 1)
+        window.open("https://www.wjx.cn/vj/exIl2nO.aspx")
     }
 
     const handleProblem= () => {
-        Toast.info("Common problem will be available in the next version", 1)
+        Toast.info("If you encounter problems, please refresh the page first. if it still exsit, please contact fr20938@bristol.ac.uk", 5)
     }
 
     const handleContact = () => {
@@ -66,7 +66,7 @@ export default function User(props) {
             <div className='lists'>
                 <List>
                     <List.Item arrow='horizontal' onClick={handleAgreement}>
-                        User agreement
+                        Questionnaire
                     </List.Item>
                     <List.Item arrow='horizontal' onClick={handleProblem}>
                         Common problem
